@@ -1,26 +1,202 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+  --font-retro: var(--font-vt323);
+  --font-pixel: var(--font-press-start);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Narita Boy — void black + neon digital */
+  --color-page: #06060F;        /* void black */
+  --color-card: #0C0C1E;        /* deep indigo surface */
+  --color-badge: #12122C;       /* indigo for tags/badges */
+  --color-accent: #005FFF;      /* electric blue */
+  --color-accent-soft: #00CFFF; /* cyan — readable on dark */
+  --color-body: #CDD5F3;        /* cool blue-white text */
+  --color-soft: #5A6080;        /* blue-grey muted text */
+  --color-line: #181830;        /* dark indigo borders */
+  --color-pink: #FF0080;        /* neon magenta */
+  --color-gold: #FFD060;        /* warm gold highlight */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #06060F;
+  color: #CDD5F3;
+}
+
+/* ── Neon glow utilities ────────────────────────────────────────────── */
+
+.neon-text {
+  text-shadow: 0 0 8px currentColor, 0 0 20px currentColor;
+}
+
+.neon-box {
+  box-shadow:
+    0 0 0 1px rgba(0, 207, 255, 0.15),
+    0 0 16px rgba(0, 207, 255, 0.12),
+    inset 0 0 16px rgba(0, 207, 255, 0.04);
+}
+
+/* ── Corner-frame brackets ─────────────────────────────────────────── */
+/* Decorative L-brackets at opposing corners — sci-fi UI motif */
+
+.corner-frame {
+  position: relative;
+}
+
+.corner-frame::before,
+.corner-frame::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  transition: border-color 0.2s;
+}
+
+.corner-frame::before {
+  top: 5px;
+  left: 5px;
+  border-top: 1px solid rgba(0, 207, 255, 0.35);
+  border-left: 1px solid rgba(0, 207, 255, 0.35);
+}
+
+.corner-frame::after {
+  bottom: 5px;
+  right: 5px;
+  border-bottom: 1px solid rgba(0, 207, 255, 0.35);
+  border-right: 1px solid rgba(0, 207, 255, 0.35);
+}
+
+/* Brighter corners on hover when used inside a group */
+.group:hover .corner-frame::before,
+.group:hover .corner-frame::after,
+.corner-frame:hover::before,
+.corner-frame:hover::after {
+  border-color: rgba(0, 207, 255, 0.75);
+}
+
+/* ── Blinking cursor ────────────────────────────────────────────────── */
+
+.blink-cursor {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* ── CRT / Narita Boy screen effects ───────────────────────────────── */
+
+.crt-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.16) 2px,
+    rgba(0, 0, 0, 0.16) 4px
+  );
+}
+
+.crt-vignette {
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 38%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+
+.crt-flicker {
+  animation: crt-flicker 8s infinite;
+  background: rgba(255, 255, 255, 0.012);
+}
+
+@keyframes crt-flicker {
+  0%, 87%, 90%, 92%, 95%, 100% { opacity: 1; }
+  88% { opacity: 0.88; }
+  91% { opacity: 0.96; }
+  93% { opacity: 0.84; }
+  94% { opacity: 1; }
+}
+
+/* ── Chromatic aberration — neon palette ───────────────────────────── */
+
+.glitch-text {
+  animation: chromatic-glitch 2s infinite;
+}
+
+@keyframes chromatic-glitch {
+  0%, 87%, 97%, 100% {
+    text-shadow: none;
+    transform: none;
+  }
+  88% {
+    text-shadow: 2px 0 rgba(0, 207, 255, 0.9), -2px 0 rgba(255, 0, 128, 0.9);
+    transform: translateX(1px);
+  }
+  89% {
+    text-shadow: -3px 0 rgba(0, 207, 255, 0.65), 3px 0 rgba(255, 0, 128, 0.65);
+    transform: translateX(-2px);
+  }
+  90% {
+    text-shadow: none;
+    transform: none;
+  }
+  91% {
+    text-shadow: 1px 0 rgba(0, 207, 255, 0.5), -1px 0 rgba(255, 0, 128, 0.5);
+    transform: translateX(1px);
+  }
+  92% {
+    text-shadow: none;
+    transform: none;
+  }
+}
+
+/* ── Winamp player ──────────────────────────────────────────────────── */
+
+@keyframes marquee {
+  0%   { transform: translateX(264px); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 12s linear infinite;
+}
+
+/* Custom range input */
+input[type="range"].winamp-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: #181830;
+  cursor: pointer;
+  border-radius: 0;
+  outline: none;
+}
+
+input[type="range"].winamp-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  background: #00cfff;
+  box-shadow: 0 0 4px #00cfff;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+input[type="range"].winamp-range::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  background: #00cfff;
+  box-shadow: 0 0 4px #00cfff;
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
 }
