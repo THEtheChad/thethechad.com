@@ -6,7 +6,7 @@ export function Nav() {
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="neon-text font-pixel text-sm text-accent-soft transition-colors hover:text-body"
+          className="glitch-text neon-text font-pixel text-sm text-accent-soft transition-colors hover:text-body"
         >
           thethechad
         </Link>
