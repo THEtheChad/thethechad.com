@@ -15,12 +15,18 @@ interface Attribution {
 export interface TrackMeta {
   displayName: string;
   artist: string;
-  album: string;
   url: string;
-  coverUrl: string | null;
 }
 
-function encodePathSegments(segments: string[]): string {
+export interface AlbumMeta {
+  name: string;
+  artist: string;
+  coverUrl: string | null;
+  attributionUrl: string | null;
+  tracks: TrackMeta[];
+}
+
+function encodeSegments(segments: string[]): string {
   return segments.map(encodeURIComponent).join("/");
 }
 
@@ -30,50 +36,68 @@ function parseFilename(name: string): { artist: string; title: string } {
   if (parts.length >= 2) {
     const artist = parts[0].trim();
     const rawTitle = parts[parts.length - 1].trim();
-    // Strip leading track number (e.g. "06 Night Lights" → "Night Lights")
     const title = rawTitle.replace(/^\d+\s+/, "");
     return { artist, title };
   }
   return { artist: "Unknown", title: noExt };
 }
 
-function scan(
-  dir: string,
-  tracks: TrackMeta[] = [],
-): TrackMeta[] {
+function scan(dir: string, albums: AlbumMeta[] = []): AlbumMeta[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
-  const attrPath = path.join(dir, "attribution.json");
+  // Load attribution.json if present in this directory
   let attr: Attribution = {};
+  const attrPath = path.join(dir, "attribution.json");
   if (fs.existsSync(attrPath)) {
     try {
       attr = JSON.parse(fs.readFileSync(attrPath, "utf-8"));
     } catch {}
   }
 
+  // Find cover image in this directory
   const coverEntry = entries.find((e) => e.isFile() && COVER_RE.test(e.name));
   const coverUrl = coverEntry
-    ? `/api/music/${encodePathSegments(path.relative(MUSIC_DIR, path.join(dir, coverEntry.name)).split(path.sep))}`
+    ? `/api/music/${encodeSegments(
+        path
+          .relative(MUSIC_DIR, path.join(dir, coverEntry.name))
+          .split(path.sep),
+      )}`
     : null;
 
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      scan(fullPath, tracks);
-    } else if (AUDIO_RE.test(entry.name)) {
-      const rel = path.relative(MUSIC_DIR, fullPath).split(path.sep);
-      const { artist, title } = parseFilename(entry.name);
-      tracks.push({
+  // Collect audio tracks in this directory
+  const tracks: TrackMeta[] = entries
+    .filter((e) => e.isFile() && AUDIO_RE.test(e.name))
+    .map((e) => {
+      const { artist, title } = parseFilename(e.name);
+      const rel = path
+        .relative(MUSIC_DIR, path.join(dir, e.name))
+        .split(path.sep);
+      return {
         displayName: title,
         artist: attr.artist ?? artist,
-        album: attr.album ?? "",
-        url: `/api/music/${encodePathSegments(rel)}`,
-        coverUrl,
-      });
+        url: `/api/music/${encodeSegments(rel)}`,
+      };
+    });
+
+  // If this directory has tracks, register it as an album
+  if (tracks.length > 0) {
+    albums.push({
+      name: attr.album ?? path.basename(dir),
+      artist: attr.artist ?? tracks[0].artist,
+      coverUrl,
+      attributionUrl: attr.url ?? null,
+      tracks,
+    });
+  }
+
+  // Recurse into subdirectories
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      scan(path.join(dir, entry.name), albums);
     }
   }
 
-  return tracks;
+  return albums;
 }
 
 export function GET() {
