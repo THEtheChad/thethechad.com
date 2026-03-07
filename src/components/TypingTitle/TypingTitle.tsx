@@ -7,11 +7,11 @@ const DELETE_MS = 40; // ms per character while deleting
 const PAUSE_MS = 2400; // ms to hold the completed title
 const WAIT_MS = 500; // ms to pause on empty before next title
 
-interface Props {
+export interface TypingTitleProps {
   titles: string[];
 }
 
-export function TypingTitle({ titles }: Props) {
+export function TypingTitle({ titles }: TypingTitleProps) {
   const [displayed, setDisplayed] = useState(titles[0] ?? "");
   const [titleIdx, setTitleIdx] = useState(0);
   const [deleting, setDeleting] = useState(false);

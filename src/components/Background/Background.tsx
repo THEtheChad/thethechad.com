@@ -1,9 +1,6 @@
-export default function Background() {
+export function Background() {
   return (
-    <div
-      className="fixed inset-0 -z-10 overflow-hidden"
-      aria-hidden="true"
-    >
+    <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
       {/* Neon ambient blobs */}
       <div className="absolute -top-64 -left-40 h-[560px] w-[560px] rounded-full bg-accent/[0.13] blur-[130px]" />
       <div className="absolute top-1/3 -right-52 h-[440px] w-[440px] rounded-full bg-pink/[0.10] blur-[110px]" />

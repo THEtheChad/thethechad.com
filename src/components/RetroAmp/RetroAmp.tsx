@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { TrackMeta } from "@/app/api/music/route";
 
+const INITIAL_VOLUME = 0.65;
+
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 function fmt(s: number): string {
@@ -13,10 +15,9 @@ function fmt(s: number): string {
   return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-const INITIAL_VOLUME = 0.65;
 // ── Component ──────────────────────────────────────────────────────────────────
 
-export default function WinampPlayer() {
+export function RetroAmp() {
   const [tracks, setTracks] = useState<TrackMeta[]>([]);
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);

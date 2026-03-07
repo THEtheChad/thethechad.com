@@ -1,4 +1,4 @@
-import Nav from "@/components/nav";
+import { Nav } from "@/components/Nav/Nav";
 import { profile, positions, education, skills } from "@/data/resume";
 
 export const metadata = {
@@ -8,6 +8,7 @@ export const metadata = {
 function SectionHeader({ label }: { label: string }) {
   return (
     <div className="mb-6 flex items-center gap-4">
+      {/** biome-ignore lint/suspicious/noCommentText: <explanation> */}
       <span className="font-pixel text-[9px] text-pink">//</span>
       <h2 className="font-retro text-4xl text-body">{label}</h2>
       <div

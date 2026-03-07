@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { profile } from "@/data/resume";
-import { TypingTitle } from "@/components/typing-title";
+import { TypingTitle } from "@/components/TypingTitle/TypingTitle";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export type HeroProps = DetailedHTMLProps<

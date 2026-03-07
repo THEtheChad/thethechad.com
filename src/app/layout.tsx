@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, VT323, Press_Start_2P } from "next/font/google";
 import "./globals.css";
-import Background from "@/components/background";
-import CrtOverlay from "@/components/crt-overlay";
-import WinampPlayer from "@/components/winamp-player";
+import { Background } from "@/components/Background/Background";
+import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
+import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,8 +44,8 @@ export default function RootLayout({
       >
         <Background />
         <CrtOverlay />
-        <WinampPlayer />
         {children}
+        <RetroAmp />
       </body>
     </html>
   );
