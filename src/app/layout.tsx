@@ -4,6 +4,8 @@ import "./globals.css";
 import { Background } from "@/components/Background/Background";
 import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
 import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
+import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
+import { RezColumns } from "@/components/RezColumns/RezColumns";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,8 +46,11 @@ export default function RootLayout({
       >
         <Background />
         <CrtOverlay />
-        {children}
-        <RetroAmp />
+        <AudioAnalyserProvider>
+          <RezColumns />
+          {children}
+          <RetroAmp />
+        </AudioAnalyserProvider>
       </body>
     </html>
   );
