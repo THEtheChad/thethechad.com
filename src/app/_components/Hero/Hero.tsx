@@ -39,7 +39,7 @@ export function Hero(props: HeroProps) {
       </div>
 
       {/* Name */}
-      <h1 className="glitch-text mb-2 font-retro text-7xl leading-none text-body">
+      <h1 className="mb-2 font-retro text-7xl leading-none text-body">
         Hey, I&apos;m <TypingTitle titles={titles} />
       </h1>
 
