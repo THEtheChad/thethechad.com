@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "path";
-import Nav from "@/components/nav";
+import fs from "node:fs";
+import path from "node:path";
+import { Nav } from "@/components/Nav/Nav";
 import Gallery, { type Photo } from "./_components/Gallery";
 
 export const metadata = {
@@ -47,6 +47,7 @@ export default function PhotographyPage() {
       <main className="mx-auto max-w-6xl px-6 py-12">
         {/* Section header */}
         <div className="mb-10 flex items-center gap-4">
+          {/** biome-ignore lint/suspicious/noCommentText: <explanation> */}
           <span className="font-pixel text-[9px] text-pink">//</span>
           <h1 className="font-retro text-4xl text-body">PHOTOGRAPHY</h1>
           <div
@@ -60,6 +61,7 @@ export default function PhotographyPage() {
         ) : (
           <div className="corner-frame border border-line bg-card px-8 py-16 text-center">
             <p className="mb-3 font-pixel text-[9px] text-pink">
+              {/** biome-ignore lint/suspicious/noCommentText: <explanation> */}
               // NO IMAGES FOUND
             </p>
             <p className="font-pixel text-[9px] text-soft">

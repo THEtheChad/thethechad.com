@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Nav from "@/components/nav";
+import { Nav } from "@/components/Nav/Nav";
 import { profile, projects } from "@/data/resume";
 import { Projects } from "./_components/Projects/Projects";
 import { Hero } from "./_components/Hero/Hero";
