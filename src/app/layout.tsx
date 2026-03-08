@@ -61,10 +61,6 @@ export default function RootLayout({
             <div className="h-full overflow-y-auto">
               <Nav />
               <main className="px-8 py-4">{children}</main>
-            </div>
-
-            {/* CRT + Rez overlays scoped to content area only */}
-            <div className="pointer-events-none absolute inset-0 z-50">
               <CrtOverlay />
             </div>
           </div>
