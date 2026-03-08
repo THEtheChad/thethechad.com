@@ -27,6 +27,7 @@ export interface Profile {
   email: string;
   linkedinUrl: string;
   githubUrl: string;
+  resumeUrl: string;
 }
 
 export interface Project { title: string; description: string; url: string; tags: string[] }
@@ -41,6 +42,7 @@ export const profile: Profile = {
   email: "chad@example.com", // TODO: Update
   linkedinUrl: "https://linkedin.com/in/yourprofile", // TODO: Update
   githubUrl: "https://github.com/yourhandle", // TODO: Update
+  resumeUrl: "/resume.pdf", // TODO: Add resume.pdf to /public
 };
 
 export const positions: Position[] = [
