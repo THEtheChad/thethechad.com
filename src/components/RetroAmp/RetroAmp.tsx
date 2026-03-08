@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { AlbumMeta } from "@/app/api/music/route";
+import type { AlbumMeta } from "@/app/(api)/api/music/route";
 import { useSharedAnalyserRef } from "@/contexts/AudioAnalyserContext";
 
 const INITIAL_VOLUME = 0.65;
@@ -24,16 +24,16 @@ export function RetroAmp() {
   const [volume, setVolume] = useState(INITIAL_VOLUME);
   const [view, setView] = useState<"pl" | "al" | null>(null);
 
-  const audioRef     = useRef<HTMLAudioElement | null>(null);
-  const analyserRef  = useRef<AnalyserNode | null>(null);
-  const audioCtxRef  = useRef<AudioContext | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
   const sourceSetRef = useRef(false);
-  const playingRef   = useRef(false);
-  const albumsRef    = useRef<AlbumMeta[]>([]);
-  const albumIdxRef  = useRef(0);
+  const playingRef = useRef(false);
+  const albumsRef = useRef<AlbumMeta[]>([]);
+  const albumIdxRef = useRef(0);
 
-  playingRef.current  = playing;
-  albumsRef.current   = albums;
+  playingRef.current = playing;
+  albumsRef.current = albums;
   albumIdxRef.current = albumIdx;
 
   const sharedAnalyserRef = useSharedAnalyserRef();
@@ -49,7 +49,9 @@ export function RetroAmp() {
   useEffect(() => {
     const audio = new Audio();
     audio.volume = INITIAL_VOLUME;
-    audio.addEventListener("timeupdate", () => setCurrentTime(audio.currentTime));
+    audio.addEventListener("timeupdate", () =>
+      setCurrentTime(audio.currentTime),
+    );
     audio.addEventListener("durationchange", () => setDuration(audio.duration));
     audio.addEventListener("ended", () => {
       const album = albumsRef.current[albumIdxRef.current];
@@ -99,20 +101,29 @@ export function RetroAmp() {
     const audio = audioRef.current;
     const track = albums[albumIdx]?.tracks[trackIdx];
     if (!audio || !track) return;
-    if (!audio.src) { audio.src = track.url; audio.load(); }
+    if (!audio.src) {
+      audio.src = track.url;
+      audio.load();
+    }
     setupAnalyser();
-    if (audioCtxRef.current?.state === "suspended") await audioCtxRef.current.resume();
+    if (audioCtxRef.current?.state === "suspended")
+      await audioCtxRef.current.resume();
     await audio.play();
     setPlaying(true);
   }
 
-  function pause() { audioRef.current?.pause(); setPlaying(false); }
+  function pause() {
+    audioRef.current?.pause();
+    setPlaying(false);
+  }
 
   function stop() {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.pause(); audio.currentTime = 0;
-    setPlaying(false); setCurrentTime(0);
+    audio.pause();
+    audio.currentTime = 0;
+    setPlaying(false);
+    setCurrentTime(0);
   }
 
   function seek(e: React.ChangeEvent<HTMLInputElement>) {
@@ -139,7 +150,8 @@ export function RetroAmp() {
 
   const album = albums[albumIdx];
   const track = album?.tracks[trackIdx];
-  const gradient = "linear-gradient(90deg, #005FFF 0%, #00CFFF 60%, #005FFF 100%)";
+  const gradient =
+    "linear-gradient(90deg, #005FFF 0%, #00CFFF 60%, #005FFF 100%)";
 
   // ── Render ────────────────────────────────────────────────────────────────────
   return (
@@ -151,7 +163,9 @@ export function RetroAmp() {
       {view === "al" && (
         <div className="border-b border-line bg-[#08081A] p-3">
           {albums.length === 0 && (
-            <p className="px-2 py-1 font-pixel text-[8px] text-soft">NO ALBUMS FOUND</p>
+            <p className="px-2 py-1 font-pixel text-[8px] text-soft">
+              NO ALBUMS FOUND
+            </p>
           )}
           <div className="flex gap-3">
             {albums.map((a, i) => (
@@ -160,16 +174,28 @@ export function RetroAmp() {
                 type="button"
                 onClick={() => selectAlbum(i)}
                 className={`flex flex-col items-center gap-1 p-1 transition-colors ${
-                  i === albumIdx ? "border border-accent-soft/60" : "border border-transparent hover:border-line"
+                  i === albumIdx
+                    ? "border border-accent-soft/60"
+                    : "border border-transparent hover:border-line"
                 }`}
               >
                 {a.coverUrl ? (
-                  <Image src={a.coverUrl} alt={a.name} width={56} height={56}
-                    className="h-14 w-14 object-cover" unoptimized />
+                  <Image
+                    src={a.coverUrl}
+                    alt={a.name}
+                    width={56}
+                    height={56}
+                    className="h-14 w-14 object-cover"
+                    unoptimized
+                  />
                 ) : (
-                  <div className="flex h-14 w-14 items-center justify-center bg-badge font-pixel text-xl text-line">♪</div>
+                  <div className="flex h-14 w-14 items-center justify-center bg-badge font-pixel text-xl text-line">
+                    ♪
+                  </div>
                 )}
-                <p className="w-14 truncate text-center font-pixel text-[7px] text-soft leading-tight">{a.name}</p>
+                <p className="w-14 truncate text-center font-pixel text-[7px] text-soft leading-tight">
+                  {a.name}
+                </p>
               </button>
             ))}
           </div>
@@ -180,18 +206,25 @@ export function RetroAmp() {
       {view === "pl" && (
         <div className="max-h-48 overflow-y-auto border-b border-line bg-[#08081A]">
           {!album?.tracks.length && (
-            <p className="px-3 py-2 font-pixel text-[8px] text-soft">NO TRACKS</p>
+            <p className="px-3 py-2 font-pixel text-[8px] text-soft">
+              NO TRACKS
+            </p>
           )}
           {album?.tracks.map((t, i) => (
             <button
               key={t.url}
               type="button"
-              onClick={() => { setTrackIdx(i); if (playing) play(); }}
+              onClick={() => {
+                setTrackIdx(i);
+                if (playing) play();
+              }}
               className={`w-full px-3 py-1.5 text-left font-pixel text-[8px] transition-colors hover:bg-badge hover:text-accent-soft ${
                 i === trackIdx ? "bg-badge text-accent-soft" : "text-soft"
               }`}
             >
-              <span className="mr-2 text-line">{String(i + 1).padStart(2, "0")}.</span>
+              <span className="mr-2 text-line">
+                {String(i + 1).padStart(2, "0")}.
+              </span>
               {t.artist} — {t.displayName}
             </button>
           ))}
@@ -203,7 +236,9 @@ export function RetroAmp() {
         className="flex items-center justify-between px-3 py-0.5"
         style={{ background: gradient }}
       >
-        <span className="font-pixel text-[8px] text-page tracking-widest">RETROAMP v2.0</span>
+        <span className="font-pixel text-[8px] text-page tracking-widest">
+          RETROAMP v2.0
+        </span>
         <div className="flex gap-0.5">
           <button
             type="button"
@@ -233,16 +268,30 @@ export function RetroAmp() {
             title={`${album.name} — ${album.artist}`}
             className="corner-frame group relative h-10 w-10 shrink-0 overflow-hidden border border-line bg-badge transition-colors hover:border-accent-soft"
           >
-            <Image src={album.coverUrl} alt="Album art" width={40} height={40}
-              className="h-full w-full object-cover transition-opacity group-hover:opacity-75" unoptimized />
+            <Image
+              src={album.coverUrl}
+              alt="Album art"
+              width={40}
+              height={40}
+              className="h-full w-full object-cover transition-opacity group-hover:opacity-75"
+              unoptimized
+            />
           </a>
         ) : album?.coverUrl ? (
           <div className="corner-frame h-10 w-10 shrink-0 overflow-hidden border border-line bg-badge">
-            <Image src={album.coverUrl} alt="Album art" width={40} height={40}
-              className="h-full w-full object-cover" unoptimized />
+            <Image
+              src={album.coverUrl}
+              alt="Album art"
+              width={40}
+              height={40}
+              className="h-full w-full object-cover"
+              unoptimized
+            />
           </div>
         ) : (
-          <div className="corner-frame flex h-10 w-10 shrink-0 items-center justify-center border border-line bg-badge font-pixel text-xs text-line">♪</div>
+          <div className="corner-frame flex h-10 w-10 shrink-0 items-center justify-center border border-line bg-badge font-pixel text-xs text-line">
+            ♪
+          </div>
         )}
 
         {/* Track info + seek */}
@@ -282,8 +331,11 @@ export function RetroAmp() {
 
         {/* Transport controls */}
         <div className="flex shrink-0 items-center gap-1">
-          <button type="button" onClick={prevTrack}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft">
+          <button
+            type="button"
+            onClick={prevTrack}
+            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft"
+          >
             |◄◄
           </button>
           <button
@@ -294,12 +346,18 @@ export function RetroAmp() {
           >
             {playing ? "❚❚" : "▶"}
           </button>
-          <button type="button" onClick={stop}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-body">
+          <button
+            type="button"
+            onClick={stop}
+            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-body"
+          >
             ■
           </button>
-          <button type="button" onClick={nextTrack}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft">
+          <button
+            type="button"
+            onClick={nextTrack}
+            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft"
+          >
             ▶▶|
           </button>
         </div>
