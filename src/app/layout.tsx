@@ -8,7 +8,7 @@ import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
 import { RezColumns } from "@/components/RezColumns/RezColumns";
 import { Nav } from "@/app/_components/Nav/Nav";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
-import React from "react";
+import { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  content,
+  children,
 }: Readonly<{
-  content: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -61,7 +61,7 @@ export default function RootLayout({
             style={{ left: "288px" }}
           >
             <Nav />
-            <main className="px-8 py-4">{content}</main>
+            <main className="px-8 py-4">{children}</main>
           </div>
 
           <RetroAmp />

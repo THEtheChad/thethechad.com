@@ -100,24 +100,18 @@ export const skills: string[] = [
 // TODO: Replace with your real projects
 export const projects: Project[] = [
   {
-    title: "Project Alpha",
+    title: "thethechad.com",
     description:
       "A full-stack web application for managing and organizing tasks with real-time collaboration.",
-    url: "https://github.com/yourhandle/project-alpha",
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
+    url: "https://github.com/THEtheChad/thethechad.com",
+    tags: ["Next.js", "TypeScript"],
   },
   {
-    title: "Project Beta",
+    title: "zod-fixture",
     description:
-      "An open-source CLI tool that streamlines local development environment setup.",
-    url: "https://github.com/yourhandle/project-beta",
-    tags: ["Node.js", "CLI", "Shell"],
-  },
-  {
-    title: "Project Gamma",
-    description:
-      "A lightweight developer utility for visualizing API response structures.",
-    url: "https://github.com/yourhandle/project-gamma",
-    tags: ["React", "REST", "TypeScript"],
-  },
+      `Creating test fixtures should be easy.
+zod-fixture helps with the arrange phase of your tests by creating test fixtures based on a zod schema.`,
+    url: "https://github.com/timdeschryver/zod-fixture",
+    tags: ["Typescript"],
+  }
 ] as const;
