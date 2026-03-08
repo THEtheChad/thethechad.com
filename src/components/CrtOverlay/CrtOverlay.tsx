@@ -17,7 +17,7 @@ function drawNoise(ctx: CanvasRenderingContext2D) {
     d[i] = v;
     d[i + 1] = v;
     d[i + 2] = v;
-    d[i + 3] = (Math.random() * 25) | 0;
+    d[i + 3] = (Math.random() * 40) | 0;
   }
   ctx.putImageData(img, 0, 0);
 }
@@ -28,7 +28,7 @@ function StaticNoise() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d");
     let raf: number;
     let last = 0;
 
@@ -36,6 +36,7 @@ function StaticNoise() {
       raf = requestAnimationFrame(tick);
       if (now - last < FRAME_MS) return;
       last = now;
+      if (!ctx) throw new Error("Could not get canvas context");
       drawNoise(ctx);
     }
 

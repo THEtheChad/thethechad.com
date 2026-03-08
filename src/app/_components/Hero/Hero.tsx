@@ -34,7 +34,6 @@ export function Hero(props: HeroProps) {
           width={639}
           height={566}
           alt="Picture of the author"
-          className="h-full w-full object-cover"
         />
       </div>
 
