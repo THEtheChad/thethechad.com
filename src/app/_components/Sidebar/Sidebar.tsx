@@ -24,8 +24,15 @@ export function Sidebar({ className, ...props }: SidebarProps) {
     >
       {/* Terminal body */}
       <div className="flex flex-col bg-[#04040E] font-retro text-lg flex-1 overflow-y-auto">
+        <div className="flex flex-col gap-1 border-b border-line/20 px-4 py-3">
+          <span className="flex items-center gap-2">
+            <span className="text-pink">❯ </span>
+            <span>Chad Elliott</span>
+          </span>
+        </div>
+
         {/* display portrait */}
-        <div className="border-b border-line/20 px-4 pt-3 pb-0">
+        <div className="border-b border-line/20 px-4 pb-0">
           <div className="relative overflow-hidden">
             <Image
               src="/thethechad.jpeg"

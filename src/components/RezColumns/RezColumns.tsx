@@ -6,7 +6,6 @@ import { useSharedAnalyserRef } from "@/contexts/AudioAnalyserContext";
 const COL_W = 200;
 const SNOW_COUNT = 44;
 const BAND_COUNT = 16;
-const PAGE_BG = "6,6,15"; // #06060F
 
 // ── Colour ────────────────────────────────────────────────────────────────────
 
@@ -212,14 +211,6 @@ function RezColumn({ side }: { side: "left" | "right" }) {
         ctx.restore();
       }
 
-      // ── Edge fade ─────────────────────────────────────────────────────────
-      const fade = ctx.createLinearGradient(0, 0, 0, h);
-      fade.addColorStop(0, `rgba(${PAGE_BG},0.92)`);
-      fade.addColorStop(0.08, `rgba(${PAGE_BG},0)`);
-      fade.addColorStop(0.92, `rgba(${PAGE_BG},0)`);
-      fade.addColorStop(1, `rgba(${PAGE_BG},0.92)`);
-      ctx.fillStyle = fade;
-      ctx.fillRect(0, 0, w, h);
     }
 
     rafRef.current = requestAnimationFrame(draw);

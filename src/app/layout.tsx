@@ -66,7 +66,6 @@ export default function RootLayout({
             {/* CRT + Rez overlays scoped to content area only */}
             <div className="pointer-events-none absolute inset-0 z-50">
               <CrtOverlay />
-              <RezColumns />
             </div>
           </div>
 
