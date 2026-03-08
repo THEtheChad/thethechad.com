@@ -41,9 +41,7 @@ export default function PhotographyPage() {
   const photos = loadPhotos();
 
   return (
-    <>
-      <SectionHeader title="Photography" />
-
+    <SectionHeader title="Photography">
       {photos.length > 0 ? (
         <Gallery photos={photos} />
       ) : (
@@ -60,6 +58,6 @@ export default function PhotographyPage() {
           </p>
         </div>
       )}
-    </>
+    </SectionHeader>
   );
 }

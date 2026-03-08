@@ -49,7 +49,7 @@ function StaticNoise() {
       ref={ref}
       width={NOISE_W}
       height={NOISE_H}
-      className="pointer-events-none fixed inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 h-full w-full"
       style={{ opacity: 0.45, mixBlendMode: "screen" }}
       aria-hidden="true"
       tabIndex={-1}
@@ -59,7 +59,7 @@ function StaticNoise() {
 
 export function CrtOverlay() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-50" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       {/* TV static noise */}
       <StaticNoise />
       {/* Horizontal scan lines */}

@@ -151,7 +151,7 @@ export function RetroAmp() {
   const album = albums[albumIdx];
   const track = album?.tracks[trackIdx];
   const gradient =
-    "linear-gradient(90deg, #005FFF 0%, #00CFFF 60%, #005FFF 100%)";
+    "linear-gradient(90deg, #001a66 0%, #003380 50%, #001a66 100%)";
 
   // ── Render ────────────────────────────────────────────────────────────────────
   return (

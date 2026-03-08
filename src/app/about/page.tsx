@@ -11,8 +11,7 @@ const titles = [
 
 export default function About() {
   return (
-    <div>
-      <SectionHeader title="About" />
+    <SectionHeader title="About">
       <div>
         <p className="my-8">
           I vividly recall the first computer I ever owned. It was a VTech
@@ -63,6 +62,6 @@ export default function About() {
           know!
         </p>
       </div>
-    </div>
+    </SectionHeader>
   );
 }

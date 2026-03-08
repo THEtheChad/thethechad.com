@@ -107,7 +107,7 @@ function RezColumn({ side }: { side: "left" | "right" }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const sync = () => {
-      canvas.height = window.innerHeight;
+      canvas.height = canvas.offsetHeight || window.innerHeight;
       if (snowRef.current.length === 0) {
         snowRef.current = Array.from({ length: SNOW_COUNT }, () =>
           mkSnow(canvas.height, true),
@@ -230,7 +230,7 @@ function RezColumn({ side }: { side: "left" | "right" }) {
     <canvas
       ref={canvasRef}
       width={COL_W}
-      className={`pointer-events-none fixed top-0 z-40 h-screen hidden md:block ${
+      className={`pointer-events-none absolute top-0 z-40 h-full hidden md:block ${
         side === "left" ? "left-0" : "right-0"
       }`}
       aria-hidden="true"

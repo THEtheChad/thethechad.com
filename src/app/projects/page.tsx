@@ -1,27 +1,27 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { projects } from "@/data/resume";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-export type ProjectsProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLElement>,
-  HTMLElement
->;
-
-export default function Projects(props: ProjectsProps) {
+export default function Projects() {
   return (
-    <>
-      <SectionHeader title="Projects" />
-
+    <SectionHeader title="Projects">
       <div className="flex flex-col gap-4">
         {projects.map((project) => (
-          <a
+          <div
             key={project.title}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group corner-frame border border-line bg-card p-5 transition-colors hover:border-accent/50 hover:bg-card/80"
+            className="corner-frame relative border border-line bg-card p-5 transition-colors hover:border-accent/50 hover:bg-card/80"
           >
-            <h3 className="mb-2 font-pixel text-[11px] text-body transition-colors group-hover:text-accent-soft">
+            {/* External link icon */}
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute right-3 top-3 border border-pink/40 bg-badge p-1 font-pixel text-[9px] text-pink transition-colors hover:border-pink hover:bg-pink/10"
+              aria-label={`Open ${project.title}`}
+            >
+              ↗
+            </a>
+
+            <h3 className="mb-2 font-pixel text-[11px] text-body">
               {project.title}
             </h3>
             <p className="mb-4 text-sm leading-relaxed text-soft">
@@ -37,9 +37,9 @@ export default function Projects(props: ProjectsProps) {
                 </span>
               ))}
             </div>
-          </a>
+          </div>
         ))}
       </div>
-    </>
+    </SectionHeader>
   );
 }
