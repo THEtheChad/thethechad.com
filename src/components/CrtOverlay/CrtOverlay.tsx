@@ -64,8 +64,6 @@ export function CrtOverlay() {
       <StaticNoise />
       {/* Horizontal scan lines */}
       <div className="crt-scanlines absolute inset-0" />
-      {/* Dark vignette at screen edges */}
-      <div className="crt-vignette absolute inset-0" />
       {/* Phosphor flicker */}
       <div className="crt-flicker absolute inset-0" />
     </div>

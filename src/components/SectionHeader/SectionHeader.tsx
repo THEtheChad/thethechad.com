@@ -12,7 +12,11 @@ export interface SectionHeaderProps {
 
 const CHAR_MS = 55;
 
-export function SectionHeader({ title, children, slotProps }: SectionHeaderProps) {
+export function SectionHeader({
+  title,
+  children,
+  slotProps,
+}: SectionHeaderProps) {
   const [displayed, setDisplayed] = useState("");
   const [lineVisible, setLineVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
@@ -38,12 +42,9 @@ export function SectionHeader({ title, children, slotProps }: SectionHeaderProps
 
   return (
     <>
-      <div className="mb-8 flex items-center gap-4" {...slotProps?.root}>
-        {/** biome-ignore lint/suspicious/noCommentText: intentional retro aesthetic */}
-        <span className="font-pixel text-[9px] text-pink">//</span>
-        <h1 className="font-retro text-4xl text-body uppercase">
-          {displayed}
-        </h1>
+      <div className="mb-8 flex items-center gap-2" {...slotProps?.root}>
+        <span className="font-pixel text-xl text-pink">❯</span>
+        <h1 className="font-retro text-4xl text-body uppercase">{displayed}</h1>
         <div
           className="h-px flex-1 bg-gradient-to-r from-accent/40 to-transparent transition-all duration-[1500ms] ease-out"
           style={{
