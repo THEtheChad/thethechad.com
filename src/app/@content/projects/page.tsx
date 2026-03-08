@@ -1,3 +1,4 @@
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { projects } from "@/data/resume";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
@@ -6,21 +7,12 @@ export type ProjectsProps = DetailedHTMLProps<
   HTMLElement
 >;
 
-export function Projects(props: ProjectsProps) {
+export default function Projects(props: ProjectsProps) {
   return (
-    <section {...props}>
-      {/* Section header */}
-      <div className="mb-8 flex items-center gap-4">
-        {/** biome-ignore lint/suspicious/noCommentText: this is intentional syntax for the retro aesthetic */}
-        <span className="font-pixel text-[9px] text-pink">//</span>
-        <h2 className="font-retro text-4xl text-body">PROJECTS</h2>
-        <div
-          className="h-px flex-1 bg-gradient-to-r from-accent/40 to-transparent"
-          style={{ boxShadow: "0 0 6px rgba(0,207,255,0.2)" }}
-        />
-      </div>
+    <>
+      <SectionHeader title="Projects" />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-col gap-4">
         {projects.map((project) => (
           <a
             key={project.title}
@@ -48,6 +40,6 @@ export function Projects(props: ProjectsProps) {
           </a>
         ))}
       </div>
-    </section>
+    </>
   );
 }
