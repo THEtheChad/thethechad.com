@@ -26,8 +26,8 @@ export function PixelGlitch({
     let frame = 0;
 
     // Timing config — slow mode stretches flicker and rest intervals
-    const refreshMin = slow ? 40 : 3;
-    const refreshMax = slow ? 20 : 4; // added to refreshMin
+    const refreshMin = slow ? 40 : 10;
+    const refreshMax = slow ? 20 : 15; // added to refreshMin
     const burstMin = slow ? 12 : 9;
     const burstRange = slow ? 20 : 36;
     const restMin = slow ? 300 : 60;

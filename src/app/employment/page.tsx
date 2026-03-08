@@ -3,9 +3,7 @@ import { positions } from "@/data/resume";
 
 export default function Employment() {
   return (
-    <>
-      <SectionHeader title="Employment" />
-
+    <SectionHeader title="Employment">
       <div className="flex flex-col gap-4">
         {positions.map((pos) => (
           <div
@@ -32,6 +30,6 @@ export default function Employment() {
           </div>
         ))}
       </div>
-    </>
+    </SectionHeader>
   );
 }

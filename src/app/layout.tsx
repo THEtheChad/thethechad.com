@@ -48,20 +48,26 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${vt323.variable} ${pressStart2P.variable} antialiased text-body`}
       >
         <Background />
-        <CrtOverlay />
         <AudioAnalyserProvider>
-          <RezColumns />
-
           {/* Fixed sidebar */}
-          <Sidebar className="fixed left-0 top-0 bottom-20 w-72 overflow-y-auto" />
+          <Sidebar className="fixed left-0 top-0 bottom-20 w-65 overflow-y-auto" />
 
-          {/* Scrollable content area */}
+          {/* Content area — outer wrapper is the positioning context for overlays */}
           <div
-            className="fixed right-0 top-0 bottom-20 overflow-y-auto"
-            style={{ left: "288px" }}
+            className="fixed right-0 top-0 bottom-20"
+            style={{ left: "260px" }}
           >
-            <Nav />
-            <main className="px-8 py-4">{children}</main>
+            {/* Scrollable content */}
+            <div className="h-full overflow-y-auto">
+              <Nav />
+              <main className="px-8 py-4">{children}</main>
+            </div>
+
+            {/* CRT + Rez overlays scoped to content area only */}
+            <div className="pointer-events-none absolute inset-0 z-50">
+              <CrtOverlay />
+              <RezColumns />
+            </div>
           </div>
 
           <RetroAmp />
