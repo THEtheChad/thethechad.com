@@ -20,7 +20,7 @@ export type SidebarProps = HTMLProps<HTMLElement>;
 export function Sidebar({ className, ...props }: SidebarProps) {
   return (
     <aside
-      className={`flex flex-col gap-6 p-6 bg-[#08081A] border border-line/60 ${className ?? ""}`}
+      className={`flex flex-col gap-6 p-6 bg-[#08081A] border border-line/60 content-center text-center ${className ?? ""}`}
       style={{ boxShadow: "0 0 24px rgba(0,95,255,0.08)" }}
       {...props}
     >
@@ -45,13 +45,16 @@ export function Sidebar({ className, ...props }: SidebarProps) {
         <span className="font-pixel text-[7px] text-accent-soft/30">◆</span>
       </div>
 
+      <p className="font-pixel text-[9px] leading-relaxed text-accent-soft">
+        Chad Elliott
+      </p>
       {/* Headline */}
       <p className="font-pixel text-[9px] leading-relaxed text-accent-soft">
         {profile.headline}
       </p>
 
       {/* Social links with 8-bit icons */}
-      <div className="flex items-center gap-4 pt-2">
+      <div className="flex items-center justify-center gap-4 pt-2">
         <a
           href={profile.githubUrl}
           target="_blank"
