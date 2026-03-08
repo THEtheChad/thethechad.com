@@ -38,10 +38,10 @@ export const profile: Profile = {
   headline: "Solutions Architect", // TODO: Update
   summary:
     "Passionate software engineer with a focus on building scalable web applications and developer tooling. I enjoy working across the full stack and care deeply about user experience and code quality.", // TODO: Update
-  location: "San Francisco, CA", // TODO: Update
-  email: "chad@example.com", // TODO: Update
-  linkedinUrl: "https://linkedin.com/in/yourprofile", // TODO: Update
-  githubUrl: "https://github.com/yourhandle", // TODO: Update
+  location: "Kansas City, MO", // TODO: Update
+  email: "chad.d.elliott@gmail.com", // TODO: Update
+  linkedinUrl: "https://linkedin.com/in/thethechad", // TODO: Update
+  githubUrl: "https://github.com/thethechad", // TODO: Update
   resumeUrl: "/resume.pdf", // TODO: Add resume.pdf to /public
 };
 
