@@ -13,11 +13,7 @@ export default function About() {
   return (
     <div>
       <SectionHeader title="About" />
-      {/* Name / typing title */}
       <div>
-        <div className="font-retro text-5xl leading-none text-body">
-          Hey there, I&apos;m <TypingTitle titles={titles} />
-        </div>
         <p className="my-8">
           I vividly recall the first computer I ever owned. It was a VTech
           PreComputer 1000 with a 1 line LCD screen that my parents bought me
