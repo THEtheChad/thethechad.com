@@ -7,6 +7,48 @@ import { useSharedAnalyserRef } from "@/contexts/AudioAnalyserContext";
 
 const INITIAL_VOLUME = 0.65;
 
+// ── Transport icons — all 16×16, filled with currentColor ─────────────────────
+function IconPrev() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <rect x="0" y="2" width="2" height="12" />
+      <polygon points="8,2 8,14 2,8" />
+      <polygon points="14,2 14,14 8,8" />
+    </svg>
+  );
+}
+function IconNext() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <polygon points="2,2 2,14 8,8" />
+      <polygon points="8,2 8,14 14,8" />
+      <rect x="14" y="2" width="2" height="12" />
+    </svg>
+  );
+}
+function IconPlay() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <polygon points="2,2 2,14 14,8" />
+    </svg>
+  );
+}
+function IconPause() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <rect x="2" y="2" width="4" height="12" />
+      <rect x="10" y="2" width="4" height="12" />
+    </svg>
+  );
+}
+function IconStop() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <rect x="2" y="2" width="12" height="12" />
+    </svg>
+  );
+}
+
 function fmt(s: number): string {
   if (!isFinite(s)) return "0:00";
   const m = Math.floor(s / 60);
@@ -334,31 +376,35 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={prevTrack}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft"
+            className="p-1.5 text-soft transition-colors hover:text-accent-soft"
+            aria-label="Previous track"
           >
-            |◄◄
+            <IconPrev />
           </button>
           <button
             type="button"
             onClick={playing ? pause : play}
-            className="border border-accent/60 px-3 py-1 font-pixel text-[9px] text-accent-soft transition-colors hover:border-accent-soft hover:bg-accent/10"
+            className="border border-accent/60 p-1.5 text-accent-soft transition-colors hover:border-accent-soft hover:bg-accent/10"
             style={playing ? { boxShadow: "0 0 8px rgba(0,207,255,0.4)" } : {}}
+            aria-label={playing ? "Pause" : "Play"}
           >
-            {playing ? "❚❚" : "▶"}
+            {playing ? <IconPause /> : <IconPlay />}
           </button>
           <button
             type="button"
             onClick={stop}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-body"
+            className="p-1.5 text-soft transition-colors hover:text-body"
+            aria-label="Stop"
           >
-            ■
+            <IconStop />
           </button>
           <button
             type="button"
             onClick={nextTrack}
-            className="px-2 py-1 font-pixel text-[9px] text-soft transition-colors hover:text-accent-soft"
+            className="p-1.5 text-soft transition-colors hover:text-accent-soft"
+            aria-label="Next track"
           >
-            ▶▶|
+            <IconNext />
           </button>
         </div>
 
