@@ -45,15 +45,17 @@ function StaticNoise() {
   }, []);
 
   return (
-    <canvas
-      ref={ref}
-      width={NOISE_W}
-      height={NOISE_H}
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      style={{ opacity: 0.45, mixBlendMode: "screen" }}
-      aria-hidden="true"
-      tabIndex={-1}
-    />
+    <div className="pointer-events-none absolute inset-0 z-50">
+      <canvas
+        ref={ref}
+        width={NOISE_W}
+        height={NOISE_H}
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        style={{ opacity: 0.45, mixBlendMode: "screen" }}
+        aria-hidden="true"
+        tabIndex={-1}
+      />
+    </div>
   );
 }
 
