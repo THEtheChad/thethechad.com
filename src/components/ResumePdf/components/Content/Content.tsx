@@ -1,11 +1,30 @@
-import { StyleSheet, Text, View } from "@react-pdf/renderer";
+import path from "node:path";
+import { Image, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { positions, profile } from "@/data/resume";
 import { c } from "../../styles";
 import { ContentSection } from "./components/ContentSection";
 import { DescriptionBlock } from "./components/DescriptionBlock";
 
+const photoPath = path.join(process.cwd(), "public", "thethechad.jpeg");
+
 const s = StyleSheet.create({
   main: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 16,
+    marginBottom: 22,
+  },
+  photo: {
+    width: 80,
+    height: 90,
+    objectFit: "cover",
+    objectPositionX: "center",
+    objectPositionY: "top",
+  },
+  nameBlock: {
     flex: 1,
   },
   nameFirst: {
@@ -28,7 +47,6 @@ const s = StyleSheet.create({
     letterSpacing: 2.5,
     color: c.muted,
     textTransform: "uppercase",
-    marginBottom: 22,
   },
   summary: {
     fontSize: 8.5,
@@ -64,9 +82,15 @@ const s = StyleSheet.create({
 export function Content() {
   return (
     <View style={s.main}>
-      <Text style={s.nameFirst}>{profile.firstName.toUpperCase()}</Text>
-      <Text style={s.nameLast}>{profile.lastName.toUpperCase()}</Text>
-      <Text style={s.headline}>{profile.headline}</Text>
+      {/* Header: photo left, name + title right */}
+      <View style={s.header}>
+        <Image src={photoPath} style={s.photo} />
+        <View style={s.nameBlock}>
+          <Text style={s.nameFirst}>{profile.firstName.toUpperCase()}</Text>
+          <Text style={s.nameLast}>{profile.lastName.toUpperCase()}</Text>
+          <Text style={s.headline}>{profile.headline}</Text>
+        </View>
+      </View>
 
       <ContentSection title="Profile">
         <Text style={s.summary}>{profile.summary}</Text>

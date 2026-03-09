@@ -1,13 +1,10 @@
-import path from "node:path";
-import { Image, Link, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { Link, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { education, frameworks, languages, profile } from "@/data/resume";
 import { SIDEBAR_WIDTH } from "../../constants";
 import { c } from "../../styles";
 import { ContactItem } from "./components/ContactItem";
 import { ProficiencyItem } from "./components/ProficiencyItem";
 import { SidebarSection } from "./components/SidebarSection";
-
-const photoPath = path.join(process.cwd(), "public", "thethechad.jpeg");
 
 const s = StyleSheet.create({
   sidebar: {
@@ -16,13 +13,6 @@ const s = StyleSheet.create({
     left: 0,
     width: SIDEBAR_WIDTH,
     paddingBottom: 36,
-  },
-  photo: {
-    width: SIDEBAR_WIDTH,
-    height: 215,
-    objectFit: "cover",
-    objectPositionX: "center",
-    objectPositionY: "top",
   },
   content: {
     paddingHorizontal: 20,
@@ -63,8 +53,6 @@ const s = StyleSheet.create({
 export function Sidebar() {
   return (
     <View style={s.sidebar}>
-      <Image src={photoPath} style={s.photo} />
-
       <View style={s.content}>
         <SidebarSection title="Contact">
           <ContactItem label="Email">
@@ -87,22 +75,22 @@ export function Sidebar() {
           </ContactItem>
         </SidebarSection>
 
-        <SidebarSection title="Languages">
-          {languages.map((lang) => (
-            <ProficiencyItem
-              key={lang.label}
-              label={lang.label}
-              proficiency={lang.proficiency}
-            />
-          ))}
-        </SidebarSection>
-
         <SidebarSection title="Frameworks">
           {frameworks.map((fw) => (
             <ProficiencyItem
               key={fw.label}
               label={fw.label}
               proficiency={fw.proficiency}
+            />
+          ))}
+        </SidebarSection>
+
+        <SidebarSection title="Languages">
+          {languages.map((lang) => (
+            <ProficiencyItem
+              key={lang.label}
+              label={lang.label}
+              proficiency={lang.proficiency}
             />
           ))}
         </SidebarSection>
