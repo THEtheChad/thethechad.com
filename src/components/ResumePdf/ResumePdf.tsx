@@ -74,7 +74,7 @@ const s = StyleSheet.create({
     textTransform: "uppercase",
     paddingBottom: 4,
     borderBottomWidth: 0.5,
-    borderBottomColor: c.sidebarRule,
+    borderBottomColor: c.accent,
     borderBottomStyle: "solid",
     marginBottom: 8,
   },
