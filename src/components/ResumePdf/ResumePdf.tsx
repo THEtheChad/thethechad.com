@@ -1,10 +1,10 @@
 import {
   Document,
+  Link,
   Page,
+  StyleSheet,
   Text,
   View,
-  Link,
-  StyleSheet,
 } from "@react-pdf/renderer";
 import { education, positions, profile, skills } from "@/data/resume";
 

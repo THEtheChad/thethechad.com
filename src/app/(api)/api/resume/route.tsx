@@ -4,7 +4,9 @@ import { ResumePdf } from "@/components/ResumePdf/ResumePdf";
 import { profile } from "@/data/resume";
 
 export async function GET() {
-  const buffer = await renderToBuffer(createElement(ResumePdf));
+  const buffer = (await renderToBuffer(
+    createElement(ResumePdf),
+  )) as BufferSource;
   const filename = `${profile.firstName}-${profile.lastName}-Resume.pdf`;
 
   return new Response(buffer, {
