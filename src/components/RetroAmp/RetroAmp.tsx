@@ -405,7 +405,7 @@ export function RetroAmp() {
               step={0.1}
               value={currentTime}
               onChange={seek}
-              className="winamp-range flex-1"
+              className="retroamp-range flex-1"
             />
             <span className="w-9 shrink-0 text-right font-retro text-sm leading-none text-soft">
               {fmt(duration)}
@@ -460,7 +460,7 @@ export function RetroAmp() {
             step={0.01}
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="winamp-range w-20"
+            className="retroamp-range w-20"
           />
           <span className="w-6 text-right font-pixel text-[7px] text-soft">
             {Math.round(volume * 100)}

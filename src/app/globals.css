@@ -171,7 +171,7 @@ body {
 }
 
 /* Custom range input */
-input[type="range"].winamp-range {
+input[type="range"].retroamp-range {
   -webkit-appearance: none;
   appearance: none;
   height: 3px;
@@ -181,7 +181,7 @@ input[type="range"].winamp-range {
   outline: none;
 }
 
-input[type="range"].winamp-range::-webkit-slider-thumb {
+input[type="range"].retroamp-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 8px;
   height: 8px;
@@ -191,7 +191,7 @@ input[type="range"].winamp-range::-webkit-slider-thumb {
   border-radius: 0;
 }
 
-input[type="range"].winamp-range::-moz-range-thumb {
+input[type="range"].retroamp-range::-moz-range-thumb {
   width: 8px;
   height: 8px;
   background: #00cfff;
