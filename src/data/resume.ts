@@ -11,7 +11,7 @@ export interface Position {
 
 export interface Education {
   school: string;
-  degree: string;
+  degree?: string;
   fieldOfStudy: string;
   startYear: number;
   endYear: number | null;
@@ -42,7 +42,7 @@ export const profile: Profile = {
   email: "chad.d.elliott@gmail.com", // TODO: Update
   linkedinUrl: "https://linkedin.com/in/thethechad", // TODO: Update
   githubUrl: "https://github.com/thethechad", // TODO: Update
-  resumeUrl: "/resume.pdf", // TODO: Add resume.pdf to /public
+  resumeUrl: "/api/resume",
 };
 
 export const positions: Position[] = [
@@ -96,12 +96,10 @@ Salesforce, Workday, Basecamp, Simpli.fi, Google DCM, Google DBM, Amazon, Suppor
 
 export const education: Education[] = [
   {
-    school: "State University", // TODO: Update
-    degree: "Bachelor of Science",
+    school: "University of Nebraska at Omaha (UNO)", // TODO: Update
     fieldOfStudy: "Computer Science",
-    startYear: 2013,
-    endYear: 2017,
-    activities: "Hackathon Club, Open Source Society",
+    startYear: 2000,
+    endYear: 2002,
   },
 ] as const satisfies Education[];
 
