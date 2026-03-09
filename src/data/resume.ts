@@ -116,29 +116,29 @@ export const skills = [
   "REST APIs",
 ] as const satisfies string[];
 
-export const frameworks: { label: string, level: number }[] = [
-  { label: "React", level: 10 },
-  { label: "NextJS", level: 10 },
-  { label: "NodeJS", level: 10 },
-  { label: "React Query", level: 8 },
-  { label: "Zod", level: 10 },
-  { label: "XState", level: 8 },
-  { label: "GraphQL", level: 6 },
-  { label: "Docker", level: 8 },
-  { label: "AWS", level: 7 },
-  { label: "Git", level: 7 },
-  { label: "REST APIs", level: 10 },
-] as const satisfies { label: string, level: number }[];
+export const frameworks: { label: string, proficiency: number }[] = [
+  { label: "React", proficiency: 10 },
+  { label: "NextJS", proficiency: 10 },
+  { label: "NodeJS", proficiency: 10 },
+  { label: "React Query", proficiency: 8 },
+  { label: "Zod", proficiency: 10 },
+  { label: "XState", proficiency: 8 },
+  { label: "GraphQL", proficiency: 6 },
+  { label: "Docker", proficiency: 8 },
+  { label: "AWS", proficiency: 7 },
+  { label: "Git", proficiency: 7 },
+  { label: "REST APIs", proficiency: 10 },
+] as const satisfies { label: string, proficiency: number }[];
 
 export const languages = [
-  { label: "TypeScript", level: 10 },
-  { label: "JavaScript", level: 10 },
-  { label: "ECMAScript", level: 10 },
-  { label: "Bash", level: 7 },
-  { label: "PHP", level: 6 },
-  { label: "Python", level: 4 },
-  { label: "PostgreSQL", level: 6 },
-] as const satisfies { label: string, level: number }[];
+  { label: "TypeScript", proficiency: 10 },
+  { label: "JavaScript", proficiency: 10 },
+  { label: "ECMAScript", proficiency: 10 },
+  { label: "Bash", proficiency: 7 },
+  { label: "PHP", proficiency: 6 },
+  { label: "Python", proficiency: 4 },
+  { label: "PostgreSQL", proficiency: 6 },
+] as const satisfies { label: string, proficiency: number }[];
 
 // TODO: Replace with your real projects
 export const projects: Project[] = [
