@@ -1,6 +1,6 @@
+import Markdown from "react-markdown";
 import { Section } from "@/components/Section/Section";
 import { positions } from "@/data/resume";
-import Markdown from "react-markdown";
 
 export default function Employment() {
   return (

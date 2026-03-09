@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Link as NavLink } from "./components/Link";
 
 export function Navigation() {

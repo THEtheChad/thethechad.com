@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import Gallery, { type Photo } from "./_components/Gallery";
 import { Section } from "@/components/Section/Section";
+import Gallery, { type Photo } from "./_components/Gallery";
 
 export const metadata = {
   title: "Photography | Chad",

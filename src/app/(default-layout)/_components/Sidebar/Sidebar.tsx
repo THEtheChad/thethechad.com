@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { HTMLProps } from "react";
-import { profile } from "@/data/resume";
-import { TypingTitle } from "@/components/TypingTitle/TypingTitle";
 import { PixelGlitch } from "@/components/PixelGlitch/PixelGlitch";
+import { TypingTitle } from "@/components/TypingTitle/TypingTitle";
+import { profile } from "@/data/resume";
 
 const titles = [
   "Photographer",

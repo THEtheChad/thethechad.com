@@ -90,79 +90,87 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
       </div>
 
       {/* Lightbox — rendered via portal outside the CRT overlay */}
-      {active && lightbox !== null && createPortal(
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-page/96 backdrop-blur-sm"
-          onClick={() => setLightbox(null)}
-        >
-          {/* Pagination — top center, static */}
-          <p className="absolute top-4 left-1/2 -translate-x-1/2 font-pixel text-[8px] text-soft tabular-nums">
-            {lightbox + 1}&nbsp;/&nbsp;{photos.length}
-          </p>
+      {active &&
+        lightbox !== null &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-page/96 backdrop-blur-sm"
+            onClick={() => setLightbox(null)}
+          >
+            {/* Pagination — top center, static */}
+            <p className="absolute top-4 left-1/2 -translate-x-1/2 font-pixel text-[8px] text-soft tabular-nums">
+              {lightbox + 1}&nbsp;/&nbsp;{photos.length}
+            </p>
 
-          {/* Image container */}
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <div className="corner-frame border border-line/60">
-              <Image
-                src={active.src}
-                alt={active.alt}
-                width={1600}
-                height={1200}
-                className="max-h-[80vh] max-w-[82vw] w-auto h-auto object-contain"
-                priority
-              />
+            {/* Image container */}
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
+              <div className="corner-frame border border-line/60">
+                <Image
+                  src={active.src}
+                  alt={active.alt}
+                  width={1600}
+                  height={1200}
+                  className="max-h-[80vh] max-w-[82vw] w-auto h-auto object-contain"
+                  priority
+                />
+              </div>
+
+              {/* Caption */}
+              {(active.title || active.location) && (
+                <div className="mt-2 px-1">
+                  {active.title && (
+                    <p className="font-pixel text-[9px] text-body">
+                      {active.title}
+                    </p>
+                  )}
+                  {active.location && (
+                    <p className="mt-0.5 font-pixel text-[8px] text-soft">
+                      {active.location}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
-            {/* Caption */}
-            {(active.title || active.location) && (
-              <div className="mt-2 px-1">
-                {active.title && (
-                  <p className="font-pixel text-[9px] text-body">{active.title}</p>
-                )}
-                {active.location && (
-                  <p className="mt-0.5 font-pixel text-[8px] text-soft">{active.location}</p>
-                )}
-              </div>
-            )}
-          </div>
+            {/* Prev */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightbox((i) =>
+                  i !== null ? (i - 1 + photos.length) % photos.length : null,
+                );
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+            >
+              ◄
+            </button>
 
-          {/* Prev */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightbox((i) =>
-                i !== null ? (i - 1 + photos.length) % photos.length : null,
-              );
-            }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
-          >
-            ◄
-          </button>
+            {/* Next */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightbox((i) =>
+                  i !== null ? (i + 1) % photos.length : null,
+                );
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+            >
+              ►
+            </button>
 
-          {/* Next */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightbox((i) => (i !== null ? (i + 1) % photos.length : null));
-            }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
-          >
-            ►
-          </button>
-
-          {/* Close */}
-          <button
-            type="button"
-            onClick={() => setLightbox(null)}
-            className="absolute right-4 top-4 border border-line bg-card/80 px-3 py-2 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
-          >
-            ✕
-          </button>
-        </div>,
-        document.body,
-      )}
+            {/* Close */}
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              className="absolute right-4 top-4 border border-line bg-card/80 px-3 py-2 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+            >
+              ✕
+            </button>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

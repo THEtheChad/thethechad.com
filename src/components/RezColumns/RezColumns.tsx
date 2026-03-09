@@ -210,7 +210,6 @@ function RezColumn({ side }: { side: "left" | "right" }) {
         drawSnow(ctx, p, color, alpha);
         ctx.restore();
       }
-
     }
 
     rafRef.current = requestAnimationFrame(draw);

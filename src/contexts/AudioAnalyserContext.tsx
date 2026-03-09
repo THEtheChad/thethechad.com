@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useRef } from "react";
 import type { ReactNode } from "react";
+import { createContext, useContext, useRef } from "react";
 
 type AnalyserRef = React.MutableRefObject<AnalyserNode | null>;
 

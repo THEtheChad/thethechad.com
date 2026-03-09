@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, VT323, Press_Start_2P } from "next/font/google";
-import { Background } from "@/components/Background/Background";
+import { ReactNode } from "react";
+import { Navigation } from "@/app/(default-layout)/_components/Navigation/Navigation";
 import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
 import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
 import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
-import { RezColumns } from "@/components/RezColumns/RezColumns";
-import { Navigation } from "@/app/(default-layout)/_components/Navigation/Navigation";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
-import { ReactNode } from "react";
 
 export default function RootLayout({
   children,
