@@ -15,6 +15,7 @@ export function Navigation() {
           <NavLink href="/projects" label="PROJECTS" />
           <NavLink href="/photography" label="PHOTOGRAPHY" />
           <NavLink href="/employment" label="EMPLOYMENT" />
+          <NavLink href="/contact" label="CONTACT" />
         </div>
       </div>
     </nav>

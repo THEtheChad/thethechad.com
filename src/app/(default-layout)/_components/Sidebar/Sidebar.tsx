@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { HTMLProps } from "react";
 import { PixelGlitch } from "@/components/PixelGlitch/PixelGlitch";
 import { TypingTitle } from "@/components/TypingTitle/TypingTitle";
@@ -83,13 +84,13 @@ export function Sidebar({ className, ...props }: SidebarProps) {
             <span className="text-pink">$</span>
             <span>download resume.pdf</span>
           </a>
-          <a
-            href={`mailto:${profile.email}`}
+          <Link
+            href="/contact"
             className="flex items-center gap-2 text-soft transition-colors hover:text-accent-soft"
           >
             <span className="text-pink">$</span>
             <span>mail --to chad</span>
-          </a>
+          </Link>
         </div>
       </div>
     </aside>
