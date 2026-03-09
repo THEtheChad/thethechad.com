@@ -1,4 +1,4 @@
-import { profile, positions, education, skills } from "@/data/resume";
+import { education, positions, profile, skills } from "@/data/resume";
 
 export const metadata = {
   title: `${profile.firstName} — Resume`,

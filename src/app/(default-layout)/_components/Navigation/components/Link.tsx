@@ -18,7 +18,9 @@ export function Link({ href, label }: LinkProps) {
           ? "border-accent-soft bg-accent/10 text-accent-soft"
           : "border-line text-soft"
       }`}
-      style={isActive ? { boxShadow: "0 0 8px rgba(0,207,255,0.35)" } : undefined}
+      style={
+        isActive ? { boxShadow: "0 0 8px rgba(0,207,255,0.35)" } : undefined
+      }
     >
       {label}
     </NextLink>

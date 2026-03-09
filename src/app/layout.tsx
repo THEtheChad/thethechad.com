@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, VT323, Press_Start_2P } from "next/font/google";
+import { Geist, Geist_Mono, Press_Start_2P, VT323 } from "next/font/google";
 import "./globals.css";
-import { Background } from "@/components/Background/Background";
-import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
-import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
-import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
-import { RezColumns } from "@/components/RezColumns/RezColumns";
-
-import { Sidebar } from "./(default-layout)/_components/Sidebar/Sidebar";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
