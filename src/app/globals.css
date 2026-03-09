@@ -9,8 +9,8 @@
   --font-mono: var(--font-geist-mono);
   --font-retro: var(--font-vt323);
   --font-pixel: var(--font-press-start);
+  --animate-marquee: marquee 10s linear infinite;
 
-  /* Narita Boy — void black + neon digital */
   --color-page: #06060F;        /* void black */
   --color-card: #0C0C1E;        /* deep indigo surface */
   --color-badge: #12122C;       /* indigo for tags/badges */
@@ -21,6 +21,11 @@
   --color-line: #181830;        /* dark indigo borders */
   --color-pink: #FF0080;        /* neon magenta */
   --color-gold: #FFD060;        /* warm gold highlight */
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-25%); }
+  }
 }
 
 body {
@@ -158,11 +163,6 @@ body {
 }
 
 /* ── Winamp player ──────────────────────────────────────────────────── */
-
-@keyframes marquee {
-  0%   { transform: translateX(264px); }
-  100% { transform: translateX(-100%); }
-}
 
 .marquee-text {
   display: inline-block;

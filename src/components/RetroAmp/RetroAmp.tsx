@@ -4,13 +4,20 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { AlbumMeta } from "@/app/(api)/api/music/route";
 import { useSharedAnalyserRef } from "@/contexts/AudioAnalyserContext";
+import { Marquee } from "../Marquee/Marquee";
 
 const INITIAL_VOLUME = 0.65;
 
 // ── Transport icons — all 16×16, filled with currentColor ─────────────────────
 function IconPrev() {
   return (
-    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <rect x="0" y="2" width="2" height="12" />
       <polygon points="8,2 8,14 2,8" />
       <polygon points="14,2 14,14 8,8" />
@@ -19,7 +26,13 @@ function IconPrev() {
 }
 function IconNext() {
   return (
-    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <polygon points="2,2 2,14 8,8" />
       <polygon points="8,2 8,14 14,8" />
       <rect x="14" y="2" width="2" height="12" />
@@ -28,14 +41,26 @@ function IconNext() {
 }
 function IconPlay() {
   return (
-    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <polygon points="2,2 2,14 14,8" />
     </svg>
   );
 }
 function IconPause() {
   return (
-    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <rect x="2" y="2" width="4" height="12" />
       <rect x="10" y="2" width="4" height="12" />
     </svg>
@@ -43,7 +68,13 @@ function IconPause() {
 }
 function IconStop() {
   return (
-    <svg width={16} height={16} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <rect x="2" y="2" width="12" height="12" />
     </svg>
   );
@@ -339,15 +370,26 @@ export function RetroAmp() {
         {/* Track info + seek */}
         <div className="min-w-0 flex-1">
           <div className="mb-1 overflow-hidden border border-line/40 bg-[#04040E] px-1">
-            <p
+            <Marquee
+              content={
+                track
+                  ? `${track.artist.toUpperCase()} — ${track.displayName.toUpperCase()}`
+                  : "NO TRACK LOADED"
+              }
+              slotProps={{
+                root: {
+                  className: "font-retro text-lg leading-5 text-accent-soft",
+                },
+              }}
+            />
+
+            {/* <p
               key={track?.url ?? "none"}
-              className="marquee-text font-retro text-lg leading-5 text-accent-soft"
+              className="marquee-text "
               style={{ textShadow: "0 0 6px #00CFFF" }}
             >
-              {track
-                ? `${track.artist.toUpperCase()} — ${track.displayName.toUpperCase()}`
-                : "NO TRACK LOADED"}
-            </p>
+              {}
+            </p> */}
           </div>
           <div className="flex items-center gap-2">
             <span

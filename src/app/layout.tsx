@@ -6,8 +6,8 @@ import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
 import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
 import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
 import { RezColumns } from "@/components/RezColumns/RezColumns";
-import { Nav } from "@/app/_components/Nav/Nav";
-import { Sidebar } from "./_components/Sidebar/Sidebar";
+
+import { Sidebar } from "./(default-layout)/_components/Sidebar/Sidebar";
 import { ReactNode } from "react";
 
 const geistSans = Geist({
@@ -47,26 +47,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${vt323.variable} ${pressStart2P.variable} antialiased text-body`}
       >
-        <Background />
-        <AudioAnalyserProvider>
-          {/* Fixed sidebar */}
-          <Sidebar className="fixed left-0 top-0 bottom-20 w-65 overflow-y-auto" />
-
-          {/* Content area — outer wrapper is the positioning context for overlays */}
-          <div
-            className="fixed right-0 top-0 bottom-20"
-            style={{ left: "260px" }}
-          >
-            {/* Scrollable content */}
-            <div className="h-full overflow-y-auto">
-              <Nav />
-              <main className="px-8 py-4">{children}</main>
-              <CrtOverlay />
-            </div>
-          </div>
-
-          <RetroAmp />
-        </AudioAnalyserProvider>
+        {children}
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
-import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { Section } from "@/components/Section/Section";
 import { projects } from "@/data/resume";
 
 export default function Projects() {
   return (
-    <SectionHeader title="Projects">
+    <Section title="Projects">
       <div className="flex flex-col gap-4">
         {projects.map((project) => (
           <div
@@ -40,6 +40,6 @@ export default function Projects() {
           </div>
         ))}
       </div>
-    </SectionHeader>
+    </Section>
   );
 }

@@ -47,31 +47,50 @@ export const profile: Profile = {
 
 export const positions: Position[] = [
   {
-    title: "Senior Software Engineer",
-    company: "Acme Corp",
-    location: "Remote",
-    startDate: "Jan 2022",
-    endDate: null,
+    title: "Solutions Architect",
+    company: "National Insurance Producer Registry",
+    location: "Kansas City, MO",
+    startDate: "Sep 2023",
+    endDate: "Mar 2026",
     description:
-      "Led development of core platform features serving 500K+ users. Architected a microservices migration reducing latency by 40%. Mentored junior engineers and drove engineering culture initiatives.",
+      `- Led the design and implementation of a shared Material UI component system, standardizing UI/UX across multiple applications and accelerating frontend development.
+- Led the migration of four legacy Java/JSP applications to modern React/Next.js platforms, designing CI/CD pipelines from scratch using GitLab, Helm, and AWS EKS. Optimized build times from 15 minutes to 8 minutes and implemented automated environment teardown to reduce infrastructure costs.
+- Evaluated and introduced modern frontend frameworks (Zodios, XState, React Query, React Hook Form) to improve developer productivity, API safety, and application reliability.
+- Established weekly engineering office hours, mentoring developers and improving adoption of new frontend architecture and tooling.
+- Built a type-safe API mocking platform using Zod, Zodios, and zod-fixture, enabling frontend teams to develop independently from Java backend services and allowing for parallel development and accelerating feature velocity.
+- Architected a dynamic form delivery and rendering platform, centralizing business rules and validation using JSONLogic and enabling consistent frontend and backend validation across licensing services`,
   },
   {
     title: "Software Engineer",
-    company: "Startup Co",
-    location: "San Francisco, CA",
-    startDate: "Jun 2019",
-    endDate: "Dec 2021",
+    company: "TripleBlind",
+    location: "Kansas City, MO",
+    startDate: "Mar 2021",
+    endDate: "Jan 2023",
     description:
-      "Built and shipped multiple full-stack features for a B2B SaaS product. Owned the frontend architecture migration from legacy jQuery to React. Improved CI/CD pipeline and developer experience.",
+      `Led the effort to revamp and enhance Tripleblind's web based user interface.
+
+I inherited a bare bones create-react-app application with minimal code structure. I then proceeded to:
+
+- port the build process from create-react-app to vite for optimized HMR (hot module reloading) and sped up development by roughly 2x
+- create a multistage docker build to allow caching and HMR in development and minimize the size of the production container by a factor of 1/3
+- introduced standardization: MUI for frontend components, redux for state management, react-hook-form for forms
+- upgrade to react 17 and switch to error boundaries/suspense to prevent unhandled application states
+
+As a member of the "UI/UX Design Team", I established design patterns and refined process flow for new and existing features.
+
+As a member of the "Refinement Team", I reviewed requirements for new features, sussed out potential issues, and set reasonable expectations for the development timeline.`,
   },
   {
-    title: "Junior Software Engineer",
-    company: "Agency Inc",
-    location: "New York, NY",
-    startDate: "Jul 2017",
-    endDate: "May 2019",
+    title: "Marketing Automation Strategist",
+    company: "Excelerate Digital",
+    location: "Kansas City, MO",
+    startDate: "Jan 2016",
+    endDate: "Mar 2021",
     description:
-      "Developed client-facing web applications across a variety of industries. Gained experience with React, Node.js, and PostgreSQL.",
+      `Working alongside our Datawarehouse engineers, my job is to facilitate automation for all of the processes involved to take a lead and turn it into a billable revenue stream. The task necessitates that I interact with many different, distributed systems. This means knowing and understanding the various APIs and protocols, understanding the business process facilitated by each system, and defining the requirements necessary to carry out a particular step in the automation chain. I've leveraged microservices, job queues, and messaging services to connect each of these architectures together.
+
+The list of platforms we work with is quite long:
+Salesforce, Workday, Basecamp, Simpli.fi, Google DCM, Google DBM, Amazon, Supportbee, GTM, GA, Tableau Server, Looker, etc.`,
   },
 ] as const satisfies Position[];
 

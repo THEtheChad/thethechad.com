@@ -76,15 +76,23 @@ export default function Resume() {
             >
               <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h3 className="font-pixel text-[11px] text-body">{pos.title}</h3>
-                  <p className="mt-1 font-pixel text-[9px] text-accent-soft">{pos.company}</p>
-                  <p className="font-pixel text-[8px] text-soft">{pos.location}</p>
+                  <h3 className="font-pixel text-[11px] text-body">
+                    {pos.title}
+                  </h3>
+                  <p className="mt-1 font-pixel text-[9px] text-accent-soft">
+                    {pos.company}
+                  </p>
+                  <p className="font-pixel text-[8px] text-soft">
+                    {pos.location}
+                  </p>
                 </div>
                 <p className="shrink-0 font-pixel text-[8px] text-pink">
                   {pos.startDate} — {pos.endDate ?? "PRESENT"}
                 </p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-soft">{pos.description}</p>
+              <p className="mt-3 text-sm leading-relaxed text-soft">
+                {pos.description}
+              </p>
             </div>
           ))}
         </div>
@@ -101,12 +109,16 @@ export default function Resume() {
             >
               <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h3 className="font-pixel text-[11px] text-body">{edu.school}</h3>
+                  <h3 className="font-pixel text-[11px] text-body">
+                    {edu.school}
+                  </h3>
                   <p className="mt-1 font-pixel text-[9px] text-accent-soft">
                     {edu.degree} · {edu.fieldOfStudy}
                   </p>
                   {edu.activities && (
-                    <p className="font-pixel text-[8px] text-soft">{edu.activities}</p>
+                    <p className="font-pixel text-[8px] text-soft">
+                      {edu.activities}
+                    </p>
                   )}
                 </div>
                 <p className="shrink-0 font-pixel text-[8px] text-pink">

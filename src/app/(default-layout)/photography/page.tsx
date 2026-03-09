@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import Gallery, { type Photo } from "./_components/Gallery";
-import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { Section } from "@/components/Section/Section";
 
 export const metadata = {
   title: "Photography | Chad",
@@ -41,7 +41,7 @@ export default function PhotographyPage() {
   const photos = loadPhotos();
 
   return (
-    <SectionHeader title="Photography">
+    <Section title="Photography">
       {photos.length > 0 ? (
         <Gallery photos={photos} />
       ) : (
@@ -58,6 +58,6 @@ export default function PhotographyPage() {
           </p>
         </div>
       )}
-    </SectionHeader>
+    </Section>
   );
 }
