@@ -4,23 +4,24 @@ import { c } from "../../../styles";
 
 const s = StyleSheet.create({
   section: {
-    marginTop: 18,
+    marginTop: 16,
   },
   title: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 7,
+    fontSize: 9,
     letterSpacing: 2,
-    color: c.sidebarText,
+    color: c.ink,
     textTransform: "uppercase",
-    paddingBottom: 4,
-    borderBottomWidth: 0.5,
-    borderBottomColor: c.accent,
-    borderBottomStyle: "solid",
-    marginBottom: 8,
+    marginBottom: 3,
+  },
+  rule: {
+    height: 2,
+    backgroundColor: c.accent,
+    marginBottom: 10,
   },
 });
 
-export function SidebarSection({
+export function ContentSection({
   title,
   children,
 }: {
@@ -28,8 +29,9 @@ export function SidebarSection({
   children: ReactNode;
 }) {
   return (
-    <View style={s.section} wrap={false}>
+    <View style={s.section}>
       <Text style={s.title}>{title}</Text>
+      <View style={s.rule} />
       {children}
     </View>
   );
