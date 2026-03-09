@@ -78,11 +78,12 @@ export function Sidebar({ className, ...props }: SidebarProps) {
         <div className="flex flex-col gap-1 px-4 py-3">
           <a
             href={profile.resumeUrl}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-soft transition-colors hover:text-accent-soft"
           >
             <span className="text-pink">$</span>
-            <span>download resume.pdf</span>
+            <span>open resume.pdf</span>
           </a>
           <Link
             href="/contact"
