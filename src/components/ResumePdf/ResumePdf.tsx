@@ -1,144 +1,263 @@
+import path from "node:path";
 import {
   Document,
+  Image,
   Link,
   Page,
   StyleSheet,
   Text,
   View,
 } from "@react-pdf/renderer";
-import { education, positions, profile, skills } from "@/data/resume";
+import type { ReactNode } from "react";
+import {
+  education,
+  frameworks,
+  languages,
+  positions,
+  profile,
+} from "@/data/resume";
+
+const SIDEBAR_W = 205;
 
 const c = {
+  sidebarBg: "#111118",
+  sidebarText: "#c8c8d8",
+  sidebarMuted: "#6a6a80",
+  sidebarRule: "rgba(255,255,255,0.12)",
   ink: "#0a0a1a",
-  muted: "#5a5a7a",
-  accent: "#005FFF",
-  border: "#d0d0e0",
+  muted: "#6a6a7a",
+  accent: "#0771a2",
   white: "#ffffff",
 };
 
 const s = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
-    fontSize: 9.5,
-    color: c.ink,
     backgroundColor: c.white,
-    paddingTop: 48,
-    paddingBottom: 48,
-    paddingHorizontal: 54,
+    // Padding at the Page level applies on every page, including continuations.
+    // paddingLeft clears the sidebar; paddingTop/bottom repeat on every page break.
+    paddingTop: 44,
+    paddingBottom: 44,
+    paddingLeft: SIDEBAR_W + 32,
+    paddingRight: 40,
   },
 
-  // ── Header ──────────────────────────────────────────────────────
-  name: {
+  // ── Sidebar ────────────────────────────────────────────────────
+  // Absolutely positioned so it sits outside the normal flow and
+  // doesn't consume the page's padded content area.
+  sidebar: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: SIDEBAR_W,
+    paddingBottom: 36,
+  },
+  photo: {
+    width: SIDEBAR_W,
+    height: 215,
+    objectFit: "cover",
+    objectPositionX: "center",
+    objectPositionY: "top",
+  },
+  sidebarContent: {
+    paddingHorizontal: 20,
+    paddingTop: 22,
+  },
+  sidebarSection: {
+    marginTop: 18,
+  },
+  sidebarSectionTitle: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 22,
-    letterSpacing: 0.5,
+    fontSize: 7,
+    letterSpacing: 2,
+    color: c.sidebarText,
+    textTransform: "uppercase",
+    paddingBottom: 4,
+    borderBottomWidth: 0.5,
+    borderBottomColor: c.sidebarRule,
+    borderBottomStyle: "solid",
+    marginBottom: 8,
   },
-  headline: {
-    fontSize: 11,
-    color: c.accent,
-    marginTop: 2,
+  sidebarLabel: {
+    fontSize: 6.5,
+    color: c.sidebarMuted,
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
+    marginBottom: 1,
   },
-  location: {
-    fontSize: 8.5,
-    color: c.muted,
-    marginTop: 1,
+  sidebarText: {
+    fontSize: 8,
+    color: c.sidebarText,
+    lineHeight: 1.45,
   },
-  contactRow: {
-    flexDirection: "row",
-    gap: 14,
-    marginTop: 5,
-  },
-  contactLink: {
-    fontSize: 8.5,
-    color: c.accent,
+  sidebarLink: {
+    fontSize: 8,
+    color: c.sidebarText,
     textDecoration: "none",
   },
-  summary: {
-    marginTop: 10,
-    fontSize: 9,
-    lineHeight: 1.55,
-    color: "#3a3a5a",
+  sidebarItem: {
+    marginBottom: 9,
+  },
+  proficiencyItem: {
+    marginBottom: 7,
+  },
+  proficiencyLabel: {
+    fontSize: 8,
+    color: c.sidebarText,
+    marginBottom: 2.5,
+  },
+  proficiencyTrack: {
+    // sidebar content width: SIDEBAR_W - 2 * paddingHorizontal(20) = 165
+    width: 165,
+    height: 3,
+    backgroundColor: "rgba(255,255,255,0.1)",
+    position: "relative",
   },
 
-  // ── Section ──────────────────────────────────────────────────────
+  // ── Main ──────────────────────────────────────────────────────
+  // No padding here — it lives on the Page so it repeats on every page.
+  main: {
+    flex: 1,
+  },
+  nameFirst: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 30,
+    letterSpacing: 3,
+    color: c.ink,
+    lineHeight: 1,
+  },
+  nameLast: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 36,
+    letterSpacing: 3,
+    color: c.ink,
+    lineHeight: 1,
+    marginBottom: 7,
+  },
+  headline: {
+    fontSize: 8.5,
+    letterSpacing: 2.5,
+    color: c.muted,
+    textTransform: "uppercase",
+    marginBottom: 22,
+  },
+  section: {
+    marginTop: 16,
+  },
   sectionTitle: {
     fontFamily: "Helvetica-Bold",
     fontSize: 9,
-    letterSpacing: 1.5,
-    color: c.accent,
+    letterSpacing: 2,
+    color: c.ink,
     textTransform: "uppercase",
-    marginTop: 18,
-    marginBottom: 2,
-    paddingBottom: 3,
-    borderBottomWidth: 0.75,
-    borderBottomColor: c.accent,
-    borderBottomStyle: "solid",
+    marginBottom: 3,
   },
-
-  // ── Entry ────────────────────────────────────────────────────────
+  sectionRule: {
+    height: 2,
+    backgroundColor: c.accent,
+    marginBottom: 10,
+  },
+  summary: {
+    fontSize: 8.5,
+    lineHeight: 1.65,
+    color: "#3a3a5a",
+  },
   entry: {
-    marginTop: 8,
+    marginBottom: 11,
   },
-  entryRow: {
+  entryHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
   entryTitle: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
-  },
-  entryCompany: {
-    fontSize: 9,
-    color: c.accent,
-    marginTop: 1,
-  },
-  entryMeta: {
-    fontSize: 8,
-    color: c.muted,
-    marginTop: 1,
+    fontSize: 9.5,
+    color: c.ink,
   },
   entryDate: {
     fontSize: 8,
     color: c.muted,
     textAlign: "right",
   },
+  entryMeta: {
+    fontSize: 8,
+    color: c.muted,
+    marginTop: 1,
+    marginBottom: 3,
+  },
+  descBlock: {
+    marginTop: 2,
+  },
   descLine: {
     fontSize: 8.5,
     lineHeight: 1.5,
     color: "#3a3a5a",
   },
-  descBlock: {
-    marginTop: 4,
-  },
-
-  // ── Skills ───────────────────────────────────────────────────────
-  skillsWrap: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 5,
-    marginTop: 6,
-  },
-  skill: {
-    fontSize: 8,
-    color: c.accent,
-    borderWidth: 0.5,
-    borderColor: c.accent,
-    borderStyle: "solid",
-    paddingHorizontal: 6,
-    paddingVertical: 2.5,
-  },
 });
+
+// ── Sub-components ─────────────────────────────────────────────
+
+function SidebarSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <View style={s.sidebarSection} wrap={false}>
+      <Text style={s.sidebarSectionTitle}>{title}</Text>
+      {children}
+    </View>
+  );
+}
+
+function MainSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <View style={s.section}>
+      <Text style={s.sectionTitle}>{title}</Text>
+      <View style={s.sectionRule} />
+      {children}
+    </View>
+  );
+}
+
+function ProficiencyItem({ label, level }: { label: string; level: number }) {
+  return (
+    <View style={s.proficiencyItem}>
+      <Text style={s.proficiencyLabel}>{label}</Text>
+      <View style={s.proficiencyTrack}>
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 165 * (level / 10),
+            height: 3,
+            backgroundColor: c.accent,
+          }}
+        />
+      </View>
+    </View>
+  );
+}
 
 function DescriptionBlock({ text }: { text: string }) {
   return (
-    <View style={s.descBlock}>
+    <View style={s.descBlock} wrap={false}>
       {text
         .split("\n")
         .map((line) => line.trim())
         .filter(Boolean)
         .map((line, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: static content
+          // biome-ignore lint/suspicious/noArrayIndexKey: static ordered content
           <Text key={i} style={s.descLine}>
             {line}
           </Text>
@@ -147,6 +266,10 @@ function DescriptionBlock({ text }: { text: string }) {
   );
 }
 
+// ── Component ──────────────────────────────────────────────────
+
+const photoPath = path.join(process.cwd(), "public", "thethechad.jpeg");
+
 export function ResumePdf() {
   return (
     <Document
@@ -154,72 +277,125 @@ export function ResumePdf() {
       author={`${profile.firstName} ${profile.lastName}`}
     >
       <Page size="LETTER" style={s.page}>
-        {/* ── Header ── */}
-        <Text style={s.name}>
-          {profile.firstName} {profile.lastName}
-        </Text>
-        <Text style={s.headline}>{profile.headline}</Text>
-        <Text style={s.location}>{profile.location}</Text>
-        <View style={s.contactRow}>
-          <Link src={`mailto:${profile.email}`} style={s.contactLink}>
-            {profile.email}
-          </Link>
-          <Link src={profile.linkedinUrl} style={s.contactLink}>
-            linkedin.com/in/thethechad
-          </Link>
-          <Link src={profile.githubUrl} style={s.contactLink}>
-            github.com/thethechad
-          </Link>
+        {/* Dark sidebar background — fixed so it renders on every page */}
+        <View
+          fixed
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: SIDEBAR_W,
+            bottom: 0,
+            backgroundColor: c.sidebarBg,
+          }}
+        />
+
+        {/* ── Left sidebar ── */}
+        <View style={s.sidebar}>
+          <Image src={photoPath} style={s.photo} />
+
+          <View style={s.sidebarContent}>
+            <SidebarSection title="Contact">
+              <View style={s.sidebarItem}>
+                <Text style={s.sidebarLabel}>Email</Text>
+                <Link src={`mailto:${profile.email}`} style={s.sidebarLink}>
+                  {profile.email}
+                </Link>
+              </View>
+              <View style={s.sidebarItem}>
+                <Text style={s.sidebarLabel}>Location</Text>
+                <Text style={s.sidebarText}>{profile.location}</Text>
+              </View>
+              <View style={s.sidebarItem}>
+                <Text style={s.sidebarLabel}>LinkedIn</Text>
+                <Link src={profile.linkedinUrl} style={s.sidebarLink}>
+                  {profile.linkedinUrl}
+                </Link>
+              </View>
+              <View style={s.sidebarItem}>
+                <Text style={s.sidebarLabel}>GitHub</Text>
+                <Link src={profile.githubUrl} style={s.sidebarLink}>
+                  {profile.githubUrl}
+                </Link>
+              </View>
+            </SidebarSection>
+
+            <SidebarSection title="Languages">
+              {languages.map((lang) => (
+                <ProficiencyItem
+                  key={lang.label}
+                  label={lang.label}
+                  level={lang.level}
+                />
+              ))}
+            </SidebarSection>
+
+            <SidebarSection title="Frameworks">
+              {frameworks.map((fw) => (
+                <ProficiencyItem
+                  key={fw.label}
+                  label={fw.label}
+                  level={fw.level}
+                />
+              ))}
+            </SidebarSection>
+
+            <SidebarSection title="Education">
+              {education.map((edu) => (
+                <View key={edu.school} style={s.sidebarItem}>
+                  <Text
+                    style={{
+                      fontFamily: "Helvetica-Bold",
+                      fontSize: 8,
+                      color: c.sidebarText,
+                      marginBottom: 1,
+                    }}
+                  >
+                    {edu.school}
+                  </Text>
+                  {edu.degree && (
+                    <Text style={s.sidebarText}>{edu.degree}</Text>
+                  )}
+                  <Text style={s.sidebarText}>{edu.fieldOfStudy}</Text>
+                  <Text style={{ fontSize: 7.5, color: c.sidebarMuted }}>
+                    {edu.startYear} — {edu.endYear ?? "Present"}
+                  </Text>
+                </View>
+              ))}
+            </SidebarSection>
+          </View>
         </View>
-        <Text style={s.summary}>{profile.summary}</Text>
 
-        {/* ── Experience ── */}
-        <Text style={s.sectionTitle}>Experience</Text>
-        {positions.map((pos) => (
-          <View key={`${pos.company}-${pos.title}`} style={s.entry}>
-            <View style={s.entryRow}>
-              <View>
-                <Text style={s.entryTitle}>{pos.title}</Text>
-                <Text style={s.entryCompany}>{pos.company}</Text>
-                <Text style={s.entryMeta}>{pos.location}</Text>
-              </View>
-              <Text style={s.entryDate}>
-                {pos.startDate} — {pos.endDate ?? "Present"}
-              </Text>
-            </View>
-            <DescriptionBlock text={pos.description} />
-          </View>
-        ))}
+        {/* ── Main content ── */}
+        <View style={s.main}>
+          <Text style={s.nameFirst}>{profile.firstName.toUpperCase()}</Text>
+          <Text style={s.nameLast}>{profile.lastName.toUpperCase()}</Text>
+          <Text style={s.headline}>{profile.headline}</Text>
 
-        {/* ── Education ── */}
-        <Text style={s.sectionTitle}>Education</Text>
-        {education.map((edu) => (
-          <View key={edu.school} style={s.entry}>
-            <View style={s.entryRow}>
-              <View>
-                <Text style={s.entryTitle}>{edu.school}</Text>
-                <Text style={s.entryCompany}>
-                  {edu.degree} · {edu.fieldOfStudy}
+          <MainSection title="Profile">
+            <Text style={s.summary}>{profile.summary}</Text>
+          </MainSection>
+
+          <MainSection title="Work Experience">
+            {positions.map((pos) => (
+              <View
+                key={`${pos.company}-${pos.title}`}
+                style={s.entry}
+                wrap={false}
+              >
+                <View style={s.entryHeader}>
+                  <Text style={s.entryTitle}>{pos.title}</Text>
+                  <Text style={s.entryDate}>
+                    {pos.startDate} — {pos.endDate ?? "Present"}
+                  </Text>
+                </View>
+                <Text style={s.entryMeta}>
+                  {pos.company} · {pos.location}
                 </Text>
-                {edu.activities && (
-                  <Text style={s.entryMeta}>{edu.activities}</Text>
-                )}
+                <DescriptionBlock text={pos.description} />
               </View>
-              <Text style={s.entryDate}>
-                {edu.startYear} — {edu.endYear ?? "Present"}
-              </Text>
-            </View>
-          </View>
-        ))}
-
-        {/* ── Skills ── */}
-        <Text style={s.sectionTitle}>Skills</Text>
-        <View style={s.skillsWrap}>
-          {skills.map((skill) => (
-            <Text key={skill} style={s.skill}>
-              {skill}
-            </Text>
-          ))}
+            ))}
+          </MainSection>
         </View>
       </Page>
     </Document>

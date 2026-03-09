@@ -103,7 +103,7 @@ export const education: Education[] = [
   },
 ] as const satisfies Education[];
 
-export const skills: string[] = [
+export const skills = [
   "TypeScript",
   "React",
   "Next.js",
@@ -115,6 +115,30 @@ export const skills: string[] = [
   "Git",
   "REST APIs",
 ] as const satisfies string[];
+
+export const frameworks: { label: string, level: number }[] = [
+  { label: "React", level: 10 },
+  { label: "NextJS", level: 10 },
+  { label: "NodeJS", level: 10 },
+  { label: "React Query", level: 8 },
+  { label: "Zod", level: 10 },
+  { label: "XState", level: 8 },
+  { label: "GraphQL", level: 6 },
+  { label: "Docker", level: 8 },
+  { label: "AWS", level: 7 },
+  { label: "Git", level: 7 },
+  { label: "REST APIs", level: 10 },
+] as const satisfies { label: string, level: number }[];
+
+export const languages = [
+  { label: "TypeScript", level: 10 },
+  { label: "JavaScript", level: 10 },
+  { label: "ECMAScript", level: 10 },
+  { label: "Bash", level: 7 },
+  { label: "PHP", level: 6 },
+  { label: "Python", level: 4 },
+  { label: "PostgreSQL", level: 6 },
+] as const satisfies { label: string, level: number }[];
 
 // TODO: Replace with your real projects
 export const projects: Project[] = [
