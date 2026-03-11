@@ -1,7 +1,7 @@
 "use client";
 
-import { Section } from "@/components/Section/Section";
 import { useState } from "react";
+import { Section } from "@/components/Section/Section";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -68,10 +68,14 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Name */}
             <div className="flex flex-col gap-1">
-              <label className="flex items-center gap-1.5 font-pixel text-[9px] text-soft">
+              <label
+                htmlFor="name-input"
+                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
+              >
                 <span className="text-pink">$</span> name
               </label>
               <input
+                id="name-input"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -84,10 +88,14 @@ export default function Contact() {
 
             {/* Email */}
             <div className="flex flex-col gap-1">
-              <label className="flex items-center gap-1.5 font-pixel text-[9px] text-soft">
+              <label
+                htmlFor="email-input"
+                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
+              >
                 <span className="text-pink">$</span> email
               </label>
               <input
+                id="email-input"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -100,10 +108,14 @@ export default function Contact() {
 
             {/* Message */}
             <div className="flex flex-col gap-1">
-              <label className="flex items-center gap-1.5 font-pixel text-[9px] text-soft">
+              <label
+                htmlFor="message-input"
+                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
+              >
                 <span className="text-pink">$</span> message
               </label>
               <textarea
+                id="message-input"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="What's on your mind?"
@@ -116,9 +128,7 @@ export default function Contact() {
 
             {/* Error */}
             {status === "error" && (
-              <p className="font-pixel text-[8px] text-pink">
-                ✗ {errorMsg}
-              </p>
+              <p className="font-pixel text-[8px] text-pink">✗ {errorMsg}</p>
             )}
 
             {/* Submit */}
