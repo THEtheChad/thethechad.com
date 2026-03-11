@@ -9,22 +9,22 @@ const s = StyleSheet.create({
     marginBottom: 7,
   },
   label: {
-    fontSize: 8,
+    fontSize: 7.5,
     color: c.sidebarText,
     marginBottom: 2.5,
   },
   track: {
     width: TRACK_WIDTH,
-    height: 3,
-    backgroundColor: "rgba(255,255,255,0.1)",
+    height: 2,
+    backgroundColor: "rgba(255,255,255,0.07)",
     position: "relative",
   },
   fill: {
     position: "absolute",
     top: 0,
     left: 0,
-    height: 3,
-    backgroundColor: c.accent,
+    height: 2,
+    backgroundColor: "rgba(255,255,255,0.45)",
   },
 });
 

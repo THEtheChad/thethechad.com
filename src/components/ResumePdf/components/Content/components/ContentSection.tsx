@@ -17,7 +17,7 @@ const s = StyleSheet.create({
   rule: {
     height: 2,
     backgroundColor: c.accent,
-    marginBottom: 10,
+    marginBottom: 16,
   },
 });
 

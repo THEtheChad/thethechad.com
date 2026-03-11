@@ -7,6 +7,7 @@ export interface Position {
   startDate: string;
   endDate: string | null; // null = present
   description: string;
+  technologies?: string[];
 }
 
 export interface Education {
@@ -34,14 +35,16 @@ export interface Project { title: string; description: string; url: string; tags
 
 export const profile: Profile = {
   firstName: "Chad",
-  lastName: "Elliott", // TODO: Update
-  headline: "Solutions Architect", // TODO: Update
+  lastName: "Elliott",
+  headline: "Software Architect / Staff Engineer",
   summary:
-    "Passionate software engineer with a focus on building scalable web applications and developer tooling. I enjoy working across the full stack and care deeply about user experience and code quality.", // TODO: Update
-  location: "Kansas City, MO", // TODO: Update
-  email: "chad.d.elliott@gmail.com", // TODO: Update
-  linkedinUrl: "https://linkedin.com/in/thethechad", // TODO: Update
-  githubUrl: "https://github.com/thethechad", // TODO: Update
+    `Staff-level software engineer specializing in modern web platforms, developer tooling, and large-scale application modernization.
+
+Experienced in leading migrations from legacy systems to modern React/TypeScript architectures, building CI/CD platforms, and designing developer infrastructure that accelerates team velocity. Known for introducing strongly typed APIs, state-machine driven workflows, and systems that enable parallel development across distributed teams.`,
+  location: "Kansas City, MO",
+  email: "chad.d.elliott@gmail.com",
+  linkedinUrl: "https://linkedin.com/in/thethechad",
+  githubUrl: "https://github.com/thethechad",
   resumeUrl: "/api/resume",
 };
 
@@ -53,12 +56,18 @@ export const positions: Position[] = [
     startDate: "Sep 2023",
     endDate: "Mar 2026",
     description:
-      `- Led the design and implementation of a shared Material UI component system, standardizing UI/UX across multiple applications and accelerating frontend development.
-- Led the migration of four legacy Java/JSP applications to modern React/Next.js platforms, designing CI/CD pipelines from scratch using GitLab, Helm, and AWS EKS. Optimized build times from 15 minutes to 8 minutes and implemented automated environment teardown to reduce infrastructure costs.
-- Evaluated and introduced modern frontend frameworks (Zodios, XState, React Query, React Hook Form) to improve developer productivity, API safety, and application reliability.
-- Established weekly engineering office hours, mentoring developers and improving adoption of new frontend architecture and tooling.
-- Built a type-safe API mocking platform using Zod, Zodios, and zod-fixture, enabling frontend teams to develop independently from Java backend services and allowing for parallel development and accelerating feature velocity.
-- Architected a dynamic form delivery and rendering platform, centralizing business rules and validation using JSONLogic and enabling consistent frontend and backend validation across licensing services`,
+      `Led modernization of a legacy Java/JSP application suite into a modern React + TypeScript platform backed by Java APIs.
+
+Key impact:
+- Architected a React component platform used across multiple applications, standardizing UI patterns and significantly reducing frontend implementation time.
+- Built a Kubernetes-based CI/CD platform (GitLab + Helm + EKS) supporting dynamic preview environments and reducing build times from 15 minutes to 8 minutes.
+- Designed a dynamic form platform using JSONLogic to centralize business rules and validation across frontend and backend licensing systems.
+- Introduced state-machine driven workflow architecture using XState, enabling automatic generation of diagrams used by product and engineering teams.
+- Implemented a type-safe API development platform using Zod, Zodios, and zod-fixture, enabling frontend teams to develop independently from backend services.
+- Established engineering office hours and architecture mentorship, accelerating adoption of the new frontend platform across teams.`,
+    technologies: [
+      "TypeScript", "React", "Next.js", "XState", "Zod", "React Query", "GitLab CI", "Kubernetes", "Helm", "AWS EKS", "Bash", "JSONLogic", "Zodios", "Zod Fixture"
+    ]
   },
   {
     title: "Software Engineer",
@@ -67,18 +76,17 @@ export const positions: Position[] = [
     startDate: "Mar 2021",
     endDate: "Jan 2023",
     description:
-      `Led the effort to revamp and enhance Tripleblind's web based user interface.
+      `Modernized a React-based application platform and established frontend architecture standards.
 
-I inherited a bare bones create-react-app application with minimal code structure. I then proceeded to:
-
-- port the build process from create-react-app to vite for optimized HMR (hot module reloading) and sped up development by roughly 2x
-- create a multistage docker build to allow caching and HMR in development and minimize the size of the production container by a factor of 1/3
-- introduced standardization: MUI for frontend components, redux for state management, react-hook-form for forms
-- upgrade to react 17 and switch to error boundaries/suspense to prevent unhandled application states
-
-As a member of the "UI/UX Design Team", I established design patterns and refined process flow for new and existing features.
-
-As a member of the "Refinement Team", I reviewed requirements for new features, sussed out potential issues, and set reasonable expectations for the development timeline.`,
+Key impact:
+- Migrated the build system from Create React App → Vite, improving developer feedback cycles and increasing HMR performance by ~2×.
+- Implemented multi-stage Docker builds, reducing production container size by ~66%.
+- Established frontend architecture standards using MUI, Redux, and React Hook Form.
+- Upgraded the application to React 17 and introduced error boundaries and Suspense, improving application stability.
+- Partnered with design and product teams to define UX patterns and improve development workflows.`,
+    technologies: [
+      "React", "Vite", "Docker", "Redux", "MUI", "React Hook Form"
+    ]
   },
   {
     title: "Marketing Automation Strategist",
@@ -87,10 +95,16 @@ As a member of the "Refinement Team", I reviewed requirements for new features, 
     startDate: "Jan 2016",
     endDate: "Mar 2021",
     description:
-      `Working alongside our Datawarehouse engineers, my job is to facilitate automation for all of the processes involved to take a lead and turn it into a billable revenue stream. The task necessitates that I interact with many different, distributed systems. This means knowing and understanding the various APIs and protocols, understanding the business process facilitated by each system, and defining the requirements necessary to carry out a particular step in the automation chain. I've leveraged microservices, job queues, and messaging services to connect each of these architectures together.
+      `Designed distributed automation systems that transformed incoming marketing leads into revenue-generating pipelines across internal and third-party platforms.
 
-The list of platforms we work with is quite long:
-Salesforce, Workday, Basecamp, Simpli.fi, Google DCM, Google DBM, Amazon, Supportbee, GTM, GA, Tableau Server, Looker, etc.`,
+Key impact:
+- Built microservice-based automation workflows integrating multiple SaaS platforms across the marketing and revenue pipeline.
+- Implemented job queue and messaging systems to coordinate asynchronous processing across services.
+- Defined API integration contracts across internal and third-party systems to enable end-to-end automation.
+- Partnered with analytics and data engineering teams to align automation pipelines with downstream reporting systems.`,
+    technologies: [
+      "Salesforce", "Workday", "Basecamp", "Simpli.fi", "Google Campaign Manager (DCM)", "Display & Video 360 (DBM)", "Amazon", "SupportBee", "Google Tag Manager", "Google Analytics", "Tableau Server", "Looker"
+    ]
   },
 ] as const satisfies Position[];
 
@@ -103,31 +117,34 @@ export const education: Education[] = [
   },
 ] as const satisfies Education[];
 
-export const skills = [
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "PostgreSQL",
-  "GraphQL",
-  "Docker",
-  "AWS",
-  "Git",
-  "REST APIs",
-] as const satisfies string[];
-
-export const frameworks: { label: string, proficiency: number }[] = [
+export const frontend = [
   { label: "React", proficiency: 10 },
   { label: "NextJS", proficiency: 10 },
-  { label: "NodeJS", proficiency: 10 },
-  { label: "React Query", proficiency: 8 },
   { label: "Zod", proficiency: 10 },
-  { label: "XState", proficiency: 8 },
-  { label: "GraphQL", proficiency: 6 },
-  { label: "Docker", proficiency: 8 },
-  { label: "AWS", proficiency: 7 },
-  { label: "Git", proficiency: 7 },
+  { label: "React Query", proficiency: 8 },
+  { label: "XState", proficiency: 7 },
+  { label: "Zod Fixture", proficiency: 10 },
+  { label: "React Hook Form", proficiency: 9 },
+  { label: "MUI", proficiency: 9 },
+  { label: "Tailwind", proficiency: 6 },
+  { label: "Redux", proficiency: 9 },
+] as const satisfies { label: string, proficiency: number }[];
+
+export const backend = [
+  { label: "NodeJS", proficiency: 10 },
   { label: "REST APIs", proficiency: 10 },
+  { label: "GraphQL", proficiency: 6 },
+  { label: "EffectTS", proficiency: 6 },
+] as const satisfies { label: string, proficiency: number }[];
+
+export const infrastructure = [
+  { label: "Docker", proficiency: 8 },
+  { label: "GitLab", proficiency: 8 },
+  { label: "Github", proficiency: 8 },
+  { label: "AWS", proficiency: 6 },
+  { label: "Git", proficiency: 8 },
+  { label: "Kubernetes", proficiency: 6 },
+  { label: "Helm", proficiency: 5 },
 ] as const satisfies { label: string, proficiency: number }[];
 
 export const languages = [
@@ -136,8 +153,11 @@ export const languages = [
   { label: "ECMAScript", proficiency: 10 },
   { label: "Bash", proficiency: 7 },
   { label: "PHP", proficiency: 6 },
+  { label: "SQL", proficiency: 6 },
   { label: "Python", proficiency: 4 },
-  { label: "PostgreSQL", proficiency: 6 },
+  { label: "C++", proficiency: 6 },
+  { label: "HTML", proficiency: 9 },
+  { label: "CSS", proficiency: 9 },
 ] as const satisfies { label: string, proficiency: number }[];
 
 // TODO: Replace with your real projects

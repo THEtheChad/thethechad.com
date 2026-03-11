@@ -1,10 +1,20 @@
-import { Link, StyleSheet, Text, View } from "@react-pdf/renderer";
-import { education, frameworks, languages, profile } from "@/data/resume";
+import path from "node:path";
+import { Image, Link, StyleSheet, Text, View } from "@react-pdf/renderer";
+import {
+  backend,
+  education,
+  frontend,
+  infrastructure,
+  languages,
+  profile,
+} from "@/data/resume";
 import { SIDEBAR_WIDTH } from "../../constants";
 import { c } from "../../styles";
 import { ContactItem } from "./components/ContactItem";
 import { ProficiencyItem } from "./components/ProficiencyItem";
 import { SidebarSection } from "./components/SidebarSection";
+
+const photoPath = path.join(process.cwd(), "public", "thethechad.jpeg");
 
 const s = StyleSheet.create({
   sidebar: {
@@ -14,9 +24,21 @@ const s = StyleSheet.create({
     width: SIDEBAR_WIDTH,
     paddingBottom: 36,
   },
+  photoContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 10,
+  },
+  photo: {
+    width: SIDEBAR_WIDTH - 40,
+    height: 180,
+    objectFit: "cover",
+    objectPositionX: "center",
+    objectPositionY: "top",
+  },
   content: {
     paddingHorizontal: 20,
-    paddingTop: 22,
+    paddingTop: 10,
   },
   item: {
     marginBottom: 9,
@@ -50,9 +72,19 @@ const s = StyleSheet.create({
   },
 });
 
+function sortProficiencyItems(
+  a: { proficiency: number },
+  b: { proficiency: number },
+) {
+  return b.proficiency - a.proficiency;
+}
+
 export function Sidebar() {
   return (
     <View style={s.sidebar}>
+      <View style={s.photoContainer}>
+        <Image src={photoPath} style={s.photo} />
+      </View>
       <View style={s.content}>
         <SidebarSection title="Contact">
           <ContactItem label="Email">
@@ -75,8 +107,28 @@ export function Sidebar() {
           </ContactItem>
         </SidebarSection>
 
-        <SidebarSection title="Frameworks">
-          {frameworks.map((fw) => (
+        <SidebarSection title="Frontend">
+          {frontend.sort(sortProficiencyItems).map((fw) => (
+            <ProficiencyItem
+              key={fw.label}
+              label={fw.label}
+              proficiency={fw.proficiency}
+            />
+          ))}
+        </SidebarSection>
+
+        <SidebarSection title="Backend">
+          {backend.sort(sortProficiencyItems).map((fw) => (
+            <ProficiencyItem
+              key={fw.label}
+              label={fw.label}
+              proficiency={fw.proficiency}
+            />
+          ))}
+        </SidebarSection>
+
+        <SidebarSection title="Infrastructure">
+          {infrastructure.sort(sortProficiencyItems).map((fw) => (
             <ProficiencyItem
               key={fw.label}
               label={fw.label}
@@ -86,7 +138,7 @@ export function Sidebar() {
         </SidebarSection>
 
         <SidebarSection title="Languages">
-          {languages.map((lang) => (
+          {languages.sort(sortProficiencyItems).map((lang) => (
             <ProficiencyItem
               key={lang.label}
               label={lang.label}
@@ -101,9 +153,6 @@ export function Sidebar() {
               <Text style={s.schoolName}>{edu.school}</Text>
               {edu.degree && <Text style={s.text}>{edu.degree}</Text>}
               <Text style={s.text}>{edu.fieldOfStudy}</Text>
-              <Text style={s.schoolYear}>
-                {edu.startYear} — {edu.endYear ?? "Present"}
-              </Text>
             </View>
           ))}
         </SidebarSection>
