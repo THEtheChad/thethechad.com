@@ -12,12 +12,16 @@ const LABELS: Record<Theme, string> = {
 
 const listeners = new Set<() => void>();
 
+// Fallback when localStorage is blocked, so the toggle still reflects an
+// in-page switch for the rest of this page view.
+let memoryTheme: Theme = "system";
+
 function readStoredTheme(): Theme {
   try {
     const value = localStorage.getItem(THEME_STORAGE_KEY);
     return isTheme(value) ? value : "system";
   } catch {
-    return "system";
+    return memoryTheme;
   }
 }
 
@@ -43,6 +47,7 @@ function subscribe(onChange: () => void) {
 }
 
 function setTheme(theme: Theme) {
+  memoryTheme = theme;
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {

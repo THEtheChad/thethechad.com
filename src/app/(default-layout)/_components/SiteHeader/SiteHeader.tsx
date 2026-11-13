@@ -14,9 +14,7 @@ export function SiteHeader() {
             <NavLinks />
           </nav>
           <ThemeToggle />
-          <div className="min-[720px]:hidden">
-            <MobileMenu />
-          </div>
+          <MobileMenu />
         </div>
       </div>
     </header>

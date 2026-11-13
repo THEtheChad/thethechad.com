@@ -32,6 +32,8 @@ const cedarville = Cedarville_Cursive({
   weight: "400",
   variable: "--font-cedarville",
   subsets: ["latin"],
+  // Footer-only aside; don't spend a preload on every page for it.
+  preload: false,
   display: "swap",
 });
 
