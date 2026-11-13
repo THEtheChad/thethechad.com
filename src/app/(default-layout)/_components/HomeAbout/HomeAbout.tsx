@@ -13,7 +13,7 @@ export function HomeAbout() {
         <div>
           {/* PLACEHOLDER: these two paragraphs follow the profile README, which
               marks its own about text as a placeholder. Owner to confirm. */}
-          <p className="max-w-[60ch] text-lg leading-[1.55] min-[720px]:text-xl">
+          <p className="measure-60 text-lg leading-[1.55] min-[720px]:text-xl">
             I'm {profile.firstName} {profile.lastName}, a staff-level engineer
             and architect in Kansas City. These days I'm all-in on{" "}
             <strong className="font-semibold text-pink-ink">
@@ -23,7 +23,7 @@ export function HomeAbout() {
             whole lifecycle, from planning and implementation to review, with
             the worktrees, hooks, and guardrails that keep them honest.
           </p>
-          <p className="mt-[18px] max-w-[65ch] text-[17px] leading-[1.7]">
+          <p className="mt-[18px] measure-65 text-[17px] leading-[1.7]">
             Underneath that it's still TypeScript, React, and Next.js, and away
             from the browser I tinker with microcontrollers (Arduino, ESP,
             STM32) and anything with a serial port. It started with a VTech

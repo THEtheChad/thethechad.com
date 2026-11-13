@@ -12,13 +12,22 @@ export interface PositionProps {
 const VISIBLE_BULLETS = 3;
 
 const bulletList =
-  "max-w-[68ch] list-['—_'] pl-[1.4em] text-base leading-[1.6] marker:text-cyan [&>li]:mt-2 [&>li]:pl-1";
+  "measure-68 list-['—_'] pl-[1.4em] text-base leading-[1.6] marker:text-cyan [&>li]:mt-2 [&>li]:pl-1";
 
 /**
  * One stop on the work timeline: an LED on the rail, Geist 600 title with the
  * company in pink-ink, warm mono dates, the summary, real bullets (the first
  * few up front, the rest in a native <details>), and the technologies as a
  * dot-separated mono line. The rail itself is the parent's ::before.
+ *
+ * Rail geometry: `--rail-x` is the rail's center line inside the first grid
+ * column (16px mobile / 24px desktop). The 1px rail sits at
+ * `--rail-x − 0.5px` and the 9px LED at `--rail-x − 4.5px`, so both share
+ * that center; the LED's 4px night ring masks the rail where they overlap
+ * (the rail starts at top-4, inside the LED). Vertically the LED centers on
+ * the title's first line: 9px + 4.5px ≈ half of 21px × 1.25 leading (mobile),
+ * 11px + 4.5px ≈ half of 24px × 1.25 (desktop); retune `mt-*` with the title
+ * size.
  */
 export function Position({ position }: PositionProps) {
   const { title, company, location, startDate, endDate, technologies } =
@@ -31,11 +40,11 @@ export function Position({ position }: PositionProps) {
   const current = endDate === null;
 
   return (
-    <article className="relative grid grid-cols-[16px_1fr] gap-x-3 pb-12 before:absolute before:top-4 before:-bottom-2 before:left-[7px] before:w-px before:bg-rim last:pb-0 last:before:hidden min-[720px]:grid-cols-[24px_1fr] min-[720px]:gap-x-5 min-[720px]:before:left-[11px]">
+    <article className="relative grid grid-cols-[16px_1fr] gap-x-3 pb-12 [--rail-x:7.5px] before:absolute before:top-4 before:-bottom-2 before:left-[calc(var(--rail-x)-0.5px)] before:w-px before:bg-rim last:pb-0 last:before:hidden min-[720px]:grid-cols-[24px_1fr] min-[720px]:gap-x-5 min-[720px]:[--rail-x:11.5px]">
       <span
         aria-hidden="true"
         className={twMerge(
-          "relative mt-[9px] ml-[3px] size-[9px] rounded-full bg-cyan ring-4 ring-night min-[720px]:ml-[7px] min-[720px]:mt-[11px]",
+          "relative mt-[9px] ml-[calc(var(--rail-x)-4.5px)] size-[9px] rounded-full bg-cyan ring-4 ring-night min-[720px]:mt-[11px]",
           current && "bg-warm",
         )}
       />
@@ -68,7 +77,7 @@ export function Position({ position }: PositionProps) {
           <p
             // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
             key={i}
-            className="mt-4 max-w-[65ch] text-[17px] leading-[1.65]"
+            className="mt-4 measure-65 text-[17px] leading-[1.65]"
           >
             {paragraph}
           </p>
@@ -111,7 +120,7 @@ export function Position({ position }: PositionProps) {
           <p
             // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
             key={i}
-            className="mt-4 max-w-[65ch] text-[17px] leading-[1.65]"
+            className="mt-4 measure-65 text-[17px] leading-[1.65]"
           >
             {paragraph}
           </p>

@@ -18,7 +18,7 @@ export default function Employment() {
     <>
       <SectionHeader as="h1" index="02" title="work" />
       <div className="mb-10 flex flex-wrap items-end justify-between gap-x-4 gap-y-5">
-        <p className="max-w-[52ch] text-lg leading-[1.55] min-[720px]:text-xl">
+        <p className="measure-52 text-lg leading-[1.55] min-[720px]:text-xl">
           {lead}
         </p>
         <a

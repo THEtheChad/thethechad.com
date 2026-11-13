@@ -45,7 +45,7 @@ export function TrackList({ tracks, start = 1, className }: TrackListProps) {
           {detail && (
             // Prose, not fine print: full width under the number on phones,
             // aligned with the title from 720px.
-            <span className="col-span-full mt-1.5 mb-2 block max-w-[65ch] font-sans text-[17px] leading-[1.7] text-muted min-[720px]:col-start-2">
+            <span className="col-span-full mt-1.5 mb-2 block measure-65 font-sans text-[17px] leading-[1.7] text-muted min-[720px]:col-start-2">
               {detail}
             </span>
           )}

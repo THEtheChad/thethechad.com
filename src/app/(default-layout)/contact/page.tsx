@@ -13,7 +13,7 @@ export default function Contact() {
   return (
     <>
       <SectionHeader as="h1" index="05" title="contact" />
-      <p className="mb-10 max-w-[60ch] text-lg leading-[1.55] min-[720px]:text-xl">
+      <p className="mb-10 measure-60 text-lg leading-[1.55] min-[720px]:text-xl">
         I'm highly engaged in the tech and entrepreneurial communities in Kansas
         City and am always looking to expand my network. I also really enjoy
         helping people, so if you need something, let me know!

@@ -1,0 +1,97 @@
+/*
+ * Metric-matched local fallbacks for Geist and Geist Mono (M5, font-swap CLS).
+ *
+ * next/font already emits "Geist Fallback" / "Geist Mono Fallback", but each is
+ * `src: local(Arial)` only. Linux and Android ship no Arial, so that face never
+ * resolves there and text falls through to DejaVu Sans / Roboto at their own
+ * metrics, then re-wraps when Geist arrives (CLS 0.08–0.17 measured with fonts
+ * delayed 1.2s). next/font's fallbacks are turned off in app/layout.tsx
+ * (`adjustFontFallback: false`) and these faces replace them in the stacks in
+ * globals.css: Arial and its metric clones (Liberation Sans, Arimo), Roboto,
+ * and monospace faces for Geist Mono (a proportional Arial, as next/font
+ * uses, cannot stand in for a mono face).
+ *
+ * How the numbers are derived (from the font files, not by eye):
+ *   size-adjust     = Geist avg advance / fallback avg advance
+ *                     (lowercase + space, weighted by English letter frequency)
+ *   ascent-override = 1.005 / size-adjust   (Geist hhea ascent 1005 / 1000 upm)
+ *   descent-override = 0.295 / size-adjust  (Geist hhea descent 295 / 1000 upm)
+ *   line-gap-override = 0                   (Geist hhea lineGap 0)
+ * Avg advances: Geist 400 0.4654, Geist 600 0.4859, Geist Mono 0.6000;
+ * Arial/Liberation Sans 0.4411, its Bold 0.4769; Roboto 0.4424, its Bold
+ * 0.4482; Courier New/Liberation Mono/Cousine 0.6000, DejaVu Sans Mono/Menlo
+ * 0.6020. Only 400 and 600 Geist are used on the site, so bold faces are
+ * sized to Geist 600. Re-derive if the Geist version or weights change.
+ */
+
+/* Sans, regular */
+@font-face {
+  font-family: "Geist Local Fallback";
+  src:
+    local("Arial"), local("ArialMT"), local("Liberation Sans"),
+    local("LiberationSans"), local("Arimo"), local("Arimo-Regular");
+  font-weight: 400;
+  size-adjust: 105.51%;
+  ascent-override: 95.25%;
+  descent-override: 27.96%;
+  line-gap-override: 0%;
+}
+
+/* Sans, semibold (Geist 600 against a 700 face, so the browser picks this
+   instead of synthesizing bold from the regular face) */
+@font-face {
+  font-family: "Geist Local Fallback";
+  src:
+    local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"),
+    local("LiberationSans-Bold"), local("Arimo Bold"), local("Arimo-Bold");
+  font-weight: 700;
+  size-adjust: 101.89%;
+  ascent-override: 98.64%;
+  descent-override: 28.95%;
+  line-gap-override: 0%;
+}
+
+/* Android: Roboto, when there is no Arial clone */
+@font-face {
+  font-family: "Geist Roboto Fallback";
+  src: local("Roboto"), local("Roboto-Regular");
+  font-weight: 400;
+  size-adjust: 105.2%;
+  ascent-override: 95.53%;
+  descent-override: 28.04%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Geist Roboto Fallback";
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  font-weight: 700;
+  size-adjust: 108.41%;
+  ascent-override: 92.7%;
+  descent-override: 27.21%;
+  line-gap-override: 0%;
+}
+
+/* Mono: same 0.6em advance as Geist Mono, so only the vertical metrics move */
+@font-face {
+  font-family: "Geist Mono Local Fallback";
+  src:
+    local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono"),
+    local("LiberationMono"), local("Cousine"), local("Cousine-Regular");
+  size-adjust: 100%;
+  ascent-override: 100.5%;
+  descent-override: 29.5%;
+  line-gap-override: 0%;
+}
+
+/* Mono: 0.602em advance */
+@font-face {
+  font-family: "Geist Mono Local Fallback 602";
+  src:
+    local("Menlo"), local("Menlo-Regular"), local("DejaVu Sans Mono"),
+    local("DejaVuSansMono");
+  size-adjust: 99.67%;
+  ascent-override: 100.83%;
+  descent-override: 29.6%;
+  line-gap-override: 0%;
+}

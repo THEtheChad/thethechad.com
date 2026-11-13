@@ -13,12 +13,18 @@ const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
+  // next/font's fallback is `local(Arial)` only, which Linux and Android
+  // lack; app/font-fallbacks.css supplies metric-matched faces instead.
+  adjustFontFallback: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+  // next/font's fallback is `local(Arial)` only, which Linux and Android
+  // lack; app/font-fallbacks.css supplies metric-matched faces instead.
+  adjustFontFallback: false,
 });
 
 const yellowtail = Yellowtail({

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./font-fallbacks.css";
 
 /*
  * KC After Dark — design tokens (docs/design/refresh-plan.md).
@@ -126,10 +127,15 @@
   --color-dusk-mid: var(--dusk-mid);
   --color-dusk-low: var(--dusk-low);
 
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  /* The *Fallback families are metric-matched local faces (font-fallbacks.css)
+     that hold the layout until Geist arrives. */
+  --font-sans:
+    var(--font-geist), "Geist Local Fallback", "Geist Roboto Fallback",
+    ui-sans-serif, system-ui, sans-serif;
   --font-mono:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Cascadia Mono",
-    Consolas, Menlo, monospace;
+    var(--font-geist-mono), "Geist Mono Local Fallback",
+    "Geist Mono Local Fallback 602", ui-monospace, "SFMono-Regular",
+    "Cascadia Mono", Consolas, Menlo, monospace;
   --font-script: var(--font-yellowtail), cursive;
   --font-hand: var(--font-cedarville), cursive;
 
@@ -210,6 +216,14 @@
   max-width: calc(var(--col) + 2 * var(--gutter));
   margin-inline: auto;
   padding-inline: var(--gutter);
+}
+
+/* Prose measure for Geist text: `measure-65` is 65ch as Geist draws it.
+   Set in em because `ch` follows the "0" of whichever font is showing, and
+   Geist's (0.663em) is ~11% wider than the fallback's: a ch measure would
+   re-wrap the page when Geist arrives. Mono text can keep `ch` (0.6em in both). */
+@utility measure-* {
+  max-width: calc(--value(integer) * 0.663em);
 }
 
 /* Mono label: 12px caps, wide tracking. */

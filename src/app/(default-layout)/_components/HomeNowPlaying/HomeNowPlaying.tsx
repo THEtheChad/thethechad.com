@@ -27,7 +27,7 @@ export function HomeNowPlaying() {
             <h3 className="mt-2 text-[22px] font-semibold">
               Free-to-use synthwave, on the deck
             </h3>
-            <p className="mt-2 max-w-[60ch] text-[17px] leading-[1.7] text-muted">
+            <p className="mt-2 measure-60 text-[17px] leading-[1.7] text-muted">
               The player is docked at the bottom of every page and keeps playing
               as you move around the site. Press play there whenever you like.
             </p>

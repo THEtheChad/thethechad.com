@@ -17,7 +17,7 @@ export function ContactResult({ tone, children }: ContactResultProps) {
     <>
       <SectionHeader as="h1" index="05" title="contact" />
       <div
-        className={`max-w-[60ch] border-l-2 pl-4 text-lg leading-[1.6] ${
+        className={`measure-60 border-l-2 pl-4 text-lg leading-[1.6] ${
           tone === "success" ? "border-cyan" : "border-red"
         }`}
       >

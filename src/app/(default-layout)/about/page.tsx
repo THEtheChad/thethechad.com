@@ -58,7 +58,7 @@ const hats: readonly Track[] = [
   },
 ];
 
-const prose = "max-w-[65ch] text-[17px] leading-[1.7]";
+const prose = "measure-65 text-[17px] leading-[1.7]";
 
 export default function About() {
   return (
@@ -67,7 +67,7 @@ export default function About() {
 
       <div className="grid items-start gap-8 min-[720px]:grid-cols-[1fr_240px] min-[720px]:gap-10">
         <div className="flex flex-col gap-[1.1em]">
-          <p className="max-w-[60ch] text-lg leading-[1.55] min-[720px]:text-xl">
+          <p className="measure-60 text-lg leading-[1.55] min-[720px]:text-xl">
             I vividly recall the first computer I ever owned. It was a VTech
             PreComputer 1000 with a 1 line LCD screen that my parents bought me
             when I was 8 or 9. The first thing I did when I got it was open up
