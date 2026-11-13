@@ -16,8 +16,8 @@ export default function ContactFailed() {
         <strong className="font-semibold text-red">
           Your message couldn't be sent.
         </strong>{" "}
-        Every field is required. Please go back and try again, or reach me on
-        GitHub or LinkedIn from the links below.
+        Please check that every field is filled in, or try again in a moment.
+        You can also reach me on GitHub or LinkedIn from the links below.
       </p>
     </ContactResult>
   );

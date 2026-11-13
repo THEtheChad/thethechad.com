@@ -92,12 +92,15 @@ export function TapeDeck({ albums }: { albums: Album[] }) {
             <span className="label hidden shrink-0 text-cyan min-[720px]:inline">
               Side C
             </span>
-            <span className="max-w-full shrink-0 truncate text-sm text-text">
-              {track.title}
-            </span>
-            {player.error && (
-              <span className="shrink-0 font-mono text-xs text-red">
+            {/* On a load error the message takes the title's (truncating)
+                slot, so it can't collide with the EQ bars or the toggle. */}
+            {player.error ? (
+              <span className="min-w-0 truncate font-mono text-xs text-red">
                 {player.error}
+              </span>
+            ) : (
+              <span className="max-w-full shrink-0 truncate text-sm text-text">
+                {track.title}
               </span>
             )}
             <span className="hidden min-w-0 truncate font-mono text-xs tracking-[0.04em] text-muted min-[720px]:inline">

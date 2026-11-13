@@ -37,10 +37,17 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
       id={id}
       hidden={!open}
       aria-label="Track list"
-      className="max-h-[calc(100dvh-var(--header-h)-var(--dock-h)-16px)] overflow-y-auto overscroll-contain border-b border-rim"
+      // Opaque: the dock's translucent ground let page content bleed through.
+      className="max-h-[calc(100dvh-var(--header-h)-var(--dock-h)-16px)] overflow-y-auto overscroll-contain border-b border-rim bg-ink"
     >
       {open && (
         <div className="site-column grid gap-x-10 gap-y-6 py-5 min-[720px]:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+          {player.error && (
+            <p className="border-l-2 border-red pl-3 text-[15px] leading-[1.6] min-[720px]:col-span-2">
+              <span className="font-semibold text-red">{player.error}</span>{" "}
+              Press play to try again, or pick another track.
+            </p>
+          )}
           {/* Seek · transport · volume */}
           <div className="min-[720px]:col-span-2">
             <div className="flex items-center gap-3">
