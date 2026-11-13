@@ -1,4 +1,5 @@
 import { DotList } from "@/components/DotList/DotList";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import type { Project } from "@/data/resume";
 
 export interface ProjectCardProps {
@@ -37,7 +38,7 @@ export function ProjectCard({
             className="after:absolute after:inset-0 after:rounded-[14px] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-3 focus-visible:after:outline-cyan"
           >
             {project.title}
-            <span className="sr-only"> (opens in a new tab)</span>
+            <NewTabNote />
           </a>
         </Heading>
         <span aria-hidden="true" className="font-mono text-sm text-pink-ink">

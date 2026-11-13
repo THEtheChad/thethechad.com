@@ -66,7 +66,7 @@ export function HeroArt() {
         aria-label={label}
         title={label}
         data-hero-paused={paused ? "" : undefined}
-        className="js-only theme-dark group absolute top-0.5 right-0.5 grid size-11 cursor-pointer place-items-center rounded-full motion-reduce:hidden min-[720px]:top-2 min-[720px]:right-2"
+        className="js-only theme-dark group absolute top-1 right-2 grid size-11 cursor-pointer place-items-center rounded-full motion-reduce:hidden min-[720px]:top-2 min-[720px]:right-2"
       >
         <span className="grid size-8 place-items-center rounded-full border border-rim-strong bg-ink/80 text-text transition-colors duration-150 group-hover:border-cyan group-hover:text-cyan">
           <svg

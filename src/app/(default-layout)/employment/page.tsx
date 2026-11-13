@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { positions, profile } from "@/data/resume";
 import { buttonSecondary } from "@/lib/buttonClasses";
@@ -30,6 +31,7 @@ export default function Employment() {
           className={buttonSecondary}
         >
           <span aria-hidden="true">↓</span> Résumé.pdf
+          <NewTabNote />
         </a>
       </div>
       <div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type MouseEvent, useEffect, useRef } from "react";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
 import { externalLinks, isActive, navItems } from "../../navItems";
 
@@ -131,6 +132,7 @@ export function MobileMenu() {
                     className="inline-flex min-h-11 items-center underline decoration-rim-strong underline-offset-4 hover:text-text"
                   >
                     {label}
+                    <NewTabNote />
                   </a>
                 </li>
               ))}

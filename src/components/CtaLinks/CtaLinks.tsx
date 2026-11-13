@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { profile } from "@/data/resume";
 import { buttonPrimary, buttonSecondary } from "@/lib/buttonClasses";
 
@@ -24,7 +25,7 @@ export function CtaLinks({ className }: CtaLinksProps) {
           className={buttonSecondary}
         >
           <span aria-hidden="true">↓</span> Résumé.pdf
-          <span className="sr-only"> (opens in a new tab)</span>
+          <NewTabNote />
         </a>
       </li>
       <li>
@@ -35,7 +36,7 @@ export function CtaLinks({ className }: CtaLinksProps) {
           className={buttonSecondary}
         >
           GitHub <span aria-hidden="true">↗</span>
-          <span className="sr-only"> (opens in a new tab)</span>
+          <NewTabNote />
         </a>
       </li>
     </ul>

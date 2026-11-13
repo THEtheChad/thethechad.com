@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { pageMetadata } from "@/lib/pageMetadata";
 import { externalLinks } from "../_components/SiteHeader/navItems";
@@ -43,6 +44,7 @@ export default function Contact() {
                   className="inline-flex min-h-11 items-center gap-2 text-text underline decoration-rim-strong underline-offset-4 transition-colors duration-150 hover:text-pink-ink hover:decoration-pink-ink"
                 >
                   {label} <span aria-hidden="true">↗</span>
+                  <NewTabNote />
                 </a>
               </li>
             ))}

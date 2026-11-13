@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import type { AudioPlayer } from "../../hooks/useAudioPlayer";
 import type { Album } from "../../types";
 import { Transport } from "../Transport/Transport";
@@ -161,7 +162,7 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
                   className="inline-flex min-h-11 items-center text-cyan underline underline-offset-4 hover:text-text"
                 >
                   Album page<span aria-hidden="true">&nbsp;↗</span>
-                  <span className="sr-only"> (opens in a new tab)</span>
+                  <NewTabNote />
                 </a>
               </p>
             )}

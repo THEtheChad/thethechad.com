@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { externalLinks, navItems } from "../SiteHeader/navItems";
 
 export function SiteFooter() {
@@ -38,6 +39,7 @@ export function SiteFooter() {
                   className="inline-flex min-h-11 items-center underline decoration-rim-strong underline-offset-4 transition-colors duration-150 hover:text-text"
                 >
                   {label}
+                  <NewTabNote />
                 </a>
               </li>
             ))}
