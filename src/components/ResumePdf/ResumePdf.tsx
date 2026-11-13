@@ -18,7 +18,11 @@ const s = StyleSheet.create({
   },
 });
 
-export function ResumePdf() {
+export interface ResumePdfProps {
+  contactEmail?: string;
+}
+
+export function ResumePdf({ contactEmail }: ResumePdfProps) {
   return (
     <Document
       title={`${profile.firstName} ${profile.lastName} — Resume`}
@@ -38,7 +42,7 @@ export function ResumePdf() {
           }}
         />
 
-        <Sidebar />
+        <Sidebar contactEmail={contactEmail} />
         <Content />
       </Page>
     </Document>

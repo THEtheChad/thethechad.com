@@ -4,6 +4,8 @@ interface ContactFields {
   name: string;
   email: string;
   message: string;
+  /** Visitor asked for the résumé (sent by hand; it isn't public). */
+  resume: boolean;
 }
 
 const SERVER_ERRORS = new Set([
@@ -32,11 +34,12 @@ async function readFields(req: NextRequest): Promise<ContactFields | null> {
     if (type.includes("application/json")) {
       const data: unknown = await req.json();
       if (!data || typeof data !== "object") return null;
-      const { name, email, message } = data as Record<string, unknown>;
+      const { name, email, message, resume } = data as Record<string, unknown>;
       return {
         name: field(name),
         email: field(email),
         message: field(message),
+        resume: resume === true,
       };
     }
     const form = await req.formData();
@@ -44,6 +47,7 @@ async function readFields(req: NextRequest): Promise<ContactFields | null> {
       name: field(form.get("name")),
       email: field(form.get("email")),
       message: field(form.get("message")),
+      resume: form.get("resume") === "yes",
     };
   } catch {
     return null;
@@ -51,7 +55,7 @@ async function readFields(req: NextRequest): Promise<ContactFields | null> {
 }
 
 /** Sends the message; resolves to an error message, or null on success. */
-async function deliver({ name, email, message }: ContactFields) {
+async function deliver({ name, email, message, resume }: ContactFields) {
   if (!name || !email || !message) return "All fields are required.";
   if (
     name.length > MAX_LENGTH.name ||
@@ -80,10 +84,11 @@ async function deliver({ name, email, message }: ContactFields) {
       from: fromEmail,
       to: toEmail,
       reply_to: email,
-      subject: `[Contact] Message from ${name.replace(/[\r\n]+/g, " ")}`,
+      subject: `[${resume ? "Résumé request" : "Contact"}] Message from ${name.replace(/[\r\n]+/g, " ")}`,
       html: `
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        ${resume ? "<p><strong>Résumé requested:</strong> yes</p>" : ""}
         <hr/>
         <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
       `,

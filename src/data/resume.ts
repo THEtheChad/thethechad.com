@@ -1,4 +1,6 @@
-// TODO: Replace mock data with parsed LinkedIn export (Profile.csv, Positions.csv, Education.csv, Skills.csv)
+// Public data only: this file is in a public repo and feeds the site. Keep
+// personal details (email, phone, address) out of it; the résumé PDF reads
+// its contact email from the RESUME_EMAIL environment variable.
 
 export interface Position {
   title: string;
@@ -25,10 +27,8 @@ export interface Profile {
   headline: string;
   summary: string;
   location: string;
-  email: string;
   linkedinUrl: string;
   githubUrl: string;
-  resumeUrl: string;
 }
 
 export interface Project {
@@ -46,10 +46,8 @@ export const profile: Profile = {
 
 Experienced in leading migrations from legacy systems to modern React/TypeScript architectures, building CI/CD platforms, and designing developer infrastructure that accelerates team velocity. Known for introducing strongly typed APIs, state-machine driven workflows, and systems that enable parallel development across distributed teams.`,
   location: "Kansas City, MO",
-  email: "",
   linkedinUrl: "https://linkedin.com/in/thethechad",
   githubUrl: "https://github.com/thethechad",
-  resumeUrl: "/api/resume",
 };
 
 export const positions: Position[] = [

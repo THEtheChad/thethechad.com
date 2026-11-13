@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
+import Link from "next/link";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { positions, profile } from "@/data/resume";
 import { buttonSecondary } from "@/lib/buttonClasses";
 import { pageMetadata } from "@/lib/pageMetadata";
+import { RESUME_REQUEST_HREF } from "@/lib/routes";
 import { Position } from "./_components/Position/Position";
 
 export const metadata: Metadata = pageMetadata({
@@ -24,15 +25,9 @@ export default function Employment() {
         <p className="measure-52 text-lg leading-[1.55] min-[720px]:text-xl">
           {lead}
         </p>
-        <a
-          href={profile.resumeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonSecondary}
-        >
-          <span aria-hidden="true">↓</span> Résumé.pdf
-          <NewTabNote />
-        </a>
+        <Link href={RESUME_REQUEST_HREF} className={buttonSecondary}>
+          Request résumé
+        </Link>
       </div>
       <div>
         {positions.map((position) => (

@@ -35,6 +35,8 @@ Principles:
 
 ## Design tokens
 
+**Privacy (2026-11-13):** no personal details on the site or in the repo. Contact and the résumé go through the contact form only; résumé links became "Request résumé" (`/contact#resume`), and the PDF renders only behind `RESUME_ACCESS_KEY`.
+
 Implement as CSS custom properties on `:root` (dark, canonical) overridden by `[data-theme="light"]` and by `@media (prefers-color-scheme: light)` when no explicit theme is set; expose them through Tailwind 4 `@theme inline`. No `dark:` variant sprawl.
 
 | Token        | Dark      | Light     | Source / role                                    |

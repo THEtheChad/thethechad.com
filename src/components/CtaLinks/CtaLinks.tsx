@@ -3,12 +3,13 @@ import { twMerge } from "tailwind-merge";
 import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
 import { profile } from "@/data/resume";
 import { buttonPrimary, buttonSecondary } from "@/lib/buttonClasses";
+import { RESUME_REQUEST_HREF } from "@/lib/routes";
 
 export interface CtaLinksProps {
   className?: string;
 }
 
-/** The three calls to action: contact (primary), résumé, and GitHub. */
+/** The three calls to action: contact (primary), résumé request, GitHub. */
 export function CtaLinks({ className }: CtaLinksProps) {
   return (
     <ul className={twMerge("flex flex-wrap gap-3", className)}>
@@ -18,15 +19,9 @@ export function CtaLinks({ className }: CtaLinksProps) {
         </Link>
       </li>
       <li>
-        <a
-          href={profile.resumeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={buttonSecondary}
-        >
-          <span aria-hidden="true">↓</span> Résumé.pdf
-          <NewTabNote />
-        </a>
+        <Link href={RESUME_REQUEST_HREF} className={buttonSecondary}>
+          Request résumé
+        </Link>
       </li>
       <li>
         <a

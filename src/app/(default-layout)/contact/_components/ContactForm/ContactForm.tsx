@@ -26,6 +26,7 @@ async function send(body: {
   name: string;
   email: string;
   message: string;
+  resume: boolean;
 }): Promise<string | null> {
   try {
     const res = await fetch("/api/contact", {
@@ -64,6 +65,11 @@ async function send(body: {
  */
 export function ContactForm() {
   const [values, setValues] = useState({ name: "", email: "", message: "" });
+  // "Request résumé" links land on /contact#resume with this box ticked.
+  const [resume, setResume] = useState(false);
+  useEffect(() => {
+    if (window.location.hash === "#resume") setResume(true);
+  }, []);
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const pending = status.state === "pending";
   // Guards double submits within one render, before `pending` is visible.
@@ -94,7 +100,7 @@ export function ContactForm() {
     // bubble on the first offending field.
     for (const el of e.currentTarget.querySelectorAll<
       HTMLInputElement | HTMLTextAreaElement
-    >("input, textarea")) {
+    >("input:not([type=checkbox]), textarea")) {
       if (!el.value.trim()) {
         el.setCustomValidity("Please fill out this field.");
         el.reportValidity();
@@ -104,7 +110,7 @@ export function ContactForm() {
 
     inFlight.current = true;
     setStatus({ state: "pending" });
-    const error = await send(values);
+    const error = await send({ ...values, resume });
     inFlight.current = false;
     if (error) {
       setStatus({ state: "error", message: error });
@@ -112,6 +118,7 @@ export function ContactForm() {
     }
     setStatus({ state: "success" });
     setValues({ name: "", email: "", message: "" });
+    setResume(false);
   }
 
   return (
@@ -178,6 +185,24 @@ export function ContactForm() {
           className={twMerge(input, "min-h-36 resize-y")}
         />
       </div>
+
+      {/* The résumé carries contact details, so it is sent on request. */}
+      <label
+        htmlFor="resume"
+        className="flex min-h-11 cursor-pointer items-center gap-3 self-start text-[15px]"
+      >
+        <input
+          id="resume"
+          name="resume"
+          type="checkbox"
+          value="yes"
+          checked={resume}
+          onChange={(e) => setResume(e.currentTarget.checked)}
+          disabled={pending}
+          className="size-5 shrink-0 cursor-pointer accent-pink"
+        />
+        Please send me your résumé
+      </label>
 
       <div className="flex flex-col items-start">
         <button

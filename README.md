@@ -30,8 +30,8 @@ pnpm dev
 
 ## Content
 
-- **Résumé data:** `src/data/resume.ts` feeds the pages and the PDF at
-  `/api/resume` (`src/components/ResumePdf`).
+- **Résumé data:** `src/data/resume.ts` (public data only) feeds the pages
+  and the private PDF at `/api/resume` (`src/components/ResumePdf`).
 - **Photos:** files in `public/photography/`, listed with alt text, size and
   year in `src/data/photos.ts`. The build fails if an entry has no file.
 - **Music:** `public/music/<label>/<album>/` holding `Artist - Album - NN Title.mp3`
@@ -51,6 +51,18 @@ The contact form (`/api/contact`) sends mail through [Resend](https://resend.com
 | `RESEND_API_KEY`    | Required to send. Without it the form reports a server error. |
 | `CONTACT_EMAIL`     | Required. Where messages are delivered.                       |
 | `RESEND_FROM_EMAIL` | Optional sender; defaults to `onboarding@resend.dev`.         |
+
+The résumé is not public (it carries contact details). Visitors request it
+with the contact form's "send me your résumé" box (`/contact#resume`
+pre-ticks it); the email arrives as `[Résumé request]`. The PDF renders only
+for the owner:
+
+| Variable            |                                                                              |
+| ------------------- | ---------------------------------------------------------------------------- |
+| `RESUME_ACCESS_KEY` | Required. `/api/resume?key=<value>` renders the PDF; anything else is a 404. |
+| `RESUME_EMAIL`      | Optional. The email printed on the PDF. Kept out of the repo on purpose.     |
+
+No personal details (email, phone, address) belong in the repo: it is public.
 
 ## Conventions
 

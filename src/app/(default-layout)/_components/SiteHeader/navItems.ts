@@ -23,7 +23,6 @@ export interface ExternalLink {
 export const externalLinks: readonly ExternalLink[] = [
   { label: "github", href: profile.githubUrl },
   { label: "linkedin", href: profile.linkedinUrl },
-  { label: "résumé.pdf", href: profile.resumeUrl },
 ];
 
 export function isActive(pathname: string, href: string) {
