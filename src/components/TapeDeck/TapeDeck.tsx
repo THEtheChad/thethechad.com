@@ -58,6 +58,13 @@ export function TapeDeck({ albums }: { albums: Album[] }) {
       tabIndex={-1}
       aria-label="Music player"
       onKeyDown={onKeyDown}
+      // The sheet is non-modal: once focus leaves the player it would cover
+      // whatever gets focus next, so close it (focus stays where it went).
+      onBlur={(e) => {
+        if (sheetOpen && !e.currentTarget.contains(e.relatedTarget as Node)) {
+          setSheetOpen(false);
+        }
+      }}
       className="js-only fixed inset-x-0 bottom-0 z-30 flex flex-col-reverse border-t border-rim bg-ink/92 backdrop-blur-md"
     >
       <audio {...player.audioProps} />

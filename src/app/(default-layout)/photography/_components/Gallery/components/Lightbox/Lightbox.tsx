@@ -122,7 +122,9 @@ export function Lightbox({
             onPointerCancel={() => {
               swipeStart.current = null;
             }}
-            className="flex min-h-0 flex-1 touch-pan-y items-center justify-center px-(--gutter)"
+            // A size container, so the photo can be fitted to the stage itself
+            // rather than to whichever srcset candidate happened to load.
+            className="flex min-h-0 flex-1 touch-pan-y items-center justify-center px-(--gutter) [container-type:size]"
           >
             <Image
               key={active.src}
@@ -132,7 +134,13 @@ export function Lightbox({
               height={active.height}
               sizes="100vw"
               loading="eager"
-              className="h-auto max-h-full w-auto max-w-full rounded-ctl object-contain"
+              // Contain-fit by aspect ratio: as wide as the stage allows, or as
+              // tall as it allows, whichever is smaller. The box hugs the photo,
+              // so taps beside it still reach the stage (and close).
+              style={{
+                width: `min(100cqw, ${(active.width / active.height) * 100}cqh)`,
+              }}
+              className="h-auto max-w-none rounded-ctl"
             />
           </div>
 
