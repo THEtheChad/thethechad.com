@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { AlbumMeta } from "@/app/(api)/api/music/route";
 import { useSharedAnalyserRef } from "@/contexts/AudioAnalyserContext";
-import { Marquee } from "../Marquee/Marquee";
 
 const INITIAL_VOLUME = 0.65;
 
@@ -226,10 +225,11 @@ export function RetroAmp() {
 
   // ── Render ────────────────────────────────────────────────────────────────────
   // Re-tokened only; the "Side C" TapeDeck redesign lands in M4.
+  // Display is set per button so responsive `hidden` variants don't conflict.
   const transportBtn =
-    "inline-flex size-9 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:bg-raise hover:text-text";
+    "size-11 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:bg-raise hover:text-text";
   const panelBtn = (active: boolean) =>
-    `label inline-flex h-7 items-center rounded-sm px-2 transition-colors duration-150 hover:text-text ${
+    `label inline-flex h-11 items-center rounded-sm px-2 transition-colors duration-150 hover:text-text ${
       active ? "bg-raise text-text" : "text-muted"
     }`;
 
@@ -370,18 +370,11 @@ export function RetroAmp() {
         {/* Track info + seek */}
         <div className="min-w-0 flex-1">
           <div className="mb-0.5 overflow-hidden">
-            <Marquee
-              content={
-                track
-                  ? `${track.artist} — ${track.displayName}`
-                  : "No track loaded"
-              }
-              slotProps={{
-                root: {
-                  className: "font-mono text-[13px] leading-5 text-text",
-                },
-              }}
-            />
+            <p className="truncate font-mono text-[13px] leading-5 text-text">
+              {track
+                ? `${track.artist} — ${track.displayName}`
+                : "No track loaded"}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-9 shrink-0 font-mono text-xs text-muted tabular-nums">
@@ -395,7 +388,7 @@ export function RetroAmp() {
               step={0.1}
               value={currentTime}
               onChange={seek}
-              className="retroamp-range min-w-0 flex-1"
+              className="retroamp-range -my-3 min-w-0 flex-1"
             />
             <span className="w-9 shrink-0 text-right font-mono text-xs text-muted tabular-nums">
               {fmt(duration)}
@@ -408,7 +401,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={prevTrack}
-            className={transportBtn}
+            className={`${transportBtn} inline-flex`}
             aria-label="Previous track"
           >
             <IconPrev />
@@ -416,7 +409,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={playing ? pause : play}
-            className="inline-flex size-10 items-center justify-center rounded-full bg-pink text-on-accent transition-opacity duration-150 hover:opacity-90"
+            className="inline-flex size-11 items-center justify-center rounded-full bg-pink text-on-accent transition-opacity duration-150 hover:opacity-90"
             aria-label={playing ? "Pause" : "Play"}
           >
             {playing ? <IconPause /> : <IconPlay />}
@@ -432,7 +425,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={nextTrack}
-            className={transportBtn}
+            className={`${transportBtn} inline-flex`}
             aria-label="Next track"
           >
             <IconNext />
@@ -452,7 +445,7 @@ export function RetroAmp() {
             step={0.01}
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="retroamp-range w-20"
+            className="retroamp-range -my-3 w-20"
           />
           <span className="w-7 text-right font-mono text-xs text-muted tabular-nums">
             {Math.round(volume * 100)}

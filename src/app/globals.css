@@ -38,7 +38,7 @@
   --header-h: 56px;
   /* Height reserved at the bottom of every page for the docked player
      (RetroAmp is ~82px; the M4 TapeDeck dock targets ~56px). */
-  --dock-h: 88px;
+  --dock-h: 104px; /* interim RetroAmp height; M4 TapeDeck targets ~56px */
 }
 
 /* Keep the two light blocks identical. */
@@ -122,17 +122,6 @@
 
   --radius-plate: 16px;
   --radius-ctl: 8px;
-
-  --animate-marquee: marquee 10s linear infinite;
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-25%);
-    }
-  }
 }
 
 /* ── Base ───────────────────────────────────────────────────────────── */
@@ -271,17 +260,30 @@
 
 /* ── Player range inputs (RetroAmp; redesigned as TapeDeck in M4) ─── */
 
+/* 44px hit area; the visible track stays a 4px hairline. */
 input[type="range"].retroamp-range {
   -webkit-appearance: none;
   appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].retroamp-range::-webkit-slider-runnable-track {
   height: 4px;
   background: var(--rim-strong);
   border-radius: 2px;
-  cursor: pointer;
+}
+
+input[type="range"].retroamp-range::-moz-range-track {
+  height: 4px;
+  background: var(--rim-strong);
+  border-radius: 2px;
 }
 
 input[type="range"].retroamp-range::-webkit-slider-thumb {
   -webkit-appearance: none;
+  margin-top: -5px;
   width: 14px;
   height: 14px;
   background: var(--pink);

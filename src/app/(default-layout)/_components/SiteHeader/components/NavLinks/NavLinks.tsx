@@ -17,7 +17,7 @@ export function NavLinks() {
             <Link
               href={href}
               aria-current={active ? "page" : undefined}
-              className={`group relative flex h-11 items-center px-3 font-mono text-xs uppercase tracking-[0.16em] transition-colors duration-150 ${
+              className={`group relative flex h-11 items-center px-2 font-mono min-[800px]:px-3 text-xs uppercase tracking-[0.16em] transition-colors duration-150 ${
                 active ? "text-text" : "text-muted hover:text-text"
               }`}
             >
@@ -31,7 +31,7 @@ export function NavLinks() {
               {active && (
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-3 bottom-1 h-0.5 rounded-[1px] bg-linear-to-r from-pink to-cyan [filter:var(--glow-rule)]"
+                  className="absolute inset-x-2 bottom-1 min-[800px]:inset-x-3 h-0.5 rounded-[1px] bg-linear-to-r from-pink to-cyan [filter:var(--glow-rule)]"
                 />
               )}
             </Link>

@@ -3,7 +3,7 @@ import { externalLinks } from "../SiteHeader/navItems";
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-rim pt-8 pb-10">
-      <div className="site-column flex flex-col items-start gap-6 min-[720px]:flex-row min-[720px]:items-center min-[720px]:justify-between">
+      <div className="site-column flex flex-col items-start gap-6 min-[800px]:flex-row min-[800px]:items-center min-[800px]:justify-between">
         <div>
           <p className="label text-muted">
             Best viewed after midnight · Kansas City, MO
@@ -23,7 +23,7 @@ export function SiteFooter() {
             ))}
           </ul>
         </div>
-        <p className="hand">recorded in Kansas City</p>
+        <p className="hand shrink-0">recorded in Kansas City</p>
       </div>
     </footer>
   );
