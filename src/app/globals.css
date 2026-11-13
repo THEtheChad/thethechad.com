@@ -138,9 +138,16 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Anchors and focused elements land below the sticky header. */
-    scroll-padding-top: calc(var(--header-h) + 16px);
-    scroll-padding-bottom: var(--dock-h);
+  }
+
+  /* In-flow anchors and focus targets land clear of the sticky header and
+     the docked player. Scroll-margin (not root scroll-padding) so focusing
+     the header or opening the menu never scrolls the page. */
+  main,
+  main :is(a, button, input, textarea, select, summary, [tabindex], [id]),
+  footer :is(a, button) {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+    scroll-margin-bottom: calc(var(--dock-h) + 8px);
   }
 
   body {

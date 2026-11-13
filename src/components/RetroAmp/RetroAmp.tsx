@@ -234,7 +234,10 @@ export function RetroAmp() {
     }`;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-rim bg-ink/92 backdrop-blur-md">
+    <aside
+      aria-label="Music player"
+      className="js-only fixed inset-x-0 bottom-0 z-30 border-t border-rim bg-ink/92 backdrop-blur-md"
+    >
       {/* AL panel — expands upward */}
       {view === "al" && (
         <div className="border-b border-rim p-3">
@@ -250,7 +253,7 @@ export function RetroAmp() {
                 type="button"
                 onClick={() => selectAlbum(i)}
                 aria-pressed={i === albumIdx}
-                className={`flex flex-col items-center gap-1 rounded-ctl border p-1 transition-colors duration-150 ${
+                className={`flex flex-col items-center gap-1 rounded-ctl border p-1 transition-colors focus-visible:-outline-offset-2 duration-150 ${
                   i === albumIdx
                     ? "border-pink"
                     : "border-transparent hover:border-rim-strong"
@@ -294,7 +297,7 @@ export function RetroAmp() {
                 if (playing) play();
               }}
               aria-current={i === trackIdx ? "true" : undefined}
-              className={`w-full px-3 py-2 text-left font-mono text-[13px] transition-colors duration-150 hover:bg-raise hover:text-text ${
+              className={`w-full px-3 py-2 text-left font-mono text-[13px] transition-colors focus-visible:-outline-offset-2 duration-150 hover:bg-raise hover:text-text ${
                 i === trackIdx ? "bg-raise text-text" : "text-muted"
               }`}
             >
@@ -452,6 +455,6 @@ export function RetroAmp() {
           </span>
         </div>
       </div>
-    </div>
+    </aside>
   );
 }

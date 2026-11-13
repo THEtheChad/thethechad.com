@@ -64,6 +64,7 @@ export function MobileMenu() {
         id={DIALOG_ID}
         ref={dialogRef}
         aria-label="Site menu"
+        closedby="any"
         onClick={onDialogClick}
         className="inset-x-0 top-0 bottom-auto m-0 max-h-dvh w-full max-w-none overflow-y-auto border-0 border-b border-rim bg-night p-0 text-text backdrop:bg-ink/70 backdrop:backdrop-blur-sm"
       >

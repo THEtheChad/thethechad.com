@@ -8,4 +8,9 @@ declare module "react" {
     command?: "show-modal" | "close" | "request-close" | (string & {});
     commandfor?: string;
   }
+
+  // Light-dismiss for <dialog> (backdrop tap closes it) without JS.
+  interface DialogHTMLAttributes<T> {
+    closedby?: "any" | "closerequest" | "none";
+  }
 }
