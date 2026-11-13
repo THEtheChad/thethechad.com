@@ -18,8 +18,33 @@ curl -fsSL https://raw.githubusercontent.com/THEtheChad/THEtheChad/main/assets/h
   -o src/components/SkylineHero/hero.svg
 ```
 
-Then update the date and hash above, and re-check the alt text in
-`SkylineHero.tsx` against the profile README's `<img alt>`.
+Then regenerate the still frame, update the date and hash above, and re-check
+the alt text in `components/HeroArt/HeroArt.tsx` against the profile README's
+`<img alt>`:
+
+```sh
+pnpm hero:static   # writes hero-static.svg; commit it with hero.svg
+```
+
+## `hero-static.svg` (generated)
+
+The hero loops forever (bulb chase, star twinkle, blink), so it needs a pause
+control (WCAG 2.2.2). `HeroArt` pauses by swapping the `<img>` to
+`hero-static.svg`, and serves that file to `prefers-reduced-motion: reduce`
+visitors through a `<picture>` source (no JS needed).
+
+`buildStaticHero.mjs` makes it from `hero.svg` with no dependencies: it drops
+the `@media (prefers-reduced-motion: reduce)` wrapper around the generator's
+`REDUCED_MOTION` rule (`* { animation: none !important; }`), so the art's own
+reduced-motion frame applies unconditionally, and adds a "generated" comment.
+`hero.svg` stays byte-identical.
+
+- `pnpm dev` and `pnpm build` regenerate it first.
+- `pnpm lint` runs the script with `--check` and fails if the committed file
+  is stale.
+- The script exits with an error if `hero.svg` stops having exactly one
+  reduced-motion rule, or gains SMIL animation. Either means the generator's
+  output changed and the transform needs updating.
 
 Why an `<img>` and not inline markup: the file carries its own `<style>`
 (including the generator's `prefers-reduced-motion` rule) and global ids

@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "pnpm hero:static && next dev",
+    "build": "pnpm hero:static && next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "lint": "biome check && node scripts/checkThemeTokens.mjs && node src/components/SkylineHero/buildStaticHero.mjs --check",
+    "format": "biome format --write",
+    "hero:static": "node src/components/SkylineHero/buildStaticHero.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.9.0",

@@ -13,7 +13,8 @@
       "!.next",
       "!dist",
       "!build",
-      "!src/components/SkylineHero/hero.svg"
+      "!src/components/SkylineHero/hero.svg",
+      "!src/components/SkylineHero/hero-static.svg"
     ]
   },
   "css": {
