@@ -5,7 +5,7 @@ import { profile } from "@/data/resume";
 
 const button =
   "inline-flex h-11 items-center gap-2 rounded-ctl border px-5 font-mono text-[13px] tracking-[0.12em] uppercase transition-colors duration-150";
-const primary = `${button} border-pink bg-pink font-medium text-on-accent hover:bg-pink-ink hover:border-pink-ink`;
+const primary = `${button} border-pink bg-pink font-medium text-on-accent hover:bg-pink-ink hover:border-pink-ink hover:underline hover:underline-offset-4`;
 const secondary = `${button} border-rim-strong text-text hover:bg-raise`;
 
 /** Roles from the résumé headline and the site's own sections. */

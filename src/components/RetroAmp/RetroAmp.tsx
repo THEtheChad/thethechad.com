@@ -235,6 +235,8 @@ export function RetroAmp() {
 
   return (
     <aside
+      id="music-player"
+      tabIndex={-1}
       aria-label="Music player"
       className="js-only fixed inset-x-0 bottom-0 z-30 border-t border-rim bg-ink/92 backdrop-blur-md"
     >

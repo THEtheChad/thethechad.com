@@ -17,9 +17,9 @@ const TAGLINE = ["Kansas City, MO", "Agentic SDLC / AI / Hardware"] as const;
  * The 840×400 intrinsic size reserves the box before the file arrives, and
  * the artwork is dark in both themes because it paints its own sky.
  *
- * Below 720px the artwork's tagline drops under ~10px, so a real-text copy
- * shows beneath it; above that it is screen-reader-only (the alt text
- * describes the picture, not the tagline).
+ * Until the art reaches its native 840px (~904px viewport) its tagline renders
+ * under 12px, so a real-text copy shows beneath it; above that it is
+ * screen-reader-only (the alt text describes the picture, not the tagline).
  */
 export function SkylineHero() {
   return (
@@ -31,7 +31,7 @@ export function SkylineHero() {
         sizes="(min-width: 904px) 840px, 100vw"
         className="block h-auto w-full"
       />
-      <p className="sr-only text-center font-mono text-xs leading-[1.8] tracking-[0.14em] text-muted uppercase max-[720px]:not-sr-only max-[720px]:mt-2.5 max-[720px]:block max-[720px]:px-4">
+      <p className="sr-only text-center font-mono text-xs leading-[1.8] tracking-[0.14em] text-muted uppercase max-[904px]:not-sr-only max-[904px]:mt-2.5 max-[904px]:block max-[904px]:px-4">
         {/* Each half stays whole, so a narrow screen breaks at the dot. */}
         <span className="inline-block">{TAGLINE[0]}</span> <span>·</span>{" "}
         <span className="inline-block">{TAGLINE[1]}</span>

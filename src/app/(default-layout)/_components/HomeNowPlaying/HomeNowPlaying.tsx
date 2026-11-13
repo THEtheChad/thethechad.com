@@ -30,12 +30,13 @@ export function HomeNowPlaying() {
               The player is docked at the bottom of every page and keeps playing
               as you move around the site. Press play there whenever you like.
             </p>
-            <p
-              aria-hidden="true"
-              className="mt-4 font-mono text-[13px] tracking-[0.12em] text-pink-ink uppercase"
+            {/* The player needs JS, so the jump link does too. */}
+            <a
+              href="#music-player"
+              className="js-only mt-2 inline-flex min-h-11 items-center font-mono text-[13px] tracking-[0.12em] text-pink-ink uppercase underline-offset-4 hover:underline"
             >
-              ↓ deck below
-            </p>
+              <span aria-hidden="true">↓&nbsp;</span>Go to the player
+            </a>
           </div>
         </div>
       </Plate>
