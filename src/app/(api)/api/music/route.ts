@@ -2,7 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
 
-const MUSIC_DIR = path.join(process.cwd(), "src", "music");
+// The album list only changes on deploy; generate it at build time so the
+// function never needs public/ files at runtime.
+export const dynamic = "force-static";
+
+// Served as static files from public/music (Range, Content-Length and caching
+// handled by Next/the CDN rather than a route handler).
+const MUSIC_DIR = path.join(process.cwd(), "public", "music");
 const AUDIO_RE = /\.(mp3|ogg|wav|flac|aac|m4a)$/i;
 const COVER_RE = /^cover\.(jpg|jpeg|png|webp)$/i;
 
@@ -57,7 +63,7 @@ function scan(dir: string, albums: AlbumMeta[] = []): AlbumMeta[] {
   // Find cover image in this directory
   const coverEntry = entries.find((e) => e.isFile() && COVER_RE.test(e.name));
   const coverUrl = coverEntry
-    ? `/api/music/${encodeSegments(
+    ? `/music/${encodeSegments(
         path
           .relative(MUSIC_DIR, path.join(dir, coverEntry.name))
           .split(path.sep),
@@ -75,7 +81,7 @@ function scan(dir: string, albums: AlbumMeta[] = []): AlbumMeta[] {
       return {
         displayName: title,
         artist: attr.artist ?? artist,
-        url: `/api/music/${encodeSegments(rel)}`,
+        url: `/music/${encodeSegments(rel)}`,
       };
     });
 
