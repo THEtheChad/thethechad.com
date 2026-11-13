@@ -31,6 +31,8 @@ export function Gallery({ photos }: { photos: Photo[] }) {
                 width={photo.width}
                 height={photo.height}
                 sizes="(min-width: 900px) 272px, (min-width: 600px) 50vw, 100vw"
+                // The first photo is the likely LCP element on this page.
+                preload={i === 0}
                 className="block h-auto w-full"
               />
               <span className="flex items-baseline justify-between gap-3 px-3 py-2.5 font-mono text-xs tracking-[0.06em] text-muted">

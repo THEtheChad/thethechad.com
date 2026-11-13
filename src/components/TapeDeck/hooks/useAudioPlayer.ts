@@ -21,21 +21,34 @@ export function useAudioPlayer(albums: Album[]) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolumeState] = useState(INITIAL_VOLUME);
+  const [error, setError] = useState<string | null>(null);
 
   const album = albums[albumIdx];
   const track = album?.tracks[trackIdx];
+
+  /**
+   * Mirror the element's position and length into state. Needed when
+   * returning to the already-loaded track: `durationchange` won't fire again.
+   */
+  function resync(audio: HTMLAudioElement) {
+    setCurrentTime(audio.currentTime);
+    setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+  }
 
   /** Start (or resume) a track. Assigns `src` only if it changed. */
   function play(a = albumIdx, t = trackIdx) {
     const audio = audioRef.current;
     const url = albums[a]?.tracks[t]?.url;
     if (!audio || !url) return;
+    setError(null);
     if (audio.dataset.url !== url) {
       audio.dataset.url = url;
       audio.src = url;
       audio.volume = volume;
       setCurrentTime(0);
       setDuration(0);
+    } else {
+      resync(audio);
     }
     setAlbumIdx(a);
     setTrackIdx(t);
@@ -48,8 +61,12 @@ export function useAudioPlayer(albums: Album[]) {
     audioRef.current?.pause();
   }
 
+  // Branch on the element, not React state: a second tap while play() is
+  // still pending must pause, not re-play.
+  const isPlaying = () => audioRef.current?.paused === false;
+
   function toggle() {
-    if (playing) pause();
+    if (isPlaying()) pause();
     else play();
   }
 
@@ -58,13 +75,17 @@ export function useAudioPlayer(albums: Album[]) {
    * (no request until the visitor presses play).
    */
   function cue(a: number, t: number) {
-    if (playing) {
+    if (isPlaying()) {
       play(a, t);
       return;
     }
     setAlbumIdx(a);
     setTrackIdx(t);
-    if (audioRef.current?.dataset.url !== albums[a]?.tracks[t]?.url) {
+    setError(null);
+    const audio = audioRef.current;
+    if (audio && audio.dataset.url === albums[a]?.tracks[t]?.url) {
+      resync(audio);
+    } else {
       setCurrentTime(0);
       setDuration(0);
     }
@@ -97,6 +118,13 @@ export function useAudioPlayer(albums: Album[]) {
     ref: audioRef,
     preload: "none",
     onPlay: () => setPlaying(true),
+    // 404, decode or network failure: say so, and forget the src so the next
+    // press of Play reloads it instead of retrying a dead element.
+    onError: (e: { currentTarget: HTMLAudioElement }) => {
+      delete e.currentTarget.dataset.url;
+      setPlaying(false);
+      setError("Couldn't load this track.");
+    },
     onPause: () => setPlaying(false),
     onTimeUpdate: (e: { currentTarget: HTMLAudioElement }) =>
       setCurrentTime(e.currentTarget.currentTime),
@@ -117,6 +145,7 @@ export function useAudioPlayer(albums: Album[]) {
     albumIdx,
     trackIdx,
     playing,
+    error,
     currentTime,
     duration,
     volume,

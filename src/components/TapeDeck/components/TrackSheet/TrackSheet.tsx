@@ -3,7 +3,7 @@ import type { AudioPlayer } from "../../hooks/useAudioPlayer";
 import type { Album } from "../../types";
 import { Transport } from "../Transport/Transport";
 
-export function formatTime(s: number): string {
+function formatTime(s: number): string {
   if (!Number.isFinite(s) || s < 0) return "0:00";
   const m = Math.floor(s / 60);
   const sec = Math.floor(s % 60);

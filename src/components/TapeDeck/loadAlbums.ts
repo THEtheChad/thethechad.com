@@ -48,14 +48,28 @@ function parseFilename(name: string) {
   };
 }
 
+/**
+ * Read attribution.json. Missing is fine ({}); a file that exists but is
+ * malformed fails the build loudly — this runs at build time, and silently
+ * dropping a licence credit is worse than a red build.
+ */
 function readAttribution(dir: string): Attribution {
-  try {
-    return JSON.parse(
-      fs.readFileSync(path.join(dir, "attribution.json"), "utf-8"),
-    );
-  } catch {
-    return {};
+  const file = path.join(dir, "attribution.json");
+  if (!fs.existsSync(file)) return {};
+  const data: unknown = JSON.parse(fs.readFileSync(file, "utf-8"));
+  if (!data || typeof data !== "object") {
+    throw new Error(`${file}: expected a JSON object`);
   }
+  const attr: Attribution = {};
+  for (const key of ["album", "artist", "url"] as const) {
+    const value = (data as Record<string, unknown>)[key];
+    if (value === undefined) continue;
+    if (typeof value !== "string") {
+      throw new Error(`${file}: "${key}" must be a string`);
+    }
+    attr[key] = value;
+  }
+  return attr;
 }
 
 function scan(dir: string, albums: Album[]): Album[] {
@@ -94,10 +108,7 @@ function scan(dir: string, albums: Album[]): Album[] {
   return albums;
 }
 
+/** No music folder means no player; any other failure fails the build. */
 export function loadAlbums(): Album[] {
-  try {
-    return fs.existsSync(MUSIC_DIR) ? scan(MUSIC_DIR, []) : [];
-  } catch {
-    return [];
-  }
+  return fs.existsSync(MUSIC_DIR) ? scan(MUSIC_DIR, []) : [];
 }

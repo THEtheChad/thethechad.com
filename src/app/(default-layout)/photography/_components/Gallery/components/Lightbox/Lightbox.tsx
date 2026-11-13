@@ -35,6 +35,7 @@ export function Lightbox({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
   const isOpen = index !== null;
   const count = photos.length;
 
@@ -71,6 +72,8 @@ export function Lightbox({
     const dx = e.clientX - start.x;
     const dy = e.clientY - start.y;
     if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) {
+      // The browser still fires a click after the swipe; don't let it close.
+      swiped.current = true;
       step(dx < 0 ? 1 : -1);
     }
   }
@@ -108,6 +111,10 @@ export function Lightbox({
           {/* biome-ignore lint/a11y/noStaticElementInteractions lint/a11y/useKeyWithClickEvents: pointer-only conveniences; Close, Escape and the arrow buttons cover keyboard use. */}
           <div
             onClick={(e) => {
+              if (swiped.current) {
+                swiped.current = false;
+                return;
+              }
               if (e.target === e.currentTarget) onClose();
             }}
             onPointerDown={onPointerDown}

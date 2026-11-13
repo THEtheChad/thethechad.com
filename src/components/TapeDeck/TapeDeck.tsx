@@ -88,6 +88,11 @@ export function TapeDeck({ albums }: { albums: Album[] }) {
             <span className="max-w-full shrink-0 truncate text-sm text-text">
               {track.title}
             </span>
+            {player.error && (
+              <span className="shrink-0 font-mono text-xs text-red">
+                {player.error}
+              </span>
+            )}
             <span className="hidden min-w-0 truncate font-mono text-xs tracking-[0.04em] text-muted min-[720px]:inline">
               {track.artist} <span aria-hidden="true">·</span> {album.name}
             </span>
@@ -116,7 +121,9 @@ export function TapeDeck({ albums }: { albums: Album[] }) {
 
         {/* Announces track changes and play/pause to screen readers. */}
         <p aria-live="polite" className="sr-only">
-          {playing ? "Playing" : "Selected"}: {track.title} by {track.artist}
+          {player.error
+            ? `${player.error} ${track.title} by ${track.artist}`
+            : `${playing ? "Playing" : "Selected"}: ${track.title} by ${track.artist}`}
         </p>
       </div>
 
