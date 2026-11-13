@@ -195,7 +195,7 @@ export const projects: Project[] = [
   {
     title: "thethechad.com",
     description:
-      "A full-stack web application for managing and organizing tasks with real-time collaboration.",
+      "This site: Next.js, TypeScript, and Tailwind, with a drone light show over the Kansas City skyline.",
     url: "https://github.com/THEtheChad/thethechad.com",
     tags: ["Next.js", "TypeScript"],
   },

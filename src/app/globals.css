@@ -5,8 +5,10 @@
  * Palette from THEtheChad/tools/build_assets.py. Dark is canonical; light
  * applies when the visitor picks it, or follows the OS when no explicit
  * theme is stored (the pre-paint script in app/layout.tsx sets data-theme).
+ * `.theme-dark` re-declares the dark palette on always-dark surfaces.
  */
-:root {
+:root,
+.theme-dark {
   color-scheme: dark;
 
   --night: #0d0b14;
@@ -264,6 +266,29 @@
     }
     to {
       transform: scaleX(1);
+    }
+  }
+
+  /* Always-dark surfaces (M2): the liner-notes plate and hero stay dark in
+     both themes (owner decision). The dark tokens are declared on
+     `:root, .theme-dark` at the top of this file, so token utilities inside
+     resolve to dark values even when the page is light. */
+  .theme-dark {
+    color: var(--text);
+  }
+
+  /* Wordmark (M2): the slab "the" is an SVG, so its halo is a filter. */
+  .wordmark-the {
+    filter: drop-shadow(0 0 1.5px var(--red)) drop-shadow(0 0 4px var(--red));
+  }
+
+  :root[data-theme="light"] .wordmark-the {
+    filter: none;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) .wordmark-the {
+      filter: none;
     }
   }
 

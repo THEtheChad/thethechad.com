@@ -1,24 +1,35 @@
 import Link from "next/link";
+import { ULTRA_THE_PATH, ULTRA_THE_VIEWBOX } from "./ultraThe";
 
 /**
- * Placeholder wordmark: THE · red slab "the" · CHAD.
- * M2 replaces the inner markup with an inline SVG that bakes in Ultra.
+ * THE · red slab "the" · CHAD, linking home. The mono caps are live text in
+ * cyan; the slab "the" is Ultra baked to outlines (no web font) in the
+ * Western Auto red, with a neon halo in dark mode only.
  */
 export function Wordmark() {
   return (
     <Link
       href="/"
       aria-label="THEtheChad, home"
-      className="inline-flex min-h-11 shrink-0 items-center gap-1.5 font-mono text-sm font-medium tracking-[0.22em] text-cyan"
+      className="inline-flex min-h-11 shrink-0 items-center"
     >
-      <span aria-hidden="true">THE</span>
       <span
         aria-hidden="true"
-        className="font-serif text-[19px] font-black tracking-normal text-red [text-shadow:var(--glow-red)]"
+        className="inline-flex items-baseline gap-[7px] font-mono text-sm font-medium tracking-[0.22em] text-cyan"
       >
-        the
+        <span>THE</span>
+        <svg
+          viewBox={ULTRA_THE_VIEWBOX}
+          width={43}
+          height={16}
+          className="wordmark-the translate-y-px fill-red"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d={ULTRA_THE_PATH} />
+        </svg>
+        <span>CHAD</span>
       </span>
-      <span aria-hidden="true">CHAD</span>
     </Link>
   );
 }
