@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { PixelGlitch } from "@/components/PixelGlitch/PixelGlitch";
 
 export interface Photo {
@@ -14,8 +13,25 @@ export interface Photo {
 
 export default function Gallery({ photos }: { photos: Photo[] }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const isOpen = lightbox !== null;
 
-  // Keyboard navigation
+  // Native modal dialog: traps focus, makes the page inert, renders in the
+  // top layer (above the CRT overlay), closes on Escape, and restores focus to
+  // the thumbnail that opened it.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+      closeRef.current?.focus();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  // Arrow-key navigation (Escape is handled natively by the dialog)
   useEffect(() => {
     if (lightbox === null) return;
     function onKey(e: KeyboardEvent) {
@@ -25,7 +41,6 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         );
       if (e.key === "ArrowRight")
         setLightbox((i) => (i !== null ? (i + 1) % photos.length : null));
-      if (e.key === "Escape") setLightbox(null);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -89,17 +104,16 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         ))}
       </div>
 
-      {/* Lightbox — rendered via portal outside the CRT overlay */}
-      {active &&
-        lightbox !== null &&
-        createPortal(
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Photo viewer"
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-page/96 backdrop-blur-sm"
-          >
-            {/* Backdrop — click outside the image to close (Escape is handled globally) */}
+      {/* Lightbox */}
+      <dialog
+        ref={dialogRef}
+        aria-label="Photo viewer"
+        onClose={() => setLightbox(null)}
+        className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-page/96 p-0 backdrop-blur-sm open:flex backdrop:bg-transparent"
+      >
+        {active && lightbox !== null && (
+          <>
+            {/* Backdrop — click outside the image to close */}
             <button
               type="button"
               tabIndex={-1}
@@ -153,7 +167,8 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               }
               className="absolute left-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
             >
-              ◄
+              <span aria-hidden="true">◄</span>
+              <span className="sr-only">Previous photo</span>
             </button>
 
             {/* Next */}
@@ -166,20 +181,23 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               }
               className="absolute right-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
             >
-              ►
+              <span aria-hidden="true">►</span>
+              <span className="sr-only">Next photo</span>
             </button>
 
             {/* Close */}
             <button
+              ref={closeRef}
               type="button"
+              aria-label="Close photo viewer"
               onClick={() => setLightbox(null)}
               className="absolute right-4 top-4 border border-line bg-card/80 px-3 py-2 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
             >
-              ✕
+              <span aria-hidden="true">✕</span>
             </button>
-          </div>,
-          document.body,
+          </>
         )}
+      </dialog>
     </>
   );
 }
