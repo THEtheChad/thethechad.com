@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLProps } from "react";
+import type { HTMLProps } from "react";
 import { PixelGlitch } from "@/components/PixelGlitch/PixelGlitch";
 import { TypingTitle } from "@/components/TypingTitle/TypingTitle";
 import { profile } from "@/data/resume";

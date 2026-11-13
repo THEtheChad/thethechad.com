@@ -94,16 +94,27 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         lightbox !== null &&
         createPortal(
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo viewer"
             className="fixed inset-0 z-[60] flex items-center justify-center bg-page/96 backdrop-blur-sm"
-            onClick={() => setLightbox(null)}
           >
+            {/* Backdrop — click outside the image to close (Escape is handled globally) */}
+            <button
+              type="button"
+              tabIndex={-1}
+              aria-label="Close photo viewer"
+              onClick={() => setLightbox(null)}
+              className="absolute inset-0 cursor-default"
+            />
+
             {/* Pagination — top center, static */}
-            <p className="absolute top-4 left-1/2 -translate-x-1/2 font-pixel text-[8px] text-soft tabular-nums">
+            <p className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 font-pixel text-[8px] text-soft tabular-nums">
               {lightbox + 1}&nbsp;/&nbsp;{photos.length}
             </p>
 
             {/* Image container */}
-            <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <div className="relative">
               <div className="corner-frame border border-line/60">
                 <Image
                   src={active.src}
@@ -135,12 +146,11 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             {/* Prev */}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
+              onClick={() =>
                 setLightbox((i) =>
                   i !== null ? (i - 1 + photos.length) % photos.length : null,
-                );
-              }}
+                )
+              }
               className="absolute left-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
             >
               ◄
@@ -149,12 +159,11 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             {/* Next */}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
+              onClick={() =>
                 setLightbox((i) =>
                   i !== null ? (i + 1) % photos.length : null,
-                );
-              }}
+                )
+              }
               className="absolute right-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
             >
               ►

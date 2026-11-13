@@ -120,17 +120,19 @@ function RezColumn({ side }: { side: "left" | "right" }) {
 
   // Draw loop
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
+    const canvasEl = canvasRef.current;
+    const context = canvasEl?.getContext("2d");
+    if (!canvasEl || !context) return;
+    const canvas = canvasEl;
+    const ctx = context;
 
     function draw() {
       rafRef.current = requestAnimationFrame(draw);
       frameRef.current++;
 
       const analyser = sharedRef?.current;
-      const w = canvas!.width;
-      const h = canvas!.height;
+      const w = canvas.width;
+      const h = canvas.height;
       const f = frameRef.current;
       const bands = bandsRef.current;
 

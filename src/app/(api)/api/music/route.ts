@@ -1,6 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
 const MUSIC_DIR = path.join(process.cwd(), "src", "music");
 const AUDIO_RE = /\.(mp3|ogg|wav|flac|aac|m4a)$/i;

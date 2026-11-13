@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Navigation } from "@/app/(default-layout)/_components/Navigation/Navigation";
 import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
 import { RetroAmp } from "@/components/RetroAmp/RetroAmp";

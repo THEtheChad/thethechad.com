@@ -81,7 +81,7 @@ function IconStop() {
 }
 
 function fmt(s: number): string {
-  if (!isFinite(s)) return "0:00";
+  if (!Number.isFinite(s)) return "0:00";
   const m = Math.floor(s / 60);
   const sec = Math.floor(s % 60);
   return `${m}:${sec.toString().padStart(2, "0")}`;
@@ -401,7 +401,7 @@ export function RetroAmp() {
             <input
               type="range"
               min={0}
-              max={isFinite(duration) ? duration : 100}
+              max={Number.isFinite(duration) ? duration : 100}
               step={0.1}
               value={currentTime}
               onChange={seek}

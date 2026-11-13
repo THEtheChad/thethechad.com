@@ -1,10 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
 
   if (!name?.trim() || !email?.trim() || !message?.trim()) {
-    return NextResponse.json({ error: "All fields are required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "All fields are required." },
+      { status: 400 },
+    );
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -13,7 +16,10 @@ export async function POST(req: NextRequest) {
 
   if (!apiKey || !toEmail) {
     console.error("Missing RESEND_API_KEY or CONTACT_EMAIL env vars");
-    return NextResponse.json({ error: "Server misconfigured." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Server misconfigured." },
+      { status: 500 },
+    );
   }
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -39,7 +45,10 @@ export async function POST(req: NextRequest) {
   if (!res.ok) {
     const body = await res.text();
     console.error("Resend error:", body);
-    return NextResponse.json({ error: "Failed to send message." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send message." },
+      { status: 500 },
+    );
   }
 
   return NextResponse.json({ success: true });

@@ -1,7 +1,7 @@
 "use client";
 
 import { produce } from "immer";
-import { ReactNode, useEffect, useReducer } from "react";
+import { type ReactNode, useEffect, useReducer } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface SectionProps {
@@ -48,8 +48,8 @@ const reducer = produce((draft: State, action: Actions) => {
     case "RESET":
       return initialState;
     default: {
-      const type = (action as any).type;
-      throw new Error(`Unknown action type: ${type}`);
+      action satisfies never;
+      throw new Error(`Unknown action: ${JSON.stringify(action)}`);
     }
   }
 });

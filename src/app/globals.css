@@ -11,32 +11,38 @@
   --font-pixel: var(--font-press-start);
   --animate-marquee: marquee 10s linear infinite;
 
-  --color-page: #06060F;        /* void black */
-  --color-card: #0C0C1E;        /* deep indigo surface */
-  --color-badge: #12122C;       /* indigo for tags/badges */
-  --color-accent: #005FFF;      /* electric blue */
-  --color-accent-soft: #00CFFF; /* cyan — readable on dark */
-  --color-body: #CDD5F3;        /* cool blue-white text */
-  --color-soft: #5A6080;        /* blue-grey muted text */
-  --color-line: #181830;        /* dark indigo borders */
-  --color-pink: #FF0080;        /* neon magenta */
-  --color-gold: #FFD060;        /* warm gold highlight */
+  --color-page: #06060f; /* void black */
+  --color-card: #0c0c1e; /* deep indigo surface */
+  --color-badge: #12122c; /* indigo for tags/badges */
+  --color-accent: #005fff; /* electric blue */
+  --color-accent-soft: #00cfff; /* cyan — readable on dark */
+  --color-body: #cdd5f3; /* cool blue-white text */
+  --color-soft: #5a6080; /* blue-grey muted text */
+  --color-line: #181830; /* dark indigo borders */
+  --color-pink: #ff0080; /* neon magenta */
+  --color-gold: #ffd060; /* warm gold highlight */
 
   @keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-25%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-25%);
+    }
   }
 }
 
 body {
-  background-color: #06060F;
-  color: #CDD5F3;
+  background-color: #06060f;
+  color: #cdd5f3;
 }
 
 /* ── Neon glow utilities ────────────────────────────────────────────── */
 
 .neon-text {
-  text-shadow: 0 0 8px currentColor, 0 0 20px currentColor;
+  text-shadow:
+    0 0 8px currentColor,
+    0 0 20px currentColor;
 }
 
 .neon-box {
@@ -92,8 +98,13 @@ body {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ── CRT / Narita Boy screen effects ───────────────────────────────── */
@@ -122,11 +133,26 @@ body {
 }
 
 @keyframes crt-flicker {
-  0%, 87%, 90%, 92%, 95%, 100% { opacity: 1; }
-  88% { opacity: 0.88; }
-  91% { opacity: 0.96; }
-  93% { opacity: 0.84; }
-  94% { opacity: 1; }
+  0%,
+  87%,
+  90%,
+  92%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0.88;
+  }
+  91% {
+    opacity: 0.96;
+  }
+  93% {
+    opacity: 0.84;
+  }
+  94% {
+    opacity: 1;
+  }
 }
 
 /* ── Chromatic aberration — neon palette ───────────────────────────── */
@@ -136,16 +162,23 @@ body {
 }
 
 @keyframes chromatic-glitch {
-  0%, 87%, 97%, 100% {
+  0%,
+  87%,
+  97%,
+  100% {
     text-shadow: none;
     transform: none;
   }
   88% {
-    text-shadow: 2px 0 rgba(0, 207, 255, 0.9), -2px 0 rgba(255, 0, 128, 0.9);
+    text-shadow:
+      2px 0 rgba(0, 207, 255, 0.9),
+      -2px 0 rgba(255, 0, 128, 0.9);
     transform: translateX(1px);
   }
   89% {
-    text-shadow: -3px 0 rgba(0, 207, 255, 0.65), 3px 0 rgba(255, 0, 128, 0.65);
+    text-shadow:
+      -3px 0 rgba(0, 207, 255, 0.65),
+      3px 0 rgba(255, 0, 128, 0.65);
     transform: translateX(-2px);
   }
   90% {
@@ -153,7 +186,9 @@ body {
     transform: none;
   }
   91% {
-    text-shadow: 1px 0 rgba(0, 207, 255, 0.5), -1px 0 rgba(255, 0, 128, 0.5);
+    text-shadow:
+      1px 0 rgba(0, 207, 255, 0.5),
+      -1px 0 rgba(255, 0, 128, 0.5);
     transform: translateX(1px);
   }
   92% {

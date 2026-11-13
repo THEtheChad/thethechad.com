@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
+import { type NextRequest, NextResponse } from "next/server";
 
 const MUSIC_DIR = path.resolve(process.cwd(), "src", "music");
 

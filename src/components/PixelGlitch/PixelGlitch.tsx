@@ -16,8 +16,9 @@ export function PixelGlitch({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvasEl = canvasRef.current;
+    if (!canvasEl) return;
+    const canvas = canvasEl;
 
     const img = new Image();
     img.src = src;
@@ -57,7 +58,7 @@ export function PixelGlitch({
         const blockH = 8 + Math.floor(Math.random() * 10);
         const rows = 1 + Math.floor(Math.random() * 3);
         const rh = blockH * rows;
-        const ry = Math.floor(Math.random() * Math.max(1, canvas!.height - rh));
+        const ry = Math.floor(Math.random() * Math.max(1, canvas.height - rh));
         strips.push({
           ry,
           rh,
@@ -92,7 +93,8 @@ export function PixelGlitch({
         const off = document.createElement("canvas");
         off.width = pixW;
         off.height = pixH;
-        const oc = off.getContext("2d")!;
+        const oc = off.getContext("2d");
+        if (!oc) continue;
 
         // Sample the source image for this strip
         oc.drawImage(
@@ -129,9 +131,7 @@ export function PixelGlitch({
           // End burst — clear canvas
           burstActive = false;
           strips = [];
-          canvasRef.current
-            ?.getContext("2d")
-            ?.clearRect(0, 0, canvas!.width, canvas!.height);
+          canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
 
           nextBurstFrame =
             frame + restMin + Math.floor(Math.random() * restRange);
