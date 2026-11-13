@@ -5,6 +5,8 @@ export interface Track {
   title: ReactNode;
   /** Right-aligned mono note, e.g. a year or duration. */
   meta?: string;
+  /** Optional prose under the title, set in the body face. */
+  detail?: ReactNode;
 }
 
 export interface TrackListProps {
@@ -27,7 +29,7 @@ export function TrackList({ tracks, start = 1, className }: TrackListProps) {
       start={start}
       className={twMerge("font-mono text-[15px] leading-normal", className)}
     >
-      {tracks.map(({ title, meta }, i) => (
+      {tracks.map(({ title, meta, detail }, i) => (
         <li
           // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered track list
           key={i}
@@ -36,7 +38,14 @@ export function TrackList({ tracks, start = 1, className }: TrackListProps) {
           <span aria-hidden="true" className="text-[13px] text-pink-ink">
             {pad(start + i)}
           </span>
-          <span>{title}</span>
+          <span>
+            {title}
+            {detail && (
+              <span className="mt-1.5 mb-2 block max-w-[65ch] font-sans text-[15px] leading-[1.65] text-muted">
+                {detail}
+              </span>
+            )}
+          </span>
           {meta && <span className="pl-3 text-[13px] text-subtle">{meta}</span>}
         </li>
       ))}
