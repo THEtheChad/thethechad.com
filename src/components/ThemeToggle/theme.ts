@@ -11,6 +11,14 @@ export const THEME_STORAGE_KEY = "theme";
  */
 export const themeInitScript = `try{var t=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
+/**
+ * CSP source for the inline script above, for a future
+ * `script-src 'self' <hash>` (no CSP is set today). `pnpm lint` fails if it
+ * no longer matches the script (scripts/checkCspHash.mjs).
+ */
+export const THEME_INIT_SCRIPT_CSP_HASH =
+  "'sha256-opRjTqQ1E5eUpc4SE9v3YoU5wuVpgtqT7zsobCj245Q='";
+
 export function isTheme(value: unknown): value is Theme {
   return THEMES.includes(value as Theme);
 }

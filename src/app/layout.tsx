@@ -73,6 +73,9 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable} ${yellowtail.variable} ${cedarville.variable}`}
     >
       <head>
+        {/* A future CSP can allow this by hash: THEME_INIT_SCRIPT_CSP_HASH in
+            ThemeToggle/theme.ts (lint-checked). The <noscript> style below
+            would need a style-src hash too. */}
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static, first-party pre-paint theme script */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {/* Hide controls that need JS when it is off. */}

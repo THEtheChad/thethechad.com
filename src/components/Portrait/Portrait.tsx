@@ -9,18 +9,14 @@ const roles = [
   "Builder of things",
 ];
 
-export interface PortraitProps {
-  className?: string;
-}
-
 /**
  * The portrait card: photo in a 2px rim frame with a mono name caption, and
  * the roles as a small mono list below it. The figure is `.theme-dark`: the
  * caption sits on the photo, so it stays dark in both themes.
  */
-export function Portrait({ className }: PortraitProps) {
+export function Portrait() {
   return (
-    <div className={className}>
+    <div>
       <figure className="theme-dark relative max-w-[200px] overflow-hidden rounded-plate border-2 border-rim min-[720px]:max-w-none">
         <Image
           src="/thethechad.jpeg"

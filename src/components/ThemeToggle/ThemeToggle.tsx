@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { twMerge } from "tailwind-merge";
 import { isTheme, THEME_STORAGE_KEY, THEMES, type Theme } from "./theme";
 
 const LABELS: Record<Theme, string> = {
@@ -60,17 +59,13 @@ function setTheme(theme: Theme) {
 export interface ThemeToggleProps {
   /** Show the current mode as visible text next to the icon. */
   showLabel?: boolean;
-  className?: string;
 }
 
 /**
  * Cycles System → Light → Dark. The stored choice is applied before first
  * paint by `themeInitScript`; this control only changes it.
  */
-export function ThemeToggle({
-  showLabel = false,
-  className,
-}: ThemeToggleProps) {
+export function ThemeToggle({ showLabel = false }: ThemeToggleProps) {
   const theme = useSyncExternalStore(
     subscribe,
     readStoredTheme,
@@ -89,10 +84,7 @@ export function ThemeToggle({
         }}
         aria-label={`Theme: ${LABELS[theme]}`}
         title={`Theme: ${LABELS[theme]} (switch to ${LABELS[next]})`}
-        className={twMerge(
-          "js-only inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-ctl border border-rim-strong px-2.5 text-muted transition-colors duration-150 hover:bg-raise hover:text-text",
-          className,
-        )}
+        className="js-only inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-ctl border border-rim-strong px-2.5 text-muted transition-colors duration-150 hover:bg-raise hover:text-text"
       >
         <ThemeIcon theme={theme} />
         {showLabel && (

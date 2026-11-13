@@ -14,8 +14,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 /**
- * Earlier roles, from the about page's own copy (no dates exist for these,
- * so the tracks carry no meta). Sentences are trimmed of the repeated
+ * Earlier roles, from the about page's own copy (no dates exist for these).
+ * Sentences are trimmed of the repeated
  * "I worked as … for …" lead-in, which the track title now carries.
  */
 const hats: readonly Track[] = [

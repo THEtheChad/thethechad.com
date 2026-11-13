@@ -52,7 +52,8 @@
   --dock-h: 57px;
 }
 
-/* Keep the two light blocks identical. */
+/* Keep the two light blocks identical (`pnpm lint` checks:
+   scripts/checkThemeTokens.mjs). */
 :root[data-theme="light"] {
   color-scheme: light;
 

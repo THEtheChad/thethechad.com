@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { twMerge } from "tailwind-merge";
 import { PcbTrace } from "./components/PcbTrace/PcbTrace";
 
 export interface PlateProps {
@@ -14,24 +13,16 @@ export interface PlateProps {
    * holds the page's one handwritten aside.
    */
   caption?: string;
-  className?: string;
   children: ReactNode;
 }
 
 /** A liner-notes plate: 16px radius, 2px rim, no glow. */
-export function Plate({
-  tone = "dark",
-  caption,
-  className,
-  children,
-}: PlateProps) {
+export function Plate({ tone = "dark", caption, children }: PlateProps) {
   return (
     <div
-      className={twMerge(
-        "rounded-plate border-2 border-rim bg-night p-[clamp(20px,5vw,44px)] text-text",
-        tone === "dark" && "theme-dark",
-        className,
-      )}
+      className={`rounded-plate border-2 border-rim bg-night p-[clamp(20px,5vw,44px)] text-text ${
+        tone === "dark" ? "theme-dark" : ""
+      }`}
     >
       {children}
       {caption && (
