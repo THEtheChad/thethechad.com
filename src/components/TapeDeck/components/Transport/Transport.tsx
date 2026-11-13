@@ -4,7 +4,7 @@ import { DeckIcon } from "../DeckIcon/DeckIcon";
 export const deckButton =
   "inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-rim-strong text-text transition-colors duration-150 hover:bg-raise";
 
-export const playButton =
+const playButton =
   "inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-pink bg-pink text-on-accent transition-colors duration-150 hover:border-pink-ink hover:bg-pink-ink";
 
 export interface TransportProps {
