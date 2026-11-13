@@ -53,7 +53,7 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
                 aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
                 min={0}
                 max={duration || 0}
-                step={1}
+                step={5}
                 value={Math.min(currentTime, duration || 0)}
                 disabled={!duration}
                 onChange={(e) => player.seek(Number(e.target.value))}
@@ -64,11 +64,13 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
               </span>
             </div>
             <div className="mt-2 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+              {/* The dock has the full transport from 560px; don't repeat it. */}
               <Transport
                 playing={playing}
                 onToggle={player.toggle}
                 onPrev={player.prev}
                 onNext={player.next}
+                className="min-[560px]:hidden"
               />
               <label className="flex items-center gap-3">
                 <span className="label text-muted">Volume</span>
@@ -100,7 +102,7 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
                 <li key={a.name}>
                   <button
                     type="button"
-                    aria-pressed={i === albumIdx}
+                    aria-current={i === albumIdx ? "true" : undefined}
                     onClick={() => player.selectAlbum(i)}
                     className={`flex w-full items-center gap-3 rounded-ctl border p-1.5 text-left transition-colors duration-150 hover:bg-raise ${insetRing} ${
                       i === albumIdx ? "border-pink" : "border-transparent"
@@ -168,7 +170,9 @@ export function TrackSheet({ id, open, albums, player }: TrackSheetProps) {
                         current ? player.toggle() : player.play(albumIdx, i)
                       }
                       className={`grid min-h-11 w-full grid-cols-[2rem_minmax(0,1fr)] items-baseline gap-x-2 rounded-ctl px-2 py-2 text-left font-mono transition-colors duration-150 hover:bg-raise ${insetRing} ${
-                        current ? "bg-raise" : ""
+                        current
+                          ? "bg-raise shadow-[inset_2px_0_0_var(--pink)]"
+                          : ""
                       }`}
                     >
                       <span

@@ -130,7 +130,7 @@ export function TapeDeck({ albums }: { albums: Album[] }) {
         <p aria-live="polite" className="sr-only">
           {player.error
             ? `${player.error} ${track.title} by ${track.artist}`
-            : `${playing ? "Playing" : "Selected"}: ${track.title} by ${track.artist}`}
+            : `${playing ? "Playing" : "Paused"}: ${track.title} by ${track.artist}`}
         </p>
       </div>
 

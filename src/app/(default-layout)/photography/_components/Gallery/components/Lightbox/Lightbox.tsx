@@ -84,6 +84,7 @@ export function Lightbox({
     <dialog
       ref={dialogRef}
       aria-label="Photo viewer"
+      aria-describedby="lightbox-caption"
       onClose={onClose}
       onKeyDown={onKeyDown}
       className="theme-dark fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none flex-col border-0 bg-night/97 p-0 text-text backdrop-blur-sm open:flex backdrop:bg-transparent"
@@ -132,15 +133,18 @@ export function Lightbox({
               alt={active.alt}
               width={active.width}
               height={active.height}
-              sizes="100vw"
+              // Fit-to-stage never needs more than this; avoids 3840w at 2x.
+              sizes="min(100vw, 1600px)"
               loading="eager"
               // Contain-fit by aspect ratio: as wide as the stage allows, or as
               // tall as it allows, whichever is smaller. The box hugs the photo,
               // so taps beside it still reach the stage (and close).
               style={{
                 width: `min(100cqw, ${(active.width / active.height) * 100}cqh)`,
+                // Reserve the box while loading (with a placeholder ground).
+                aspectRatio: `${active.width} / ${active.height}`,
               }}
-              className="h-auto max-w-none rounded-ctl"
+              className="h-auto max-w-none rounded-ctl bg-ink"
             />
           </div>
 
@@ -154,11 +158,19 @@ export function Lightbox({
               <span aria-hidden="true">←</span>
             </button>
             <p
+              id="lightbox-caption"
               aria-live="polite"
+              aria-atomic="true"
               className="min-w-0 text-center font-mono text-[13px] tracking-[0.06em] text-muted"
             >
+              <span className="sr-only">Photo </span>
               <span className="text-pink-ink">{pad(index + 1)}</span>
-              &nbsp; <span className="text-text">{active.title}</span>
+              <span className="sr-only"> of {count},</span>
+              {active.title && (
+                <>
+                  &nbsp; <span className="text-text">{active.title}</span>
+                </>
+              )}
               {active.location && <> · {active.location}</>} · {active.year}
               <span className="sr-only">. {active.alt}</span>
             </p>

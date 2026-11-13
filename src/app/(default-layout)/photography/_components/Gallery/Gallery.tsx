@@ -22,6 +22,9 @@ export function Gallery({ photos }: { photos: Photo[] }) {
           <li key={photo.src} className="mb-4 break-inside-avoid">
             <button
               type="button"
+              aria-haspopup="dialog"
+              // Lead with position; the alt text follows.
+              aria-label={`Photo ${i + 1} of ${photos.length}, ${photo.year}: ${photo.alt}`}
               onClick={() => setOpen(i)}
               className="group block w-full cursor-zoom-in overflow-hidden rounded-ctl border border-rim bg-ink text-left transition-colors duration-150 hover:border-rim-strong"
             >
@@ -38,7 +41,7 @@ export function Gallery({ photos }: { photos: Photo[] }) {
               <span className="flex items-baseline justify-between gap-3 px-3 py-2.5 font-mono text-xs tracking-[0.06em] text-muted">
                 <span className="min-w-0">
                   <span className="text-pink-ink">{pad(i + 1)}</span>
-                  &nbsp; {photo.title}
+                  {photo.title && <>&nbsp; {photo.title}</>}
                   {photo.location && <> · {photo.location}</>}
                 </span>
                 <span className="shrink-0 tabular-nums">{photo.year}</span>
