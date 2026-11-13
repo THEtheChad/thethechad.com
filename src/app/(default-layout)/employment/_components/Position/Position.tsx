@@ -51,7 +51,7 @@ export function Position({ position }: PositionProps) {
       <div className="min-w-0">
         <h2 className="text-[21px] leading-tight font-semibold tracking-[-0.01em] min-[720px]:text-2xl">
           {title}{" "}
-          <span className="font-medium text-pink-ink">
+          <span className="font-normal text-pink-ink">
             <span aria-hidden="true">· </span>
             <span className="sr-only">at </span>
             {company}

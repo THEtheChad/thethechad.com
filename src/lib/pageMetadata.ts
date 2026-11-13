@@ -22,13 +22,20 @@ export interface PageMetadataInput {
   noindex?: boolean;
 }
 
+/** The shared social card (app/opengraph-image.jpg), served at a fixed URL. */
+const OG_IMAGE = {
+  url: "/opengraph-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: 'A drone light show spells THE and CHAD over the Kansas City skyline at dusk, with the Western Auto sign glowing "the" between them.',
+} as const;
+
 /**
- * Per-route title, description and canonical. Open Graph and Twitter fields
- * are deliberately not set here: Next merges `openGraph`/`twitter` shallowly,
- * so a page that sets them drops the layout's, including the image from
- * app/opengraph-image.jpg. Left alone, Next fills og:title, og:description and
- * the twitter:* tags from this page's title and description, and keeps the
- * root's site name, type, locale and image.
+ * Per-route title, description, canonical and og:url. Next replaces a
+ * parent's `openGraph` wholesale when a page sets one (dropping the
+ * file-convention image), so this restates the site-wide fields and the
+ * image alongside the page's url. og:title/og:description and twitter:* are
+ * still derived by Next from the page's title and description.
  */
 export function pageMetadata({
   title,
@@ -40,6 +47,13 @@ export function pageMetadata({
     ...(title ? { title } : {}),
     description,
     alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      locale: "en_US",
+      url: path,
+      images: [OG_IMAGE],
+    },
     ...(noindex ? { robots: { index: false } } : {}),
   };
 }

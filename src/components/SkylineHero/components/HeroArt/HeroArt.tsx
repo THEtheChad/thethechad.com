@@ -60,6 +60,9 @@ export function HeroArt() {
       <button
         type="button"
         onClick={() => setPaused(!paused)}
+        // Warm the still frame on intent so pausing doesn't blank the art.
+        onPointerEnter={() => preload(heroStatic.src, { as: "image" })}
+        onFocus={() => preload(heroStatic.src, { as: "image" })}
         aria-label={label}
         title={label}
         data-hero-paused={paused ? "" : undefined}

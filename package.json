@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm hero:static && next dev",
-    "build": "pnpm hero:static && next build",
+    "dev": "pnpm hero:static && next dev --webpack",
+    "build": "pnpm hero:static && next build --webpack && node scripts/checkFontFallbacks.mjs",
     "start": "next start",
     "lint": "biome check && node scripts/checkThemeTokens.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/checkCspHash.mjs && node src/components/SkylineHero/buildStaticHero.mjs --check",
     "format": "biome format --write",
