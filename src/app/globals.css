@@ -35,7 +35,13 @@
     0 0 2px color-mix(in srgb, var(--pink) 80%, transparent)
   );
   --glow-hand: 0 0 1px var(--pink), 0 0 3px var(--pink);
-  --glow-red: 0 0 2px var(--red), 0 0 5px var(--red), 0 0 10px var(--red);
+  --glow-wordmark: drop-shadow(0 0 1.5px var(--red))
+    drop-shadow(0 0 4px var(--red));
+
+  /* Artwork-only: the hero's dusk sky stops (same in both themes). */
+  --dusk-top: #0b0620;
+  --dusk-mid: #4b1d6b;
+  --dusk-low: #ff8a6b;
 
   --col: 840px;
   --gutter: clamp(16px, 4vw, 32px);
@@ -68,7 +74,7 @@
   --glow-neon: none;
   --glow-rule: none;
   --glow-hand: none;
-  --glow-red: none;
+  --glow-wordmark: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -94,7 +100,7 @@
     --glow-neon: none;
     --glow-rule: none;
     --glow-hand: none;
-    --glow-red: none;
+    --glow-wordmark: none;
   }
 }
 
@@ -116,6 +122,9 @@
   --color-red: var(--red);
   --color-core: var(--core);
   --color-on-accent: var(--on-accent);
+  --color-dusk-top: var(--dusk-top);
+  --color-dusk-mid: var(--dusk-mid);
+  --color-dusk-low: var(--dusk-low);
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
@@ -286,17 +295,7 @@
 
   /* Wordmark (M2): the slab "the" is an SVG, so its halo is a filter. */
   .wordmark-the {
-    filter: drop-shadow(0 0 1.5px var(--red)) drop-shadow(0 0 4px var(--red));
-  }
-
-  :root[data-theme="light"] .wordmark-the {
-    filter: none;
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme]) .wordmark-the {
-      filter: none;
-    }
+    filter: var(--glow-wordmark);
   }
 
   /* Player range inputs (RetroAmp; redesigned as TapeDeck in M4) */

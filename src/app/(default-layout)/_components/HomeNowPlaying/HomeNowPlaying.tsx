@@ -14,9 +14,9 @@ export function HomeNowPlaying() {
           {/* Dusk swatch from the hero's sky gradient; decorative. */}
           <div
             aria-hidden="true"
-            className="relative hidden size-[132px] overflow-hidden rounded-[10px] border-2 border-rim bg-linear-to-b from-[#0b0620] via-[#4b1d6b] to-[#ff8a6b] min-[720px]:block"
+            className="theme-dark relative hidden size-[132px] overflow-hidden rounded-[10px] border-2 border-rim bg-linear-to-b from-dusk-top via-dusk-mid to-dusk-low min-[720px]:block"
           >
-            <span className="absolute -bottom-[34px] left-1/2 size-24 -translate-x-1/2 rounded-full bg-linear-to-b from-[#ffcf7a] to-[#ff3ea5]" />
+            <span className="absolute -bottom-[34px] left-1/2 size-24 -translate-x-1/2 rounded-full bg-linear-to-b from-warm to-pink" />
           </div>
           <div>
             <p className="label text-cyan">

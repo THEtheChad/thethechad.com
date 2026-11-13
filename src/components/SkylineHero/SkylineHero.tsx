@@ -1,8 +1,6 @@
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 // Vendored verbatim from the GitHub profile; see ./README.md before editing.
-import heroSvg from "./hero.svg";
-
-const hero: StaticImageData = heroSvg;
+import hero from "./hero.svg";
 
 /** The profile README's own alt text for hero.svg. */
 const HERO_ALT =
@@ -23,12 +21,11 @@ const TAGLINE = ["Kansas City, MO", "Agentic SDLC / AI / Hardware"] as const;
  */
 export function SkylineHero() {
   return (
-    <div className="pt-3 pb-5 max-[720px]:-mx-(--gutter) min-[720px]:pt-7">
+    <div className="pt-3 pb-5 max-[719px]:-mx-(--gutter) min-[720px]:pt-7">
       <Image
         src={hero}
         alt={HERO_ALT}
         preload
-        sizes="(min-width: 904px) 840px, 100vw"
         className="block h-auto w-full"
       />
       <p className="sr-only text-center font-mono text-xs leading-[1.8] tracking-[0.14em] text-muted uppercase max-[904px]:not-sr-only max-[904px]:mt-2.5 max-[904px]:block max-[904px]:px-4">

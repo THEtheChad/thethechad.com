@@ -78,7 +78,7 @@ export function HomeAbout() {
         </div>
 
         <div>
-          <figure className="relative max-w-[200px] overflow-hidden rounded-plate border-2 border-rim min-[720px]:max-w-none">
+          <figure className="theme-dark relative max-w-[200px] overflow-hidden rounded-plate border-2 border-rim min-[720px]:max-w-none">
             <Image
               src="/thethechad.jpeg"
               alt="Chad Elliott, smiling, in a plaid shirt"
@@ -87,11 +87,11 @@ export function HomeAbout() {
               sizes="(min-width: 720px) 240px, 200px"
               className="block h-auto w-full"
             />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-[#07060d] from-55% to-transparent px-3 pt-7 pb-2.5 font-mono text-xs tracking-[0.2em] text-[#f3e9ff] uppercase">
+            <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink from-55% to-transparent px-3 pt-7 pb-2.5 font-mono text-xs tracking-[0.2em] text-text uppercase">
               {profile.firstName} {profile.lastName}
             </figcaption>
           </figure>
-          <ul className="mt-3.5 font-mono text-[13px] leading-[1.7] text-muted max-[720px]:hidden">
+          <ul className="mt-3.5 font-mono text-[13px] leading-[1.7] text-muted">
             {roles.map((role) => (
               <li key={role}>{role}</li>
             ))}
