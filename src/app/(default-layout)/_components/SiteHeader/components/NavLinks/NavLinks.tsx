@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isActive, navItems } from "../../navItems";
 
-/** Desktop track-list nav (≥720px). */
+/** Desktop track-list nav (≥760px; the header needs ~752px). */
 export function NavLinks() {
   const pathname = usePathname();
 

@@ -10,7 +10,7 @@ export function Wordmark() {
   return (
     <Link
       href="/"
-      aria-label="THEtheChad, home"
+      aria-label="THE the Chad, home"
       className="inline-flex min-h-11 shrink-0 items-center"
     >
       <span

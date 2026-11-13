@@ -180,6 +180,13 @@
     outline: none;
   }
 
+  /* Preflight's `list-style: none` makes WebKit drop list semantics outside
+     <nav>; an empty string marker looks identical and keeps them. */
+  ol,
+  ul {
+    list-style-type: "";
+  }
+
   ::selection {
     background: var(--pink);
     color: var(--on-accent);

@@ -37,6 +37,7 @@ export function ProjectCard({
             className="after:absolute after:inset-0 after:rounded-[14px] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-3 focus-visible:after:outline-cyan"
           >
             {project.title}
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </Heading>
         <span aria-hidden="true" className="font-mono text-sm text-pink-ink">

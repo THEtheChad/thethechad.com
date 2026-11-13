@@ -9,7 +9,7 @@ import { externalLinks, isActive, navItems } from "../../navItems";
 const DIALOG_ID = "site-menu";
 
 /**
- * MENU button + native modal <dialog> track-list sheet (<720px).
+ * MENU button + native modal <dialog> track-list sheet (<760px).
  * `commandfor`/`command` open and close it without JS; with JS, the click
  * handlers do the same and also close it after navigation or a backdrop tap.
  */
@@ -17,11 +17,11 @@ export function MobileMenu() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const pathname = usePathname();
 
-  // The sheet is a <720px affordance: if the viewport grows past that while
+  // The sheet is a <760px affordance: if the viewport grows past that while
   // it's open (rotation, resize), close it instead of leaving a modal with no
   // visible MENU button.
   useEffect(() => {
-    const wide = window.matchMedia("(min-width: 720px)");
+    const wide = window.matchMedia("(min-width: 760px)");
     const onChange = () => {
       if (wide.matches) dialogRef.current?.close();
     };
@@ -54,7 +54,7 @@ export function MobileMenu() {
         commandfor={DIALOG_ID}
         aria-haspopup="dialog"
         onClick={open}
-        className="label inline-flex h-11 items-center min-[720px]:hidden rounded-ctl border border-rim-strong px-3.5 text-text transition-colors duration-150 hover:bg-raise"
+        className="label inline-flex h-11 items-center min-[760px]:hidden rounded-ctl border border-rim-strong px-3.5 text-text transition-colors duration-150 hover:bg-raise"
       >
         Menu
       </button>

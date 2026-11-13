@@ -20,7 +20,8 @@ export function HomeNowPlaying() {
           </div>
           <div>
             <p className="label text-cyan">
-              Side C <span aria-hidden="true">·</span> Sound on{" "}
+              Side C<span className="sr-only">:</span>{" "}
+              <span aria-hidden="true">·</span> Sound on{" "}
               <span aria-hidden="true">♪</span>
             </p>
             <h3 className="mt-2 text-[22px] font-semibold">

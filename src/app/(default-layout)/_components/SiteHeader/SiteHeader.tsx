@@ -10,7 +10,7 @@ export function SiteHeader() {
         <Wordmark />
 
         <div className="flex items-center gap-2">
-          <nav aria-label="Primary" className="hidden min-[720px]:block">
+          <nav aria-label="Primary" className="hidden min-[760px]:block">
             <NavLinks />
           </nav>
           <ThemeToggle />

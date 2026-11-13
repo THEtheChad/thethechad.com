@@ -27,6 +27,7 @@ export function CtaLinks({ className }: CtaLinksProps) {
           className={buttonSecondary}
         >
           <span aria-hidden="true">↓</span> Résumé.pdf
+          <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </li>
       <li>
@@ -37,6 +38,7 @@ export function CtaLinks({ className }: CtaLinksProps) {
           className={buttonSecondary}
         >
           GitHub <span aria-hidden="true">↗</span>
+          <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </li>
     </ul>

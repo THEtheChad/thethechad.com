@@ -20,8 +20,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
  * Numbered mono rows from liner-notes.svg: pink-ink track numbers, text
- * titles, optional subtle meta. A real ordered list; the zero-padded
- * numerals are decoration, so assistive tech hears the list position once.
+ * titles, optional subtle meta. A real ordered list (globals.css keeps its
+ * semantics in Safari); the zero-padded
+ * numerals are decoration, so assistive tech hears the list position only —
+ * counted from 1 within each list, whatever `start` the visuals use.
  */
 export function TrackList({ tracks, start = 1, className }: TrackListProps) {
   return (

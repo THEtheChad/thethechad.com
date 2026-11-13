@@ -4,7 +4,9 @@ import hero from "./hero.svg";
 
 /** The profile README's own alt text for hero.svg. */
 const HERO_ALT =
-  'THEtheChad: a drone light show spells THE and CHAD over the Kansas City skyline at dusk, with the Western Auto sign glowing "the" between them';
+  // The page's sr-only h1 already says the name, so the profile's
+  // "THEtheChad: " prefix is dropped here.
+  'A drone light show spells THE and CHAD over the Kansas City skyline at dusk, with the Western Auto sign glowing "the" between them';
 
 /** The line the artwork sets at 12px inside the 840-wide frame. */
 const TAGLINE = ["Kansas City, MO", "Agentic SDLC / AI / Hardware"] as const;

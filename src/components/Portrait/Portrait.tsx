@@ -24,7 +24,7 @@ export function Portrait({ className }: PortraitProps) {
       <figure className="theme-dark relative max-w-[200px] overflow-hidden rounded-plate border-2 border-rim min-[720px]:max-w-none">
         <Image
           src="/thethechad.jpeg"
-          alt="Chad Elliott, smiling, in a plaid shirt"
+          alt="Smiling, in a plaid shirt"
           width={566}
           height={639}
           sizes="(min-width: 720px) 240px, 200px"
