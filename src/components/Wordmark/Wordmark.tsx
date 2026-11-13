@@ -8,27 +8,26 @@ import { ULTRA_THE_PATH, ULTRA_THE_VIEWBOX } from "./ultraThe";
  */
 export function Wordmark() {
   return (
-    <Link
-      href="/"
-      aria-label="THE the Chad, home"
-      className="inline-flex min-h-11 shrink-0 items-center"
-    >
-      <span
-        aria-hidden="true"
-        className="inline-flex items-baseline gap-[7px] font-mono text-sm font-medium tracking-[0.22em] text-cyan"
-      >
-        <span>THE</span>
+    <Link href="/" className="inline-flex min-h-11 shrink-0 items-center">
+      {/* The name comes from the content ("THE the CHAD, home"), so it always
+          contains the visible label (WCAG 2.5.3). The spaces are for the
+          accessible name; flex layout drops them visually. */}
+      <span className="inline-flex items-baseline gap-[7px] font-mono text-sm font-medium tracking-[0.22em] text-cyan">
+        <span>THE</span>{" "}
         <svg
           viewBox={ULTRA_THE_VIEWBOX}
           width={43}
           height={16}
           className="wordmark-the translate-y-px fill-red"
-          aria-hidden="true"
+          role="img"
+          aria-label="the"
           focusable="false"
         >
           <path d={ULTRA_THE_PATH} />
-        </svg>
-        <span>CHAD</span>
+        </svg>{" "}
+        <span>
+          CHAD<span className="sr-only">, home</span>
+        </span>
       </span>
     </Link>
   );
