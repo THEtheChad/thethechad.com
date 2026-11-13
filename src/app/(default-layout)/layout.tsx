@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
-import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
+import { loadAlbums } from "@/components/TapeDeck/loadAlbums";
+import { TapeDeck } from "@/components/TapeDeck/TapeDeck";
 import { SiteFooter } from "./_components/SiteFooter/SiteFooter";
 import { SiteHeader } from "./_components/SiteHeader/SiteHeader";
 import { SkipLink } from "./_components/SkipLink/SkipLink";
@@ -11,14 +11,16 @@ export default function DefaultLayout({
   children: ReactNode;
 }>) {
   return (
-    <AudioAnalyserProvider>
+    <>
       <SkipLink />
       <SiteHeader />
       <main id="main" tabIndex={-1} className="site-column">
         {children}
       </main>
       <SiteFooter />
-      <RetroAmp />
-    </AudioAnalyserProvider>
+      {/* Album listing is read at build time; the deck stays mounted across
+          client navigation, so playback continues from page to page. */}
+      <TapeDeck albums={loadAlbums()} />
+    </>
   );
 }

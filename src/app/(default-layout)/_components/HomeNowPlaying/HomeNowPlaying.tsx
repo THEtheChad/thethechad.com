@@ -2,8 +2,8 @@ import { Plate } from "@/components/Plate/Plate";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
 /**
- * Home §03: points at the player docked at the foot of every page. Copy only;
- * the deck itself is redesigned (as TapeDeck) in M4.
+ * Home §03: points at the TapeDeck docked at the foot of every page. Copy
+ * only; the jump link focuses the deck's `#music-player` landmark.
  */
 export function HomeNowPlaying() {
   return (
