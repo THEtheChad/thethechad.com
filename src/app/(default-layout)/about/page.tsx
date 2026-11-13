@@ -20,7 +20,11 @@ const hats: readonly Track[] = [
   {
     title: (
       <>
-        Social Media Strategist <span className="text-pink-ink">· Zaarly</span>
+        Social Media Strategist{" "}
+        <span className="text-pink-ink">
+          <span aria-hidden="true">· </span>
+          <span className="sr-only">at </span>Zaarly
+        </span>
       </>
     ),
     detail:
@@ -30,7 +34,10 @@ const hats: readonly Track[] = [
     title: (
       <>
         Store Technician → Assistant IT Director{" "}
-        <span className="text-pink-ink">· Sunshine Energy</span>
+        <span className="text-pink-ink">
+          <span aria-hidden="true">· </span>
+          <span className="sr-only">at </span>Sunshine Energy
+        </span>
       </>
     ),
     detail:
@@ -39,7 +46,11 @@ const hats: readonly Track[] = [
   {
     title: (
       <>
-        Interactive Web Developer <span className="text-pink-ink">· VML</span>
+        Interactive Web Developer{" "}
+        <span className="text-pink-ink">
+          <span aria-hidden="true">· </span>
+          <span className="sr-only">at </span>VML
+        </span>
       </>
     ),
     detail:

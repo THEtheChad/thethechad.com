@@ -1,6 +1,12 @@
 "use client";
 
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import { buttonPrimary } from "@/lib/buttonClasses";
 
@@ -48,19 +54,20 @@ async function send(body: {
 }
 
 /**
- * The contact form: visible labels, 44px inputs at 16px, and one polite live
- * region that announces pending, success, and error. Controls are never
- * disabled mid-send (that would drop keyboard focus); the fields go read-only
- * and the button aria-disabled instead. Input is cleared only on success.
- * Without JavaScript it is a plain form post to the same endpoint, which
- * redirects to /contact/sent or /contact/failed.
+ * The contact form: visible labels, 44px inputs at 16px, and one polite
+ * status region that announces the outcome (the button itself says
+ * "Sending…" meanwhile). Controls are never disabled mid-send (that would
+ * drop keyboard focus); the fields go read-only and the button aria-disabled
+ * instead. Input is cleared only on success. Without JavaScript it is a plain
+ * form post to the same endpoint, which redirects to /contact/sent or
+ * /contact/failed.
  */
 export function ContactForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [values, setValues] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const pending = status.state === "pending";
+  // Guards double submits within one render, before `pending` is visible.
+  const inFlight = useRef(false);
   const statusRef = useRef<HTMLDivElement>(null);
 
   // Keep the outcome visible above the docked player without moving focus
@@ -71,20 +78,40 @@ export function ContactForm() {
     }
   }, [status.state]);
 
+  function onChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.currentTarget;
+    e.currentTarget.setCustomValidity("");
+    setValues((v) => ({ ...v, [name]: value }));
+    // A new message makes the last "sent" confirmation stale.
+    if (status.state === "success") setStatus({ state: "idle" });
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (pending) return;
-    setStatus({ state: "pending" });
+    if (inFlight.current) return;
 
-    const error = await send({ name, email, message });
+    // `required` accepts whitespace; treat it as empty, with the same native
+    // bubble on the first offending field.
+    for (const el of e.currentTarget.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >("input, textarea")) {
+      if (!el.value.trim()) {
+        el.setCustomValidity("Please fill out this field.");
+        el.reportValidity();
+        return;
+      }
+    }
+
+    inFlight.current = true;
+    setStatus({ state: "pending" });
+    const error = await send(values);
+    inFlight.current = false;
     if (error) {
       setStatus({ state: "error", message: error });
       return;
     }
     setStatus({ state: "success" });
-    setName("");
-    setEmail("");
-    setMessage("");
+    setValues({ name: "", email: "", message: "" });
   }
 
   return (
@@ -92,9 +119,10 @@ export function ContactForm() {
       action="/api/contact"
       method="post"
       onSubmit={handleSubmit}
-      aria-busy={pending}
       className="flex flex-col gap-5"
     >
+      <p className="text-[15px] text-muted">All fields are required.</p>
+
       <div className={field}>
         <label htmlFor="contact-name" className={label}>
           Name
@@ -104,8 +132,8 @@ export function ContactForm() {
           name="name"
           type="text"
           autoComplete="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={values.name}
+          onChange={onChange}
           placeholder="Your name"
           required
           readOnly={pending}
@@ -122,8 +150,8 @@ export function ContactForm() {
           name="email"
           type="email"
           autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
+          onChange={onChange}
           placeholder="you@example.com"
           required
           readOnly={pending}
@@ -138,8 +166,11 @@ export function ContactForm() {
         <textarea
           id="contact-message"
           name="message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={values.message}
+          onChange={onChange}
+          // Chromium scrolls a textarea's caret into view, not its box, so the
+          // dock scroll-margin is ignored; bring the whole field up instead.
+          onFocus={(e) => e.currentTarget.scrollIntoView({ block: "nearest" })}
           placeholder="What's on your mind?"
           rows={6}
           required
@@ -157,15 +188,7 @@ export function ContactForm() {
           {pending ? "Sending…" : "Send message"}
         </button>
 
-        <div
-          ref={statusRef}
-          id="contact-status"
-          role="status"
-          aria-live="polite"
-        >
-          {status.state === "pending" && (
-            <p className="mt-4 text-[15px] text-muted">Sending your message…</p>
-          )}
+        <div ref={statusRef} id="contact-status" role="status">
           {status.state === "success" && (
             <p className="mt-4 border-l-2 border-cyan pl-3 text-[15px] leading-[1.6]">
               <span className="font-semibold text-cyan">Message sent.</span> Got
