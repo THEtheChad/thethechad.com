@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Requires Node (version pinned in `.node-version`; `fnm` picks it up) and pnpm (pinned via `packageManager`).
+Requires Node 26 (pinned in `.node-version`, which `fnm` picks up, and in `engines.node`, which Vercel reads) and pnpm 12 (pinned via `packageManager`). Node 25+ no longer bundles Corepack, so install pnpm once from https://pnpm.io/installation; any pnpm ≥ 10 switches itself to the pinned version. pnpm 9 cannot read this lockfile.
 
 ```bash
 pnpm install
