@@ -1,8 +1,8 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { buttonPrimary } from "@/components/Button/buttonClasses";
+import { buttonPrimary } from "@/lib/buttonClasses";
 
 type Status =
   | { state: "idle" }
@@ -26,16 +26,24 @@ async function send(body: {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+      // A stalled send must not lock the (read-only) form forever.
+      signal: AbortSignal.timeout(15_000),
     });
     if (res.ok) return null;
     const data: unknown = await res.json().catch(() => null);
     const error =
-      data && typeof data === "object" && "error" in data
-        ? String(data.error)
+      data &&
+      typeof data === "object" &&
+      "error" in data &&
+      typeof data.error === "string" &&
+      data.error
+        ? data.error
         : null;
     return error ?? "Something went wrong.";
-  } catch {
-    return "Network error.";
+  } catch (error) {
+    return error instanceof DOMException && error.name === "TimeoutError"
+      ? "The server took too long to answer."
+      : "Network error.";
   }
 }
 
@@ -44,6 +52,8 @@ async function send(body: {
  * region that announces pending, success, and error. Controls are never
  * disabled mid-send (that would drop keyboard focus); the fields go read-only
  * and the button aria-disabled instead. Input is cleared only on success.
+ * Without JavaScript it is a plain form post to the same endpoint, which
+ * redirects to /contact/sent or /contact/failed.
  */
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -51,6 +61,15 @@ export function ContactForm() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const pending = status.state === "pending";
+  const statusRef = useRef<HTMLDivElement>(null);
+
+  // Keep the outcome visible above the docked player without moving focus
+  // off the submit button.
+  useEffect(() => {
+    if (status.state === "success" || status.state === "error") {
+      statusRef.current?.scrollIntoView({ block: "nearest" });
+    }
+  }, [status.state]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,9 +89,11 @@ export function ContactForm() {
 
   return (
     <form
+      action="/api/contact"
+      method="post"
       onSubmit={handleSubmit}
       aria-busy={pending}
-      className="js-only flex flex-col gap-5"
+      className="flex flex-col gap-5"
     >
       <div className={field}>
         <label htmlFor="contact-name" className={label}>
@@ -136,7 +157,12 @@ export function ContactForm() {
           {pending ? "Sending…" : "Send message"}
         </button>
 
-        <div role="status" aria-live="polite">
+        <div
+          ref={statusRef}
+          id="contact-status"
+          role="status"
+          aria-live="polite"
+        >
           {status.state === "pending" && (
             <p className="mt-4 text-[15px] text-muted">Sending your message…</p>
           )}

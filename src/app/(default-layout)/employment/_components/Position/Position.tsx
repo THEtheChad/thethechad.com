@@ -23,7 +23,7 @@ const bulletList =
 export function Position({ position }: PositionProps) {
   const { title, company, location, startDate, endDate, technologies } =
     position;
-  const { summary, bullets } = parseDescription(position.description);
+  const { summary, bullets, after } = parseDescription(position.description);
   const cut =
     bullets.length > VISIBLE_BULLETS + 1 ? VISIBLE_BULLETS : undefined;
   const shown = bullets.slice(0, cut);
@@ -64,9 +64,10 @@ export function Position({ position }: PositionProps) {
           <span className="whitespace-nowrap">{location}</span>
         </p>
 
-        {summary.map((paragraph) => (
+        {summary.map((paragraph, i) => (
           <p
-            key={paragraph}
+            // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
+            key={i}
             className="mt-4 max-w-[65ch] text-[17px] leading-[1.65]"
           >
             {paragraph}
@@ -75,8 +76,9 @@ export function Position({ position }: PositionProps) {
 
         {shown.length > 0 && (
           <ul className={twMerge(bulletList, "mt-3.5")}>
-            {shown.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
+            {shown.map((bullet, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
+              <li key={i}>{bullet}</li>
             ))}
           </ul>
         )}
@@ -92,16 +94,28 @@ export function Position({ position }: PositionProps) {
               </span>
               <span className="group-open:hidden">
                 {folded.length} more highlights
+                <span className="sr-only"> at {company}</span>
               </span>
               <span className="hidden group-open:inline">Fewer highlights</span>
             </summary>
             <ul className={bulletList}>
-              {folded.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
+              {folded.map((bullet, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
+                <li key={i}>{bullet}</li>
               ))}
             </ul>
           </details>
         )}
+
+        {after.map((paragraph, i) => (
+          <p
+            // biome-ignore lint/suspicious/noArrayIndexKey: static, ordered copy
+            key={i}
+            className="mt-4 max-w-[65ch] text-[17px] leading-[1.65]"
+          >
+            {paragraph}
+          </p>
+        ))}
 
         {technologies && technologies.length > 0 && (
           <DotList

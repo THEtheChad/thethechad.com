@@ -12,6 +12,7 @@ export interface DotListProps {
  * decoration and trail each item, so a wrapped line never starts with one.
  */
 export function DotList({ items, label, className }: DotListProps) {
+  if (items.length === 0) return null;
   return (
     <ul
       aria-label={label}
@@ -21,7 +22,8 @@ export function DotList({ items, label, className }: DotListProps) {
       )}
     >
       {items.map((item, i) => (
-        <li key={item} className="whitespace-nowrap">
+        // biome-ignore lint/suspicious/noArrayIndexKey: duplicate tags must not collide
+        <li key={i} className="whitespace-nowrap">
           {item}
           {i < items.length - 1 && (
             <span aria-hidden="true" className="px-2 text-subtle">

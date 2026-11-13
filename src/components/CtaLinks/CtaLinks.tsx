@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import {
-  buttonPrimary,
-  buttonSecondary,
-} from "@/components/Button/buttonClasses";
 import { profile } from "@/data/resume";
+import { buttonPrimary, buttonSecondary } from "@/lib/buttonClasses";
 
 export interface CtaLinksProps {
   className?: string;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { projects } from "@/data/resume";
-import { ProjectCard } from "./_components/ProjectCard/ProjectCard";
 
 export const metadata: Metadata = {
   title: "Projects · Chad Elliott",

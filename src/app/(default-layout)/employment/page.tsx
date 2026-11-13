@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { buttonSecondary } from "@/components/Button/buttonClasses";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { positions, profile } from "@/data/resume";
+import { buttonSecondary } from "@/lib/buttonClasses";
 import { Position } from "./_components/Position/Position";
 
 export const metadata: Metadata = {

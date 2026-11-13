@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { projects } from "@/data/resume";
-import { ProjectCard } from "../../projects/_components/ProjectCard/ProjectCard";
 
 /**
  * Home §04: the projects from résumé data as whole-card links, sharing

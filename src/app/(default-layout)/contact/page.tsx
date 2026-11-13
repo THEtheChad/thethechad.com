@@ -21,12 +21,6 @@ export default function Contact() {
 
       <div className="grid items-start gap-12 min-[720px]:grid-cols-[minmax(0,1fr)_200px] min-[720px]:gap-14">
         <div className="max-w-xl">
-          <noscript>
-            <p className="rounded-plate border-2 border-rim p-6 text-[17px] leading-[1.7]">
-              The message form needs JavaScript. You can still find me through
-              the links here.
-            </p>
-          </noscript>
           <ContactForm />
         </div>
 

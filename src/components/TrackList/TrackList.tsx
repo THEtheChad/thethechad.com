@@ -40,15 +40,15 @@ export function TrackList({ tracks, start = 1, className }: TrackListProps) {
           <span aria-hidden="true" className="text-[13px] text-pink-ink">
             {pad(start + i)}
           </span>
-          <span>
-            {title}
-            {detail && (
-              <span className="mt-1.5 mb-2 block max-w-[65ch] font-sans text-[15px] leading-[1.65] text-muted">
-                {detail}
-              </span>
-            )}
-          </span>
+          <span>{title}</span>
           {meta && <span className="pl-3 text-[13px] text-subtle">{meta}</span>}
+          {detail && (
+            // Prose, not fine print: full width under the number on phones,
+            // aligned with the title from 720px.
+            <span className="col-span-full mt-1.5 mb-2 block max-w-[65ch] font-sans text-[17px] leading-[1.7] text-muted min-[720px]:col-start-2">
+              {detail}
+            </span>
+          )}
         </li>
       ))}
     </ol>
