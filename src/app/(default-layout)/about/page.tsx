@@ -4,12 +4,14 @@ import { Plate } from "@/components/Plate/Plate";
 import { Portrait } from "@/components/Portrait/Portrait";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { type Track, TrackList } from "@/components/TrackList/TrackList";
+import { pageMetadata } from "@/lib/pageMetadata";
 
-export const metadata: Metadata = {
-  title: "About · Chad Elliott",
+export const metadata: Metadata = pageMetadata({
+  title: "About",
   description:
     "Chad Elliott, from a VTech PreComputer 1000 and a BASIC manual to many hats: social media strategist, IT, interactive web developer, and staff engineer.",
-};
+  path: "/about",
+});
 
 /**
  * Earlier roles, from the about page's own copy (no dates exist for these,

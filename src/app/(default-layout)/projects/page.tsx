@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { projects } from "@/data/resume";
+import { pageMetadata } from "@/lib/pageMetadata";
 
-export const metadata: Metadata = {
-  title: "Projects · Chad Elliott",
+export const metadata: Metadata = pageMetadata({
+  title: "Projects",
   description:
     "Things Chad Elliott has built and contributed to, from this site to open-source TypeScript tooling.",
-};
+  path: "/projects",
+});
 
 export default function Projects() {
   return (

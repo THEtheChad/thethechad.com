@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { externalLinks } from "../_components/SiteHeader/navItems";
 import { ContactForm } from "./_components/ContactForm/ContactForm";
 
-export const metadata: Metadata = {
-  title: "Contact · Chad Elliott",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact",
   description:
     "Get in touch with Chad Elliott, a software engineer in Kansas City, by message, GitHub, or LinkedIn.",
-};
+  path: "/contact",
+});
 
 export default function Contact() {
   return (

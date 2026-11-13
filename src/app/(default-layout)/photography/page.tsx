@@ -1,13 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { Metadata } from "next";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { photos } from "@/data/photos";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { Gallery } from "./_components/Gallery/Gallery";
 
-export const metadata = {
-  title: "Photography | Chad",
-  description: "A collection of photographs by Chad.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Photos",
+  description: "Photographs by Chad Elliott, shown in full color.",
+  path: "/photography",
+});
 
 // photos.ts is hand-maintained; fail the (static) build if it points at a
 // file that isn't in public/ instead of shipping a broken image.

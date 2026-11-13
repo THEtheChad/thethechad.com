@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { LinerNotes } from "@/components/LinerNotes/LinerNotes";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { SkylineHero } from "@/components/SkylineHero/SkylineHero";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { HomeAbout } from "./_components/HomeAbout/HomeAbout";
 import { HomeLately } from "./_components/HomeLately/HomeLately";
 import { HomeNowPlaying } from "./_components/HomeNowPlaying/HomeNowPlaying";
 
-export const metadata: Metadata = {
-  title: "THEtheChad · Chad Elliott",
+export const metadata: Metadata = pageMetadata({
   description:
     "Chad Elliott, a staff-level engineer in Kansas City: all-in on AI and the agentic SDLC, still TypeScript, React, and Next.js underneath, and microcontrollers away from the browser.",
-};
+  path: "/",
+});
 
 export default function Home() {
   return (

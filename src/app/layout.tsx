@@ -8,6 +8,7 @@ import {
 import "./globals.css";
 import type { ReactNode } from "react";
 import { themeInitScript } from "@/components/ThemeToggle/theme";
+import { SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/pageMetadata";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -43,9 +44,18 @@ const cedarville = Cedarville_Cursive({
   display: "swap",
 });
 
+/* Defaults for routes outside (default-layout), e.g. the 404 page. Each page
+   sets its own title, description and canonical through pageMetadata(), and
+   Next derives og:title/og:description and twitter:* from those. The icons
+   and OG image are the app/ metadata files. */
 export const metadata: Metadata = {
-  title: "Chad",
-  description: "Software engineer, builder, and maker of things.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description:
+    "Chad Elliott, a staff-level engineer in Kansas City: all-in on AI and the agentic SDLC.",
+  authors: [{ name: "Chad Elliott", url: SITE_URL }],
+  openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

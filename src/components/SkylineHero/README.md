@@ -52,3 +52,20 @@ Why an `<img>` and not inline markup: the file carries its own `<style>`
 document: no id or class collisions with the page, no edits to the vendored
 bytes, and a separately cached, hashed asset instead of ~50 KB in every HTML
 response.
+
+## Icons and the social card (derived, static)
+
+These live in `src/app/` as Next metadata files and are cut from the hero's
+still frame, so re-render them when the hero changes:
+
+- `icon.svg`: the Western Auto "the" sign (the bulb ring and lattice behind
+  it, plus the sky gradient and the `glowRed`/`glowBulb` filters) copied
+  from `hero-static.svg` with no edits. The `viewBox` is cropped to
+  `313 52 136 136` and the tile rounded with `rx="24"`. `favicon.ico` holds
+  16 and 32px PNG renders of it, and `apple-icon.png` is a 180px render
+  with square corners (iOS applies its own mask).
+- `opengraph-image.jpg` (1200×630): `hero-static.svg` inline at 1100px wide
+  and centered on the `night` ground (`#0d0b14`), with Geist Mono loaded
+  so the tagline uses the profile's face. Rendered in Chromium as a JPEG at
+  quality 88. The PNG version was 640 KB because of the grain.
+  `opengraph-image.alt.txt` is the hero's alt text plus its tagline.

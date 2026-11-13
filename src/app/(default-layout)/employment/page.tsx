@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { positions, profile } from "@/data/resume";
 import { buttonSecondary } from "@/lib/buttonClasses";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { Position } from "./_components/Position/Position";
 
-export const metadata: Metadata = {
-  title: "Work · Chad Elliott",
+export const metadata: Metadata = pageMetadata({
+  title: "Work",
   description:
     "Chad Elliott's work history: solutions architect, software engineer, and marketing automation strategist in Kansas City, with the technologies behind each role.",
-};
+  path: "/employment",
+});
 
 /** The summary's opening paragraph is the page's lead. */
 const lead = profile.summary.split("\n\n")[0];

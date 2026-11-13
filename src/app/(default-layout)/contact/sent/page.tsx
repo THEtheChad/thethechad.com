@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { ContactResult } from "../_components/ContactResult/ContactResult";
 
-export const metadata: Metadata = {
-  title: "Message sent · Chad Elliott",
-  robots: { index: false },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Message sent",
+  description: "Your message to Chad Elliott was sent.",
+  path: "/contact/sent",
+  noindex: true,
+});
 
 export default function ContactSent() {
   return (
