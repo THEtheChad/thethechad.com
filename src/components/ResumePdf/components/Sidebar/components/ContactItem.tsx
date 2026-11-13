@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { c } from "@/components/ResumePdf/styles";
 
 const s = StyleSheet.create({

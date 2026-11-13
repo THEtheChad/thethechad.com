@@ -1,27 +1,26 @@
-import { ReactNode } from "react";
-import { Navigation } from "@/app/(default-layout)/_components/Navigation/Navigation";
-import { CrtOverlay } from "@/components/CrtOverlay/CrtOverlay";
-import { RetroAmp } from "@/components/RetroAmp/RetroAmp";
-import { AudioAnalyserProvider } from "@/contexts/AudioAnalyserContext";
-import { Sidebar } from "./_components/Sidebar/Sidebar";
+import type { ReactNode } from "react";
+import { loadAlbums } from "@/components/TapeDeck/loadAlbums";
+import { TapeDeck } from "@/components/TapeDeck/TapeDeck";
+import { SiteFooter } from "./_components/SiteFooter/SiteFooter";
+import { SiteHeader } from "./_components/SiteHeader/SiteHeader";
+import { SkipLink } from "./_components/SkipLink/SkipLink";
 
-export default function RootLayout({
+export default function DefaultLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <AudioAnalyserProvider>
-      <Sidebar className="fixed left-0 top-0 bottom-20 w-65 overflow-y-auto" />
-      <div className="fixed right-0 top-0 bottom-20" style={{ left: "260px" }}>
-        <div className="h-full overflow-y-auto">
-          <Navigation />
-          <main className="px-8 py-4">{children}</main>
-          <CrtOverlay />
-        </div>
-      </div>
-
-      <RetroAmp />
-    </AudioAnalyserProvider>
+    <>
+      <SkipLink />
+      <SiteHeader />
+      <main id="main" tabIndex={-1} className="site-column">
+        {children}
+      </main>
+      <SiteFooter />
+      {/* Album listing is read at build time; the deck stays mounted across
+          client navigation, so playback continues from page to page. */}
+      <TapeDeck albums={loadAlbums()} />
+    </>
   );
 }

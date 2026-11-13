@@ -1,152 +1,56 @@
-"use client";
+import type { Metadata } from "next";
+import { NewTabNote } from "@/components/NewTabNote/NewTabNote";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { pageMetadata } from "@/lib/pageMetadata";
+import { externalLinks } from "../_components/SiteHeader/navItems";
+import { ContactForm } from "./_components/ContactForm/ContactForm";
 
-import { useState } from "react";
-import { Section } from "@/components/Section/Section";
-
-type Status = "idle" | "sending" | "success" | "error";
-
-const inputClass =
-  "w-full bg-[#04040E] border border-line px-3 py-2 font-retro text-lg text-body placeholder-soft/40 outline-none transition-colors focus:border-accent-soft focus:shadow-[0_0_8px_rgba(0,207,255,0.2)]";
+export const metadata: Metadata = pageMetadata({
+  title: "Contact",
+  description:
+    "Get in touch with Chad Elliott, a software engineer in Kansas City, by message, GitHub, or LinkedIn.",
+  path: "/contact",
+});
 
 export default function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("sending");
-    setErrorMsg("");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        setErrorMsg(data.error ?? "Something went wrong.");
-        setStatus("error");
-      } else {
-        setStatus("success");
-        setName("");
-        setEmail("");
-        setMessage("");
-      }
-    } catch {
-      setErrorMsg("Network error. Please try again.");
-      setStatus("error");
-    }
-  }
-
   return (
-    <Section title="Contact">
-      <div className="max-w-xl">
-        {status === "success" ? (
-          <div className="border border-accent-soft/30 bg-[#04040E] p-6">
-            <p className="font-pixel text-[9px] text-accent-soft">
-              <span className="text-pink">❯ </span>
-              MESSAGE SENT
-            </p>
-            <p className="mt-3 font-retro text-lg text-soft">
-              Got it — I&apos;ll get back to you soon.
-            </p>
-            <button
-              type="button"
-              onClick={() => setStatus("idle")}
-              className="mt-4 flex items-center gap-2 font-retro text-lg text-soft transition-colors hover:text-accent-soft"
-            >
-              <span className="text-pink">$</span>
-              <span>send another</span>
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            {/* Name */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="name-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> name
-              </label>
-              <input
-                id="name-input"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                required
-                disabled={status === "sending"}
-                className={inputClass}
-              />
-            </div>
+    <>
+      <SectionHeader as="h1" index="05" title="contact" />
+      <p className="mb-10 measure-60 text-lg leading-[1.55] min-[720px]:text-xl">
+        I'm highly engaged in the tech and entrepreneurial communities in Kansas
+        City and am always looking to expand my network. I also really enjoy
+        helping people, so if you need something, let me know!
+      </p>
 
-            {/* Email */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="email-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> email
-              </label>
-              <input
-                id="email-input"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-                disabled={status === "sending"}
-                className={inputClass}
-              />
-            </div>
+      <div className="grid items-start gap-12 min-[720px]:grid-cols-[minmax(0,1fr)_200px] min-[720px]:gap-14">
+        <div className="max-w-xl">
+          <ContactForm />
+        </div>
 
-            {/* Message */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="message-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> message
-              </label>
-              <textarea
-                id="message-input"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="What's on your mind?"
-                rows={6}
-                required
-                disabled={status === "sending"}
-                className={`${inputClass} resize-none`}
-              />
-            </div>
-
-            {/* Error */}
-            {status === "error" && (
-              <p className="font-pixel text-[8px] text-pink">✗ {errorMsg}</p>
-            )}
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="self-start border border-accent/60 px-4 py-2 font-pixel text-[9px] text-accent-soft transition-colors hover:border-accent-soft hover:bg-accent/10 disabled:opacity-50"
-              style={
-                status === "sending"
-                  ? {}
-                  : { boxShadow: "0 0 8px rgba(0,207,255,0.15)" }
-              }
-            >
-              {status === "sending" ? "SENDING..." : "$ send --message"}
-            </button>
-          </form>
-        )}
+        <aside aria-labelledby="elsewhere">
+          <h2
+            id="elsewhere"
+            className="label mb-2 border-b border-rim pb-2.5 font-normal text-cyan"
+          >
+            Elsewhere
+          </h2>
+          <ul className="font-mono text-[15px]">
+            {externalLinks.map(({ label, href }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-2 text-text underline decoration-rim-strong underline-offset-4 transition-colors duration-150 hover:text-pink-ink hover:decoration-pink-ink"
+                >
+                  {label} <span aria-hidden="true">↗</span>
+                  <NewTabNote />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
-    </Section>
+    </>
   );
 }

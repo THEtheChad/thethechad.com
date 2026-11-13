@@ -1,36 +1,42 @@
-import Markdown from "react-markdown";
-import { Section } from "@/components/Section/Section";
-import { positions } from "@/data/resume";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { positions, profile } from "@/data/resume";
+import { buttonSecondary } from "@/lib/buttonClasses";
+import { pageMetadata } from "@/lib/pageMetadata";
+import { RESUME_REQUEST_HREF } from "@/lib/routes";
+import { Position } from "./_components/Position/Position";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Work",
+  description:
+    "Chad Elliott's work history: solutions architect, software engineer, and marketing automation strategist in Kansas City, with the technologies behind each role.",
+  path: "/employment",
+});
+
+/** The summary's opening paragraph is the page's lead. */
+const lead = profile.summary.split("\n\n")[0];
 
 export default function Employment() {
   return (
-    <Section title="Employment">
-      <div className="flex flex-col gap-4">
-        {positions.map((pos) => (
-          <div
-            key={pos.title}
-            className="group corner-frame border border-line bg-card p-5 transition-colors"
-          >
-            <h3 className="mb-3 font-pixel text-[11px] text-body transition-colors group-hover:text-accent-soft">
-              {pos.title}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              <span className="border border-line bg-badge px-2.5 py-0.5 font-pixel text-[8px] text-accent-soft">
-                {pos.company}
-              </span>
-              <span className="border border-line bg-badge px-2.5 py-0.5 font-pixel text-[8px] text-accent-soft">
-                {pos.location}
-              </span>
-              <span className="border border-line bg-badge px-2.5 py-0.5 font-pixel text-[8px] text-pink">
-                {pos.startDate} — {pos.endDate ?? "PRESENT"}
-              </span>
-            </div>
-            <div className="mb-4 text-sm leading-relaxed text-soft">
-              <Markdown>{pos.description}</Markdown>
-            </div>
-          </div>
+    <>
+      <SectionHeader as="h1" index="02" title="work" />
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-x-4 gap-y-5">
+        <p className="measure-52 text-lg leading-[1.55] min-[720px]:text-xl">
+          {lead}
+        </p>
+        <Link href={RESUME_REQUEST_HREF} className={buttonSecondary}>
+          Request résumé
+        </Link>
+      </div>
+      <div>
+        {positions.map((position) => (
+          <Position
+            key={`${position.company}-${position.title}`}
+            position={position}
+          />
         ))}
       </div>
-    </Section>
+    </>
   );
 }

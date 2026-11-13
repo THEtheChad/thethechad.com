@@ -79,7 +79,12 @@ function sortProficiencyItems(
   return b.proficiency - a.proficiency;
 }
 
-export function Sidebar() {
+export interface SidebarProps {
+  /** From the RESUME_EMAIL env var; never stored in the repo. */
+  contactEmail?: string;
+}
+
+export function Sidebar({ contactEmail }: SidebarProps) {
   return (
     <View style={s.sidebar}>
       <View style={s.photoContainer}>
@@ -87,11 +92,13 @@ export function Sidebar() {
       </View>
       <View style={s.content}>
         <SidebarSection title="Contact">
-          <ContactItem label="Email">
-            <Link src={`mailto:${profile.email}`} style={s.link}>
-              {profile.email}
-            </Link>
-          </ContactItem>
+          {contactEmail && (
+            <ContactItem label="Email">
+              <Link src={`mailto:${contactEmail}`} style={s.link}>
+                {contactEmail}
+              </Link>
+            </ContactItem>
+          )}
           <ContactItem label="Location">
             <Text style={s.text}>{profile.location}</Text>
           </ContactItem>

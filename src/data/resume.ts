@@ -1,4 +1,6 @@
-// TODO: Replace mock data with parsed LinkedIn export (Profile.csv, Positions.csv, Education.csv, Skills.csv)
+// Public data only: this file is in a public repo and feeds the site. Keep
+// personal details (email, phone, address) out of it; the résumé PDF reads
+// its contact email from the RESUME_EMAIL environment variable.
 
 export interface Position {
   title: string;
@@ -25,27 +27,27 @@ export interface Profile {
   headline: string;
   summary: string;
   location: string;
-  email: string;
   linkedinUrl: string;
   githubUrl: string;
-  resumeUrl: string;
 }
 
-export interface Project { title: string; description: string; url: string; tags: string[] }
+export interface Project {
+  title: string;
+  description: string;
+  url: string;
+  tags: string[];
+}
 
 export const profile: Profile = {
   firstName: "Chad",
   lastName: "Elliott",
   headline: "Software Architect / Staff Engineer",
-  summary:
-    `Staff-level software engineer specializing in modern web platforms, developer tooling, and large-scale application modernization.
+  summary: `Staff-level software engineer specializing in modern web platforms, developer tooling, and large-scale application modernization.
 
 Experienced in leading migrations from legacy systems to modern React/TypeScript architectures, building CI/CD platforms, and designing developer infrastructure that accelerates team velocity. Known for introducing strongly typed APIs, state-machine driven workflows, and systems that enable parallel development across distributed teams.`,
   location: "Kansas City, MO",
-  email: "",
   linkedinUrl: "https://linkedin.com/in/thethechad",
   githubUrl: "https://github.com/thethechad",
-  resumeUrl: "/api/resume",
 };
 
 export const positions: Position[] = [
@@ -55,8 +57,7 @@ export const positions: Position[] = [
     location: "Kansas City, MO",
     startDate: "Sep 2023",
     endDate: "Mar 2026",
-    description:
-      `Led modernization of a legacy Java/JSP application suite into a modern React + TypeScript platform backed by Java APIs.
+    description: `Led modernization of a legacy Java/JSP application suite into a modern React + TypeScript platform backed by Java APIs.
 
 Key impact:
 - Architected a React component platform used across multiple applications, standardizing UI patterns and significantly reducing frontend implementation time.
@@ -66,8 +67,21 @@ Key impact:
 - Implemented a type-safe API development platform using Zod, Zodios, and zod-fixture, enabling frontend teams to develop independently from backend services.
 - Established engineering office hours and architecture mentorship, accelerating adoption of the new frontend platform across teams.`,
     technologies: [
-      "TypeScript", "React", "Next.js", "XState", "Zod", "React Query", "GitLab CI", "Kubernetes", "Helm", "AWS EKS", "Bash", "JSONLogic", "Zodios", "Zod Fixture"
-    ]
+      "TypeScript",
+      "React",
+      "Next.js",
+      "XState",
+      "Zod",
+      "React Query",
+      "GitLab CI",
+      "Kubernetes",
+      "Helm",
+      "AWS EKS",
+      "Bash",
+      "JSONLogic",
+      "Zodios",
+      "Zod Fixture",
+    ],
   },
   {
     title: "Software Engineer",
@@ -75,8 +89,7 @@ Key impact:
     location: "Kansas City, MO",
     startDate: "Mar 2021",
     endDate: "Jan 2023",
-    description:
-      `Modernized a React-based application platform and established frontend architecture standards.
+    description: `Modernized a React-based application platform and established frontend architecture standards.
 
 Key impact:
 - Migrated the build system from Create React App → Vite, improving developer feedback cycles and increasing HMR performance by ~2×.
@@ -85,8 +98,13 @@ Key impact:
 - Upgraded the application to React 17 and introduced error boundaries and Suspense, improving application stability.
 - Partnered with design and product teams to define UX patterns and improve development workflows.`,
     technologies: [
-      "React", "Vite", "Docker", "Redux", "MUI", "React Hook Form"
-    ]
+      "React",
+      "Vite",
+      "Docker",
+      "Redux",
+      "MUI",
+      "React Hook Form",
+    ],
   },
   {
     title: "Marketing Automation Strategist",
@@ -94,8 +112,7 @@ Key impact:
     location: "Kansas City, MO",
     startDate: "Jan 2016",
     endDate: "Mar 2021",
-    description:
-      `Designed distributed automation systems that transformed incoming marketing leads into revenue-generating pipelines across internal and third-party platforms.
+    description: `Designed distributed automation systems that transformed incoming marketing leads into revenue-generating pipelines across internal and third-party platforms.
 
 Key impact:
 - Built microservice-based automation workflows integrating multiple SaaS platforms across the marketing and revenue pipeline.
@@ -103,8 +120,19 @@ Key impact:
 - Defined API integration contracts across internal and third-party systems to enable end-to-end automation.
 - Partnered with analytics and data engineering teams to align automation pipelines with downstream reporting systems.`,
     technologies: [
-      "Salesforce", "Workday", "Basecamp", "Simpli.fi", "Google Campaign Manager (DCM)", "Display & Video 360 (DBM)", "Amazon", "SupportBee", "Google Tag Manager", "Google Analytics", "Tableau Server", "Looker"
-    ]
+      "Salesforce",
+      "Workday",
+      "Basecamp",
+      "Simpli.fi",
+      "Google Campaign Manager (DCM)",
+      "Display & Video 360 (DBM)",
+      "Amazon",
+      "SupportBee",
+      "Google Tag Manager",
+      "Google Analytics",
+      "Tableau Server",
+      "Looker",
+    ],
   },
 ] as const satisfies Position[];
 
@@ -128,14 +156,14 @@ export const frontend = [
   { label: "MUI", proficiency: 9 },
   { label: "Tailwind", proficiency: 6 },
   { label: "Redux", proficiency: 9 },
-] as const satisfies { label: string, proficiency: number }[];
+] as const satisfies { label: string; proficiency: number }[];
 
 export const backend = [
   { label: "NodeJS", proficiency: 10 },
   { label: "REST APIs", proficiency: 10 },
   { label: "GraphQL", proficiency: 6 },
   { label: "EffectTS", proficiency: 6 },
-] as const satisfies { label: string, proficiency: number }[];
+] as const satisfies { label: string; proficiency: number }[];
 
 export const infrastructure = [
   { label: "Docker", proficiency: 8 },
@@ -145,7 +173,7 @@ export const infrastructure = [
   { label: "Git", proficiency: 8 },
   { label: "Kubernetes", proficiency: 6 },
   { label: "Helm", proficiency: 5 },
-] as const satisfies { label: string, proficiency: number }[];
+] as const satisfies { label: string; proficiency: number }[];
 
 export const languages = [
   { label: "TypeScript", proficiency: 10 },
@@ -158,23 +186,22 @@ export const languages = [
   { label: "C++", proficiency: 6 },
   { label: "HTML", proficiency: 9 },
   { label: "CSS", proficiency: 9 },
-] as const satisfies { label: string, proficiency: number }[];
+] as const satisfies { label: string; proficiency: number }[];
 
 // TODO: Replace with your real projects
 export const projects: Project[] = [
   {
     title: "thethechad.com",
     description:
-      "A full-stack web application for managing and organizing tasks with real-time collaboration.",
+      "This site: Next.js, TypeScript, and Tailwind, with a drone light show over the Kansas City skyline.",
     url: "https://github.com/THEtheChad/thethechad.com",
     tags: ["Next.js", "TypeScript"],
   },
   {
     title: "zod-fixture",
-    description:
-      `Creating test fixtures should be easy.
+    description: `Creating test fixtures should be easy.
 zod-fixture helps with the arrange phase of your tests by creating test fixtures based on a zod schema.`,
     url: "https://github.com/timdeschryver/zod-fixture",
     tags: ["Typescript"],
-  }
+  },
 ] as const;
