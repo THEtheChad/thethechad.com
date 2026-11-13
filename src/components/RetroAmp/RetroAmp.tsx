@@ -223,50 +223,54 @@ export function RetroAmp() {
 
   const album = albums[albumIdx];
   const track = album?.tracks[trackIdx];
-  const gradient =
-    "linear-gradient(90deg, #001a66 0%, #003380 50%, #001a66 100%)";
 
   // ── Render ────────────────────────────────────────────────────────────────────
+  // Re-tokened only; the "Side C" TapeDeck redesign lands in M4.
+  const transportBtn =
+    "inline-flex size-9 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:bg-raise hover:text-text";
+  const panelBtn = (active: boolean) =>
+    `label inline-flex h-7 items-center rounded-sm px-2 transition-colors duration-150 hover:text-text ${
+      active ? "bg-raise text-text" : "text-muted"
+    }`;
+
   return (
-    <div
-      className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-card"
-      style={{ boxShadow: "0 -4px 24px rgba(0,95,255,0.25), 0 0 2px #005FFF" }}
-    >
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-rim bg-ink/92 backdrop-blur-md">
       {/* AL panel — expands upward */}
       {view === "al" && (
-        <div className="border-b border-line bg-[#08081A] p-3">
+        <div className="border-b border-rim p-3">
           {albums.length === 0 && (
-            <p className="px-2 py-1 font-pixel text-[8px] text-soft">
-              NO ALBUMS FOUND
+            <p className="px-2 py-1 font-mono text-xs text-muted">
+              No albums found
             </p>
           )}
-          <div className="flex gap-3">
+          <div className="flex gap-3 overflow-x-auto">
             {albums.map((a, i) => (
               <button
                 key={a.name}
                 type="button"
                 onClick={() => selectAlbum(i)}
-                className={`flex flex-col items-center gap-1 p-1 transition-colors ${
+                aria-pressed={i === albumIdx}
+                className={`flex flex-col items-center gap-1 rounded-ctl border p-1 transition-colors duration-150 ${
                   i === albumIdx
-                    ? "border border-accent-soft/60"
-                    : "border border-transparent hover:border-line"
+                    ? "border-pink"
+                    : "border-transparent hover:border-rim-strong"
                 }`}
               >
                 {a.coverUrl ? (
                   <Image
                     src={a.coverUrl}
-                    alt={a.name}
+                    alt=""
                     width={56}
                     height={56}
-                    className="h-14 w-14 object-cover"
+                    className="h-14 w-14 rounded-sm object-cover"
                     unoptimized
                   />
                 ) : (
-                  <div className="flex h-14 w-14 items-center justify-center bg-badge font-pixel text-xl text-line">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-raise text-xl text-subtle">
                     ♪
                   </div>
                 )}
-                <p className="w-14 truncate text-center font-pixel text-[7px] text-soft leading-tight">
+                <p className="w-14 truncate text-center font-mono text-xs leading-tight text-muted">
                   {a.name}
                 </p>
               </button>
@@ -277,11 +281,9 @@ export function RetroAmp() {
 
       {/* PL panel — expands upward */}
       {view === "pl" && (
-        <div className="max-h-48 overflow-y-auto border-b border-line bg-[#08081A]">
+        <div className="max-h-48 overflow-y-auto border-b border-rim">
           {!album?.tracks.length && (
-            <p className="px-3 py-2 font-pixel text-[8px] text-soft">
-              NO TRACKS
-            </p>
+            <p className="px-3 py-2 font-mono text-xs text-muted">No tracks</p>
           )}
           {album?.tracks.map((t, i) => (
             <button
@@ -291,12 +293,13 @@ export function RetroAmp() {
                 setTrackIdx(i);
                 if (playing) play();
               }}
-              className={`w-full px-3 py-1.5 text-left font-pixel text-[8px] transition-colors hover:bg-badge hover:text-accent-soft ${
-                i === trackIdx ? "bg-badge text-accent-soft" : "text-soft"
+              aria-current={i === trackIdx ? "true" : undefined}
+              className={`w-full px-3 py-2 text-left font-mono text-[13px] transition-colors duration-150 hover:bg-raise hover:text-text ${
+                i === trackIdx ? "bg-raise text-text" : "text-muted"
               }`}
             >
-              <span className="mr-2 text-line">
-                {String(i + 1).padStart(2, "0")}.
+              <span className="mr-2 text-pink-ink">
+                {String(i + 1).padStart(2, "0")}
               </span>
               {t.artist} — {t.displayName}
             </button>
@@ -304,34 +307,31 @@ export function RetroAmp() {
         </div>
       )}
 
-      {/* Title bar */}
-      <div
-        className="flex items-center justify-between px-3 py-0.5"
-        style={{ background: gradient }}
-      >
-        <span className="font-pixel text-[8px] text-page tracking-widest">
-          RETROAMP v2.0
-        </span>
-        <div className="flex gap-0.5">
+      {/* Title strip */}
+      <div className="flex items-center justify-between border-b border-rim/60 px-3">
+        <span className="label text-muted">Side C</span>
+        <div className="flex gap-1">
           <button
             type="button"
             onClick={() => setView((v) => (v === "al" ? null : "al"))}
-            className={`px-1.5 font-pixel text-[8px] text-page hover:bg-white/20 ${view === "al" ? "bg-white/20" : ""}`}
+            aria-expanded={view === "al"}
+            className={panelBtn(view === "al")}
           >
-            AL
+            Albums
           </button>
           <button
             type="button"
             onClick={() => setView((v) => (v === "pl" ? null : "pl"))}
-            className={`px-1.5 font-pixel text-[8px] text-page hover:bg-white/20 ${view === "pl" ? "bg-white/20" : ""}`}
+            aria-expanded={view === "pl"}
+            className={panelBtn(view === "pl")}
           >
-            PL
+            Tracks
           </button>
         </div>
       </div>
 
       {/* Player row */}
-      <div className="flex items-center gap-4 bg-[#08081A] px-4 py-2">
+      <div className="flex items-center gap-3 px-3 py-1.5 min-[720px]:gap-4 min-[720px]:px-4">
         {/* Cover art */}
         {album?.coverUrl && album?.attributionUrl ? (
           <a
@@ -339,19 +339,19 @@ export function RetroAmp() {
             target="_blank"
             rel="noopener noreferrer"
             title={`${album.name} — ${album.artist}`}
-            className="corner-frame group relative h-10 w-10 shrink-0 overflow-hidden border border-line bg-badge transition-colors hover:border-accent-soft"
+            className="group relative hidden h-10 w-10 shrink-0 overflow-hidden rounded-sm border border-rim min-[480px]:block"
           >
             <Image
               src={album.coverUrl}
-              alt="Album art"
+              alt={`${album.name} — ${album.artist}`}
               width={40}
               height={40}
-              className="h-full w-full object-cover transition-opacity group-hover:opacity-75"
+              className="h-full w-full object-cover transition-opacity duration-150 group-hover:opacity-75"
               unoptimized
             />
           </a>
         ) : album?.coverUrl ? (
-          <div className="corner-frame h-10 w-10 shrink-0 overflow-hidden border border-line bg-badge">
+          <div className="hidden h-10 w-10 shrink-0 overflow-hidden rounded-sm border border-rim min-[480px]:block">
             <Image
               src={album.coverUrl}
               alt="Album art"
@@ -362,63 +362,53 @@ export function RetroAmp() {
             />
           </div>
         ) : (
-          <div className="corner-frame flex h-10 w-10 shrink-0 items-center justify-center border border-line bg-badge font-pixel text-xs text-line">
+          <div className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-rim bg-raise text-subtle min-[480px]:flex">
             ♪
           </div>
         )}
 
         {/* Track info + seek */}
         <div className="min-w-0 flex-1">
-          <div className="mb-1 overflow-hidden border border-line/40 bg-[#04040E] px-1">
+          <div className="mb-0.5 overflow-hidden">
             <Marquee
               content={
                 track
-                  ? `${track.artist.toUpperCase()} — ${track.displayName.toUpperCase()}`
-                  : "NO TRACK LOADED"
+                  ? `${track.artist} — ${track.displayName}`
+                  : "No track loaded"
               }
               slotProps={{
                 root: {
-                  className: "font-retro text-lg leading-5 text-accent-soft",
+                  className: "font-mono text-[13px] leading-5 text-text",
                 },
               }}
             />
-
-            {/* <p
-              key={track?.url ?? "none"}
-              className="marquee-text "
-              style={{ textShadow: "0 0 6px #00CFFF" }}
-            >
-              {}
-            </p> */}
           </div>
           <div className="flex items-center gap-2">
-            <span
-              className="w-9 shrink-0 font-retro text-base leading-none text-accent-soft"
-              style={{ textShadow: "0 0 8px #00CFFF" }}
-            >
+            <span className="w-9 shrink-0 font-mono text-xs text-muted tabular-nums">
               {fmt(currentTime)}
             </span>
             <input
               type="range"
+              aria-label="Seek"
               min={0}
               max={Number.isFinite(duration) ? duration : 100}
               step={0.1}
               value={currentTime}
               onChange={seek}
-              className="retroamp-range flex-1"
+              className="retroamp-range min-w-0 flex-1"
             />
-            <span className="w-9 shrink-0 text-right font-retro text-sm leading-none text-soft">
+            <span className="w-9 shrink-0 text-right font-mono text-xs text-muted tabular-nums">
               {fmt(duration)}
             </span>
           </div>
         </div>
 
         {/* Transport controls */}
-        <div className="flex shrink-0 items-center gap-1">
+        <div className="flex shrink-0 items-center gap-0.5">
           <button
             type="button"
             onClick={prevTrack}
-            className="p-1.5 text-soft transition-colors hover:text-accent-soft"
+            className={transportBtn}
             aria-label="Previous track"
           >
             <IconPrev />
@@ -426,8 +416,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={playing ? pause : play}
-            className="border border-accent/60 p-1.5 text-accent-soft transition-colors hover:border-accent-soft hover:bg-accent/10"
-            style={playing ? { boxShadow: "0 0 8px rgba(0,207,255,0.4)" } : {}}
+            className="inline-flex size-10 items-center justify-center rounded-full bg-pink text-on-accent transition-opacity duration-150 hover:opacity-90"
             aria-label={playing ? "Pause" : "Play"}
           >
             {playing ? <IconPause /> : <IconPlay />}
@@ -435,7 +424,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={stop}
-            className="p-1.5 text-soft transition-colors hover:text-body"
+            className={`${transportBtn} hidden min-[480px]:inline-flex`}
             aria-label="Stop"
           >
             <IconStop />
@@ -443,7 +432,7 @@ export function RetroAmp() {
           <button
             type="button"
             onClick={nextTrack}
-            className="p-1.5 text-soft transition-colors hover:text-accent-soft"
+            className={transportBtn}
             aria-label="Next track"
           >
             <IconNext />
@@ -451,10 +440,13 @@ export function RetroAmp() {
         </div>
 
         {/* Volume */}
-        <div className="flex shrink-0 items-center gap-2">
-          <span className="font-pixel text-[7px] text-soft">VOL</span>
+        <div className="hidden shrink-0 items-center gap-2 min-[720px]:flex">
+          <span aria-hidden="true" className="font-mono text-xs text-muted">
+            Vol
+          </span>
           <input
             type="range"
+            aria-label="Volume"
             min={0}
             max={1}
             step={0.01}
@@ -462,7 +454,7 @@ export function RetroAmp() {
             onChange={(e) => setVolume(parseFloat(e.target.value))}
             className="retroamp-range w-20"
           />
-          <span className="w-6 text-right font-pixel text-[7px] text-soft">
+          <span className="w-7 text-right font-mono text-xs text-muted tabular-nums">
             {Math.round(volume * 100)}
           </span>
         </div>

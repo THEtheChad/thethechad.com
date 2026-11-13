@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { Section } from "@/components/Section/Section";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import Gallery, { type Photo } from "./_components/Gallery";
 
 export const metadata = {
@@ -41,23 +41,21 @@ export default function PhotographyPage() {
   const photos = loadPhotos();
 
   return (
-    <Section title="Photography">
+    <>
+      <SectionHeader as="h1" index="04" title="photos" />
       {photos.length > 0 ? (
         <Gallery photos={photos} />
       ) : (
-        <div className="corner-frame border border-line bg-card px-8 py-16 text-center">
-          <p className="mb-3 font-pixel text-[9px] text-pink">
-            {/** biome-ignore lint/suspicious/noCommentText: intentional retro aesthetic */}
-            // NO IMAGES FOUND
+        <div className="rounded-plate border-2 border-rim px-8 py-16 text-center font-mono text-[13px]">
+          <p className="text-pink-ink">No images found</p>
+          <p className="mt-3 text-muted">
+            Drop photos into public/photography/
           </p>
-          <p className="font-pixel text-[9px] text-soft">
-            DROP PHOTOS INTO public/photography/
-          </p>
-          <p className="mt-2 font-pixel text-[8px] text-line">
-            OPTIONAL: ADD public/photography/metadata.json FOR TITLES
+          <p className="mt-2 text-subtle">
+            Optional: add public/photography/metadata.json for titles
           </p>
         </div>
       )}
-    </Section>
+    </>
   );
 }

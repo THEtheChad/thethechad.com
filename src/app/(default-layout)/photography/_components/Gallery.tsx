@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { PixelGlitch } from "@/components/PixelGlitch/PixelGlitch";
 
 export interface Photo {
   src: string;
@@ -18,7 +17,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
   const isOpen = lightbox !== null;
 
   // Native modal dialog: traps focus, makes the page inert, renders in the
-  // top layer (above the CRT overlay), closes on Escape, and restores focus to
+  // top layer (above the sticky header and player), closes on Escape, and restores focus to
   // the thumbnail that opened it.
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -59,47 +58,32 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
   return (
     <>
       {/* Masonry grid */}
-      <div className="columns-1 gap-3 sm:columns-2 lg:columns-3">
+      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
         {photos.map((photo, i) => (
           <button
             key={photo.src}
             type="button"
             onClick={() => setLightbox(i)}
-            className="group relative mb-3 block w-full break-inside-avoid cursor-zoom-in"
+            className="group mb-4 block w-full cursor-zoom-in break-inside-avoid overflow-hidden rounded-[10px] border border-rim bg-ink text-left transition-colors duration-150 hover:border-rim-strong"
           >
-            <div className="corner-frame relative overflow-hidden border border-line transition-colors hover:border-accent/60">
-              {/* Thumbnail */}
-              <div className="relative aspect-[3/2] overflow-hidden">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
-                />
-                {/* CRT scan lines */}
-                <div className="crt-scanlines pointer-events-none absolute inset-0 opacity-25" />
-                <div className="transition-opacity duration-300 group-hover:opacity-0">
-                  <PixelGlitch src={photo.src} slow />
-                </div>
-              </div>
-
-              {/* Caption bar */}
-              {(photo.title || photo.location) && (
-                <div className="bg-card px-3 py-2 text-left">
-                  {photo.title && (
-                    <p className="font-pixel text-[9px] text-body">
-                      {photo.title}
-                    </p>
-                  )}
-                  {photo.location && (
-                    <p className="mt-0.5 font-pixel text-[8px] text-soft">
-                      {photo.location}
-                    </p>
-                  )}
-                </div>
-              )}
+            <div className="relative aspect-[3/2] overflow-hidden">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
+                className="object-cover"
+              />
             </div>
+
+            {(photo.title || photo.location) && (
+              <div className="px-3 py-2.5 font-mono text-xs tracking-[0.06em]">
+                {photo.title && <p className="text-text">{photo.title}</p>}
+                {photo.location && (
+                  <p className="mt-0.5 text-muted">{photo.location}</p>
+                )}
+              </div>
+            )}
           </button>
         ))}
       </div>
@@ -109,7 +93,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
         ref={dialogRef}
         aria-label="Photo viewer"
         onClose={() => setLightbox(null)}
-        className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-page/96 p-0 backdrop-blur-sm open:flex backdrop:bg-transparent"
+        className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-night/95 p-0 text-text backdrop-blur-sm open:flex backdrop:bg-transparent"
       >
         {active && lightbox !== null && (
           <>
@@ -123,13 +107,13 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
             />
 
             {/* Pagination — top center, static */}
-            <p className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 font-pixel text-[8px] text-soft tabular-nums">
+            <p className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-muted tabular-nums">
               {lightbox + 1}&nbsp;/&nbsp;{photos.length}
             </p>
 
             {/* Image container */}
             <div className="relative">
-              <div className="corner-frame border border-line/60">
+              <div className="overflow-hidden rounded-ctl border border-rim">
                 <Image
                   src={active.src}
                   alt={active.alt}
@@ -144,12 +128,12 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               {(active.title || active.location) && (
                 <div className="mt-2 px-1">
                   {active.title && (
-                    <p className="font-pixel text-[9px] text-body">
+                    <p className="font-mono text-xs text-text">
                       {active.title}
                     </p>
                   )}
                   {active.location && (
-                    <p className="mt-0.5 font-pixel text-[8px] text-soft">
+                    <p className="mt-0.5 font-mono text-xs text-muted">
                       {active.location}
                     </p>
                   )}
@@ -165,7 +149,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
                   i !== null ? (i - 1 + photos.length) % photos.length : null,
                 )
               }
-              className="absolute left-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+              className="absolute left-4 top-1/2 -translate-y-1/2 inline-flex size-11 items-center justify-center rounded-ctl border border-rim-strong bg-ink/80 font-mono text-base text-text backdrop-blur-sm transition-colors duration-150 hover:bg-raise"
             >
               <span aria-hidden="true">◄</span>
               <span className="sr-only">Previous photo</span>
@@ -179,7 +163,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
                   i !== null ? (i + 1) % photos.length : null,
                 )
               }
-              className="absolute right-4 top-1/2 -translate-y-1/2 border border-line bg-card/80 px-4 py-3 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+              className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex size-11 items-center justify-center rounded-ctl border border-rim-strong bg-ink/80 font-mono text-base text-text backdrop-blur-sm transition-colors duration-150 hover:bg-raise"
             >
               <span aria-hidden="true">►</span>
               <span className="sr-only">Next photo</span>
@@ -191,7 +175,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               type="button"
               aria-label="Close photo viewer"
               onClick={() => setLightbox(null)}
-              className="absolute right-4 top-4 border border-line bg-card/80 px-3 py-2 font-pixel text-[10px] text-soft backdrop-blur-sm transition-colors hover:border-accent-soft hover:text-accent-soft"
+              className="absolute right-4 top-4 inline-flex size-11 items-center justify-center rounded-ctl border border-rim-strong bg-ink/80 font-mono text-base text-text backdrop-blur-sm transition-colors duration-150 hover:bg-raise"
             >
               <span aria-hidden="true">✕</span>
             </button>

@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Section } from "@/components/Section/Section";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
-  "w-full bg-[#04040E] border border-line px-3 py-2 font-retro text-lg text-body placeholder-soft/40 outline-none transition-colors focus:border-accent-soft focus:shadow-[0_0_8px_rgba(0,207,255,0.2)]";
+  "min-h-11 w-full rounded-ctl border border-rim-strong bg-ink px-3 py-2.5 text-base text-text placeholder:text-subtle transition-colors duration-150 focus-visible:border-cyan disabled:opacity-60";
+
+const labelClass = "label text-cyan";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -44,35 +46,29 @@ export default function Contact() {
   }
 
   return (
-    <Section title="Contact">
+    <>
+      <SectionHeader as="h1" index="05" title="contact" />
       <div className="max-w-xl">
         {status === "success" ? (
-          <div className="border border-accent-soft/30 bg-[#04040E] p-6">
-            <p className="font-pixel text-[9px] text-accent-soft">
-              <span className="text-pink">❯ </span>
-              MESSAGE SENT
-            </p>
-            <p className="mt-3 font-retro text-lg text-soft">
+          <div role="status" className="rounded-plate border-2 border-rim p-6">
+            <p className="label text-cyan">Message sent</p>
+            <p className="mt-3 text-muted">
               Got it — I&apos;ll get back to you soon.
             </p>
             <button
               type="button"
               onClick={() => setStatus("idle")}
-              className="mt-4 flex items-center gap-2 font-retro text-lg text-soft transition-colors hover:text-accent-soft"
+              className="mt-4 inline-flex min-h-11 items-center rounded-ctl border border-rim-strong px-5 font-mono text-[13px] tracking-[0.12em] text-text uppercase transition-colors duration-150 hover:bg-raise"
             >
-              <span className="text-pink">$</span>
-              <span>send another</span>
+              Send another
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Name */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="name-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> name
+            <div className="flex flex-col gap-2">
+              <label htmlFor="name-input" className={labelClass}>
+                name
               </label>
               <input
                 id="name-input"
@@ -87,12 +83,9 @@ export default function Contact() {
             </div>
 
             {/* Email */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="email-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> email
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email-input" className={labelClass}>
+                email
               </label>
               <input
                 id="email-input"
@@ -107,12 +100,9 @@ export default function Contact() {
             </div>
 
             {/* Message */}
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="message-input"
-                className="flex items-center gap-1.5 font-pixel text-[9px] text-soft"
-              >
-                <span className="text-pink">$</span> message
+            <div className="flex flex-col gap-2">
+              <label htmlFor="message-input" className={labelClass}>
+                message
               </label>
               <textarea
                 id="message-input"
@@ -128,25 +118,22 @@ export default function Contact() {
 
             {/* Error */}
             {status === "error" && (
-              <p className="font-pixel text-[8px] text-pink">✗ {errorMsg}</p>
+              <p role="alert" className="font-mono text-[13px] text-red">
+                {errorMsg}
+              </p>
             )}
 
             {/* Submit */}
             <button
               type="submit"
               disabled={status === "sending"}
-              className="self-start border border-accent/60 px-4 py-2 font-pixel text-[9px] text-accent-soft transition-colors hover:border-accent-soft hover:bg-accent/10 disabled:opacity-50"
-              style={
-                status === "sending"
-                  ? {}
-                  : { boxShadow: "0 0 8px rgba(0,207,255,0.15)" }
-              }
+              className="inline-flex min-h-11 items-center self-start rounded-ctl border border-pink bg-pink px-5 font-mono text-[13px] font-medium tracking-[0.12em] text-on-accent uppercase transition-opacity duration-150 hover:opacity-90 disabled:opacity-60"
             >
-              {status === "sending" ? "SENDING..." : "$ send --message"}
+              {status === "sending" ? "Sending…" : "Send message"}
             </button>
           </form>
         )}
       </div>
-    </Section>
+    </>
   );
 }
